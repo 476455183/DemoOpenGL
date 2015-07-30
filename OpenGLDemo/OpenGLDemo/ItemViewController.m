@@ -12,7 +12,7 @@
 #import <OpenGLES/ES2/glext.h>
 
 typedef NS_ENUM(NSInteger, enumDemoOpenGL){
-    demoPureColor = 0,
+    demoClearColor = 0,
     demoTriangle,
 };
 
@@ -35,7 +35,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    self.demosOpenGL = @[@"pure color", @"triangle"];
+    self.demosOpenGL = @[@"clear color", @"triangle"];
     
     [self setupOpenGLContext];
     [self setupCAEAGLLayer];
@@ -108,14 +108,14 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
 #pragma mark - demoViaOpenGL
 
 - (void)demoViaOpenGL {
-//    self.demosOpenGL = @[@"pure color", @"def"];
+    // self.demosOpenGL = @[@"clear color", @"triangle"];
     [self tearDownOpenGLBuffers];
     [self setupOpenGLBuffers];
     glClearColor(1.0, 1.0, 1.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
     glLineWidth(10.0);
     switch ([self.demosOpenGL indexOfObject:self.item]) {
-        case demoPureColor:
+        case demoClearColor:
             [self drawPureColor];
             break;
         case demoTriangle:
