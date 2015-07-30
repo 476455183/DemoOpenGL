@@ -24,7 +24,7 @@
     self.navigationItem.title = @"OpenGL Demos";
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 
-    self.demosOpenGL = @[@"clear color", @"triangle"];
+    self.demosOpenGL = @[@"clear color", @"shader"];
 }
 
 - (void)didReceiveMemoryWarning {

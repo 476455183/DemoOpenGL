@@ -1,16 +1,33 @@
 # OpenGLDemo
 OpenGL Learning Demo
 
-1. EAGLContext, 渲染上下文，管理所有使用OpenGL ES进行绘制的状态，命令及资源信息。  
-	需要设置为当前context  
-2. renderbuffer，三种colorbuffer，depthbuffer，stencilbuffer  
+1. CAEAGLLayer，在CAEAGLLayer层上进行OpenGL的绘制.  
+2. EAGLContext，创建OpenGL context，管理所有使用OpenGL ES进行绘制的状态，命令及资源信息。  
+	需要生命API，设置为当前context  
+3. 渲染缓冲区 renderbuffer，三种colorbuffer，depthbuffer，stencilbuffer  
 	void glGenRenderbuffers (GLsizei n, GLuint* renderbuffers) 将分配到的renderbuffer的id存于renderbuffers中。  
 	void glBindRenderbuffer (GLenum target, GLuint renderbuffer) 将指定id的renderbuffer设置为当前renderbuffer。  
 	(BOOL)renderbufferStorage:(NSUInteger)target fromDrawable:(id<EAGLDrawable>)drawable 为renderbuffer分配存储空间
-3. framebuffer，  
+4. 帧缓冲区 framebuffer，  
 	void glGenFramebuffers (GLsizei n, GLuint* framebuffers)  
 	void glBindFramebuffer (GLenum target, GLuint framebuffer) 设置为当前framebuffer  
 	void glFramebufferRenderbuffer (GLenum target, GLenum attachment, GLenum renderbuffertarget, GLuint renderbuffer) 将renderbuffer装配到attachment这个装配点上
-4. 设置clearColor  
+5. 设置clearColor  
 	glClearColor(1.0, 1.0, 1.0, 1.0) 设置clearColor  
 	glClear(GL_COLOR_BUFFER_BIT)
+6. 调用presentRenderbuffer方法, 将renderbuffer和colorbuffer呈现到UIView上.  
+  
+7. 着色器由类似C的语言GLSL编写.  
+	Vertex shader: 顶点着色器. 如在长方形中vertex shader会被调用四次.  
+		负责执行灯光, 几何变换等计算, 得出最终的顶点位置后, 为片段着色器提供数据.  
+	Fragment shader: 片段着色器, 负责计算每个像素的最终颜色.  
+	着色器使用之前要先编译,以及其他的一些操作.  
+8. glVertexAttribPointer指定了渲染时索引值为index的顶点属性数组的数据格式和位置.  
+	void glVertexAttribPointer( GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride,const GLvoid * pointer)  
+	size和type分别指定每个顶点属性的组件数量和数据类型, normalized指定当被访问时, 固定点数据值是否应该被归一化或直接转换为固定点值.  
+	stride指定连续顶点属性之间的偏移量, 用于描述每个vertex数据大小.  
+	pointer指定第一个组件在数组的第一个顶点属性中的偏移量, 与GL_ARRAY_BUFFER绑定存储于缓冲区中.  
+	如:  
+    glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);  
+    glVertexAttribPointer(_colorSlot, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid *)(sizeof(float)*3));  
+

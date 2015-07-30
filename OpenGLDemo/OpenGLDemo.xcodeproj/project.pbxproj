@@ -17,6 +17,9 @@
 		6A74B6671B68F2C60042DDEC /* ItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A74B6661B68F2C60042DDEC /* ItemViewController.m */; };
 		6A74B6691B69BD8C0042DDEC /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A74B6681B69BD8C0042DDEC /* OpenGLES.framework */; };
 		6A74B66B1B69BD920042DDEC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A74B66A1B69BD920042DDEC /* QuartzCore.framework */; };
+		6A74B66E1B6A04310042DDEC /* SimpleVertex.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 6A74B66D1B6A04310042DDEC /* SimpleVertex.glsl */; };
+		6A74B6701B6A04680042DDEC /* SimpleFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 6A74B66F1B6A04680042DDEC /* SimpleFragment.glsl */; };
+		6A74B6731B6A16630042DDEC /* ShaderOperations.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A74B6721B6A16630042DDEC /* ShaderOperations.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +50,10 @@
 		6A74B6661B68F2C60042DDEC /* ItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemViewController.m; sourceTree = "<group>"; };
 		6A74B6681B69BD8C0042DDEC /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		6A74B66A1B69BD920042DDEC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		6A74B66D1B6A04310042DDEC /* SimpleVertex.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SimpleVertex.glsl; path = ../SimpleVertex.glsl; sourceTree = "<group>"; };
+		6A74B66F1B6A04680042DDEC /* SimpleFragment.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SimpleFragment.glsl; path = ../SimpleFragment.glsl; sourceTree = "<group>"; };
+		6A74B6711B6A16630042DDEC /* ShaderOperations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderOperations.h; sourceTree = "<group>"; };
+		6A74B6721B6A16630042DDEC /* ShaderOperations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShaderOperations.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +104,8 @@
 				6A74B6631B68EF1B0042DDEC /* RootTableViewController.m */,
 				6A74B6651B68F2C60042DDEC /* ItemViewController.h */,
 				6A74B6661B68F2C60042DDEC /* ItemViewController.m */,
+				6A74B6711B6A16630042DDEC /* ShaderOperations.h */,
+				6A74B6721B6A16630042DDEC /* ShaderOperations.m */,
 				6A74B6461B68EE740042DDEC /* Images.xcassets */,
 				6A74B6431B68EE740042DDEC /* Main.storyboard */,
 				6A74B6481B68EE740042DDEC /* LaunchScreen.xib */,
@@ -110,6 +119,8 @@
 			children = (
 				6A74B63A1B68EE740042DDEC /* Info.plist */,
 				6A74B63B1B68EE740042DDEC /* main.m */,
+				6A74B66D1B6A04310042DDEC /* SimpleVertex.glsl */,
+				6A74B66F1B6A04680042DDEC /* SimpleFragment.glsl */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -221,8 +232,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A74B6451B68EE740042DDEC /* Main.storyboard in Resources */,
+				6A74B66E1B6A04310042DDEC /* SimpleVertex.glsl in Resources */,
 				6A74B64A1B68EE740042DDEC /* LaunchScreen.xib in Resources */,
 				6A74B6471B68EE740042DDEC /* Images.xcassets in Resources */,
+				6A74B6701B6A04680042DDEC /* SimpleFragment.glsl in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -242,6 +255,7 @@
 			files = (
 				6A74B6641B68EF1B0042DDEC /* RootTableViewController.m in Sources */,
 				6A74B6671B68F2C60042DDEC /* ItemViewController.m in Sources */,
+				6A74B6731B6A16630042DDEC /* ShaderOperations.m in Sources */,
 				6A74B63F1B68EE740042DDEC /* AppDelegate.m in Sources */,
 				6A74B63C1B68EE740042DDEC /* main.m in Sources */,
 			);
@@ -440,6 +454,7 @@
 				6A74B65B1B68EE740042DDEC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6A74B65C1B68EE740042DDEC /* Build configuration list for PBXNativeTarget "OpenGLDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -448,6 +463,7 @@
 				6A74B65E1B68EE740042DDEC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
