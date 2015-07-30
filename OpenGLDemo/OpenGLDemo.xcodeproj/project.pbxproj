@@ -76,6 +76,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6A0AC3D21B6A31F7000BBB15 /* GLSL */ = {
+			isa = PBXGroup;
+			children = (
+				6A74B66D1B6A04310042DDEC /* SimpleVertex.glsl */,
+				6A74B66F1B6A04680042DDEC /* SimpleFragment.glsl */,
+			);
+			name = GLSL;
+			sourceTree = "<group>";
+		};
 		6A74B62D1B68EE730042DDEC = {
 			isa = PBXGroup;
 			children = (
@@ -109,6 +118,7 @@
 				6A74B6461B68EE740042DDEC /* Images.xcassets */,
 				6A74B6431B68EE740042DDEC /* Main.storyboard */,
 				6A74B6481B68EE740042DDEC /* LaunchScreen.xib */,
+				6A0AC3D21B6A31F7000BBB15 /* GLSL */,
 				6A74B6391B68EE740042DDEC /* Supporting Files */,
 			);
 			path = OpenGLDemo;
@@ -119,8 +129,6 @@
 			children = (
 				6A74B63A1B68EE740042DDEC /* Info.plist */,
 				6A74B63B1B68EE740042DDEC /* main.m */,
-				6A74B66D1B6A04310042DDEC /* SimpleVertex.glsl */,
-				6A74B66F1B6A04680042DDEC /* SimpleFragment.glsl */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";

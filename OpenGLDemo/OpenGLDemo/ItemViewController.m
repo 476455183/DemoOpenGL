@@ -139,7 +139,10 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
 }
 
 - (void)drawShader {
-    [self compileShaders]; // 先要编译shader
+    // 先要编译vertex和fragment两个shader
+    NSString *shaderVertex = @"SimpleVertex";
+    NSString *shaderFragment = @"SimpleFragment";
+    [self compileShaders:shaderVertex shaderFragment:shaderFragment];
 
     // 定义一个Vertex结构
     typedef struct {
@@ -182,10 +185,10 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     glDrawElements(GL_TRIANGLES, sizeof(Indices)/sizeof(Indices[0]), GL_UNSIGNED_BYTE, 0);
 }
 
-- (void)compileShaders {
+- (void)compileShaders:(NSString *)shaderVertex shaderFragment:(NSString*)shaderFragment {
     // 1 vertex和fragment两个shader都要编译
-    GLuint vertexShader = [ShaderOperations compileShader:@"SimpleVertex" withType:GL_VERTEX_SHADER];
-    GLuint fragmentShader = [ShaderOperations compileShader:@"SimpleFragment" withType:GL_FRAGMENT_SHADER];
+    GLuint vertexShader = [ShaderOperations compileShader:shaderVertex withType:GL_VERTEX_SHADER];
+    GLuint fragmentShader = [ShaderOperations compileShader:shaderFragment withType:GL_FRAGMENT_SHADER];
     
     // 2 连接vertex和fragment shader成一个完整的program
     GLuint programHandle = glCreateProgram();
