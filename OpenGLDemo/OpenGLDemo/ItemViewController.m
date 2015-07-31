@@ -15,6 +15,7 @@
 typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     demoClearColor = 0,
     demoShader,
+    demoTriangle,
 };
 
 @interface ItemViewController ()
@@ -26,8 +27,8 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
 @property (nonatomic) GLuint frameBuffer; // 帧缓冲区
 @property (nonatomic) GLuint colorRenderBuffer; // 渲染缓冲区
 
-@property (nonatomic) GLuint positionSlot;
-@property (nonatomic) GLuint colorSlot;
+@property (nonatomic) GLuint positionSlot; // ???
+@property (nonatomic) GLuint colorSlot; // ???
 
 @end
 
@@ -39,7 +40,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    self.demosOpenGL = @[@"clear color", @"shader"];
+    self.demosOpenGL = @[@"clear color", @"shader", @"triangle"];
     
     [self setupOpenGLContext];
     [self setupCAEAGLLayer];
@@ -112,7 +113,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
 #pragma mark - demoViaOpenGL
 
 - (void)demoViaOpenGL {
-    // self.demosOpenGL = @[@"clear color", @"shader"];
+    //self.demosOpenGL = @[@"clear color", @"shader", @"triangle"];
     [self tearDownOpenGLBuffers];
     [self setupOpenGLBuffers];
     glClearColor(1.0, 1.0, 1.0, 1.0);
@@ -125,6 +126,8 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
         case demoShader:
             [self drawShader];
             break;
+        case demoTriangle:
+            [self drawTriangle];
         default:
             break;
     }
@@ -142,7 +145,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     // 先要编译vertex和fragment两个shader
     NSString *shaderVertex = @"SimpleVertex";
     NSString *shaderFragment = @"SimpleFragment";
-    [self compileShaders:shaderVertex shaderFragment:shaderFragment];
+    [self compileShaders:shaderVertex shaderFragment:shaderFragment position:"Position"];
 
     // 定义一个Vertex结构
     typedef struct {
@@ -185,7 +188,28 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     glDrawElements(GL_TRIANGLES, sizeof(Indices)/sizeof(Indices[0]), GL_UNSIGNED_BYTE, 0);
 }
 
-- (void)compileShaders:(NSString *)shaderVertex shaderFragment:(NSString*)shaderFragment {
+- (void)drawTriangle {
+    // 先要编译vertex和fragment两个shader
+    NSString *shaderVertex = @"VertexTriangle";
+    NSString *shaderFragment = @"FragmentTriangle";
+    [self compileShaders:shaderVertex shaderFragment:shaderFragment position:"vPosition"];
+    
+    GLfloat vertices[] = {
+        0.0f,  0.5f, 0.0f,
+        -0.5f, -0.5f, 0.0f,
+        0.5f,  -0.5f, 0.0f };
+
+    //设置UIView用于渲染的部分, 这里是整个屏幕
+    glViewport(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    // Load the vertex data
+    glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, vertices);
+    glEnableVertexAttribArray(_positionSlot);
+    
+    // Draw triangle
+    glDrawArrays(GL_TRIANGLES, 0, 3);
+}
+
+- (void)compileShaders:(NSString *)shaderVertex shaderFragment:(NSString *)shaderFragment position:(const char *)position{
     // 1 vertex和fragment两个shader都要编译
     GLuint vertexShader = [ShaderOperations compileShader:shaderVertex withType:GL_VERTEX_SHADER];
     GLuint fragmentShader = [ShaderOperations compileShader:shaderFragment withType:GL_FRAGMENT_SHADER];
@@ -194,9 +218,11 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     GLuint programHandle = glCreateProgram();
     glAttachShader(programHandle, vertexShader);
     glAttachShader(programHandle, fragmentShader);
+
+    // link program
     glLinkProgram(programHandle);
     
-    // 3
+    // 3 check link status
     GLint linkSuccess;
     glGetProgramiv(programHandle, GL_LINK_STATUS, &linkSuccess);
     if (linkSuccess == GL_FALSE) {
@@ -211,7 +237,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     glUseProgram(programHandle);
     
     // 5 获取指向vertex shader传入变量的指针, 然后就通过该指针来使用
-    _positionSlot = glGetAttribLocation(programHandle, "Position");
+    _positionSlot = glGetAttribLocation(programHandle, position);
     _colorSlot = glGetAttribLocation(programHandle, "SourceColor");
     glEnableVertexAttribArray(_positionSlot); // 启用这些数据
     glEnableVertexAttribArray(_colorSlot); 

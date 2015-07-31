@@ -31,7 +31,7 @@
     // 4 编译shader
     glCompileShader(shaderHandle);
     
-    // 5
+    // 5 查询shader对象的信息
     GLint compileSuccess;
     glGetShaderiv(shaderHandle, GL_COMPILE_STATUS, &compileSuccess);
     if (compileSuccess == GL_FALSE) {
