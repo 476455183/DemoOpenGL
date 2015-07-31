@@ -31,3 +31,7 @@ OpenGL Learning Demo
     glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);  
     glVertexAttribPointer(_colorSlot, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid *)(sizeof(float)*3));  
 
+
+9. 指定triangle的三个顶点, 然后调用glVertexAttribPointer和glEnableVertexAttribArray来加载vertex数据.  
+	最后调用glDrawArrays(GL_TRIANGLES, 0, 3)来绘制triangle.  
+10. 在compileShaders中的glGetAttribLocation方法, demo2中为"Position", 而demo3中绘制triangle时要指定为"vPosition". 有何不同?  
