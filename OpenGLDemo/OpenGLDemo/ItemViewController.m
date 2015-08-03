@@ -19,6 +19,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     demoTriangle,
     demoCoreImageFilter,
     demoCoreImageOpenGLESFilter,
+    demo3DTransform,
 };
 
 @interface ItemViewController ()
@@ -32,6 +33,8 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
 
 @property (nonatomic) GLuint positionSlot; // ???
 @property (nonatomic) GLuint colorSlot; // ???
+@property (nonatomic) GLint modelViewSlot;
+@property (nonatomic) GLint projectionSlot;
 
 // filters
 @property (nonatomic) UIImage *originImage;
@@ -50,7 +53,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    self.demosOpenGL = @[@"Clear Color", @"shader", @"triangle", @"Core Image Filter", @"Core Image and OpenGS ES Filter"];
+    self.demosOpenGL = @[@"Clear Color", @"shader", @"triangle", @"Core Image Filter", @"Core Image and OpenGS ES Filter", @"3D Transform"];
     
     [self setupOpenGLContext];
     [self setupCAEAGLLayer];
@@ -123,7 +126,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
 #pragma mark - demoViaOpenGL
 
 - (void)demoViaOpenGL {
-//    self.demosOpenGL = @[@"Clear Color", @"shader", @"triangle", @"Core Image Filter", @"Core Image and OpenGS ES Filter"];
+    //self.demosOpenGL = @[@"Clear Color", @"shader", @"triangle", @"Core Image Filter", @"Core Image and OpenGS ES Filter", @"3D Transform"];
     [self tearDownOpenGLBuffers];
     [self setupOpenGLBuffers];
     glClearColor(1.0, 1.0, 1.0, 1.0);
@@ -145,6 +148,9 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
         case demoCoreImageOpenGLESFilter:
             [self filterViaCoreImageAndOpenGLES];
             break;
+        case demo3DTransform:
+            [self demo3DTransform];
+            break;
         default:
             break;
     }
@@ -162,7 +168,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     // 先要编译vertex和fragment两个shader
     NSString *shaderVertex = @"SimpleVertex";
     NSString *shaderFragment = @"SimpleFragment";
-    [self compileShaders:shaderVertex shaderFragment:shaderFragment position:"Position"];
+    [self compileShaders:shaderVertex shaderFragment:shaderFragment];
 
     // 定义一个Vertex结构
     typedef struct {
@@ -209,7 +215,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     // 先要编译vertex和fragment两个shader
     NSString *shaderVertex = @"VertexTriangle";
     NSString *shaderFragment = @"FragmentTriangle";
-    [self compileShaders:shaderVertex shaderFragment:shaderFragment position:"vPosition"];
+    [self compileShaders:shaderVertex shaderFragment:shaderFragment];
     
     GLfloat vertices[] = {
         0.0f,  0.5f, 0.0f,
@@ -228,7 +234,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
 
 #pragma mark - shader related
 
-- (void)compileShaders:(NSString *)shaderVertex shaderFragment:(NSString *)shaderFragment position:(const char *)position{
+- (void)compileShaders:(NSString *)shaderVertex shaderFragment:(NSString *)shaderFragment {
     // 1 vertex和fragment两个shader都要编译
     GLuint vertexShader = [ShaderOperations compileShader:shaderVertex withType:GL_VERTEX_SHADER];
     GLuint fragmentShader = [ShaderOperations compileShader:shaderFragment withType:GL_FRAGMENT_SHADER];
@@ -256,8 +262,10 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     glUseProgram(programHandle);
     
     // 5 获取指向vertex shader传入变量的指针, 然后就通过该指针来使用
-    _positionSlot = glGetAttribLocation(programHandle, position);
+    _positionSlot = glGetAttribLocation(programHandle, "Position");
     _colorSlot = glGetAttribLocation(programHandle, "SourceColor");
+    _modelViewSlot = glGetUniformLocation(programHandle, "ModelView");
+    _projectionSlot = glGetUniformLocation(programHandle, "Projection");
     glEnableVertexAttribArray(_positionSlot); // 启用这些数据
     glEnableVertexAttribArray(_colorSlot); 
 }
@@ -335,6 +343,17 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     //开始渲染
     [_ciContext drawImage:[_ciFilter outputImage] inRect:CGRectMake(0, 0, _glkView.drawableWidth, _glkView.drawableHeight) fromRect:[_ciImage extent]];
     [_glkView display];
+}
+
+#pragma mark - 3D Transform
+
+- (void)demo3DTransform {
+    // 先要编译vertex和fragment两个shader
+    NSString *shaderVertex = @"Vertex3DTransform";
+    NSString *shaderFragment = @"Fragment3DTransform";
+    [self compileShaders:shaderVertex shaderFragment:shaderFragment];
+
+    
 }
 
 @end
