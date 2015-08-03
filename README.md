@@ -35,3 +35,9 @@ OpenGL Learning Demo
 9. 指定triangle的三个顶点, 然后调用glVertexAttribPointer和glEnableVertexAttribArray来加载vertex数据.  
 	最后调用glDrawArrays(GL_TRIANGLES, 0, 3)来绘制triangle.  
 10. 在compileShaders中的glGetAttribLocation方法, demo2中为"Position", 而demo3中绘制triangle时要指定为"vPosition". 有何不同?  
+
+
+11. 使用CoreImage的filter.  
+	导入CIImage图片->创建CIFilter->用CIContext将滤镜中的图片渲染出来->导出并显示图片.  
+12. 使用CoreImage+OpenGL ES实现filter.  
+	获取OpenGL ES渲染的context->创建渲染buffer->创建CoreImage使用的CIContext->设置CoreImage->渲染图片.  
