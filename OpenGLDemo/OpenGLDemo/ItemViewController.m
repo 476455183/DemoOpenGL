@@ -16,6 +16,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     demoClearColor = 0,
     demoShader,
     demoTriangle,
+    demoCoreImageFilter,
 };
 
 @interface ItemViewController ()
@@ -40,7 +41,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    self.demosOpenGL = @[@"clear color", @"shader", @"triangle"];
+    self.demosOpenGL = @[@"Clear Color", @"shader", @"triangle", @"Core Image Filter"];
     
     [self setupOpenGLContext];
     [self setupCAEAGLLayer];
@@ -113,7 +114,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
 #pragma mark - demoViaOpenGL
 
 - (void)demoViaOpenGL {
-    //self.demosOpenGL = @[@"clear color", @"shader", @"triangle"];
+//    self.demosOpenGL = @[@"Clear Color", @"shader", @"triangle", @"Core Image Filter"];
     [self tearDownOpenGLBuffers];
     [self setupOpenGLBuffers];
     glClearColor(1.0, 1.0, 1.0, 1.0);
@@ -128,6 +129,10 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
             break;
         case demoTriangle:
             [self drawTriangle];
+            break;
+        case demoCoreImageFilter:
+            [self filterViaCoreImage];
+            break;
         default:
             break;
     }
@@ -209,6 +214,8 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     glDrawArrays(GL_TRIANGLES, 0, 3);
 }
 
+#pragma mark - shader related
+
 - (void)compileShaders:(NSString *)shaderVertex shaderFragment:(NSString *)shaderFragment position:(const char *)position{
     // 1 vertex和fragment两个shader都要编译
     GLuint vertexShader = [ShaderOperations compileShader:shaderVertex withType:GL_VERTEX_SHADER];
@@ -243,6 +250,36 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     glEnableVertexAttribArray(_colorSlot); 
 }
 
+#pragma mark - filters
+
+- (void)filterViaCoreImage {
+    UIImage *originImage = [UIImage imageNamed:@"testImage"];
+    UIImageView *originImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 64, self.view.frame.size.width - 20, 280)];
+    originImageView.image = originImage;
+    [self.view addSubview:originImageView];
+
+    // 0. 导入CIImage图片
+    CIImage *ciInputImage = [[CIImage alloc] initWithImage:originImage];
+    // 1. 创建CIFilter
+    CIFilter *filterPixellate = [CIFilter filterWithName:@"CIPixellate"];
+    [filterPixellate setValue:ciInputImage forKey:kCIInputImageKey];
+    [filterPixellate setDefaults];
+    CIImage *ciOutImagePixellate = [filterPixellate valueForKey:kCIOutputImageKey];
+    NSLog(@"filterPixellate : %@", filterPixellate.attributes);
+    
+    // 2. 用CIContext将滤镜中的图片渲染出来
+    CIContext *context = [CIContext contextWithOptions:nil];
+    CGImageRef cgImage = [context createCGImage:ciOutImagePixellate fromRect:[ciOutImagePixellate extent]];
+    
+    // 3. 导出图片
+    UIImage *filteredImage = [UIImage imageWithCGImage:cgImage];
+    CGImageRelease(cgImage);
+    
+    // 4. 显示图片
+    UIImageView *filteredImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 360, self.view.frame.size.width - 20, 280)];
+    filteredImageView.image = filteredImage;
+    [self.view addSubview:filteredImageView];
+}
 
 
 @end
