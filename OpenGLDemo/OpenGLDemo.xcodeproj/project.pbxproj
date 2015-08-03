@@ -10,6 +10,8 @@
 		6A0AC3D41B6A32C6000BBB15 /* VertexTriangle.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 6A0AC3D31B6A32C6000BBB15 /* VertexTriangle.glsl */; };
 		6A0AC3D61B6A32DB000BBB15 /* FragmentTriangle.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 6A0AC3D51B6A32DB000BBB15 /* FragmentTriangle.glsl */; };
 		6A0AC3DB1B6EECC3000BBB15 /* testImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A0AC3DA1B6EECC3000BBB15 /* testImage.png */; };
+		6A0AC3DD1B6F46B9000BBB15 /* Vertex3DTransform.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 6A0AC3DC1B6F46B9000BBB15 /* Vertex3DTransform.glsl */; };
+		6A0AC3E11B6F4718000BBB15 /* Fragment3DTransform.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 6A0AC3E01B6F4718000BBB15 /* Fragment3DTransform.glsl */; };
 		6A74B63C1B68EE740042DDEC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A74B63B1B68EE740042DDEC /* main.m */; };
 		6A74B63F1B68EE740042DDEC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A74B63E1B68EE740042DDEC /* AppDelegate.m */; };
 		6A74B6451B68EE740042DDEC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A74B6431B68EE740042DDEC /* Main.storyboard */; };
@@ -39,6 +41,8 @@
 		6A0AC3D31B6A32C6000BBB15 /* VertexTriangle.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VertexTriangle.glsl; sourceTree = "<group>"; };
 		6A0AC3D51B6A32DB000BBB15 /* FragmentTriangle.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FragmentTriangle.glsl; sourceTree = "<group>"; };
 		6A0AC3DA1B6EECC3000BBB15 /* testImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = testImage.png; sourceTree = "<group>"; };
+		6A0AC3DC1B6F46B9000BBB15 /* Vertex3DTransform.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Vertex3DTransform.glsl; sourceTree = "<group>"; };
+		6A0AC3E01B6F4718000BBB15 /* Fragment3DTransform.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Fragment3DTransform.glsl; sourceTree = "<group>"; };
 		6A74B6361B68EE740042DDEC /* OpenGLDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenGLDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A74B63A1B68EE740042DDEC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6A74B63B1B68EE740042DDEC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -89,6 +93,8 @@
 				6A74B66F1B6A04680042DDEC /* SimpleFragment.glsl */,
 				6A0AC3D31B6A32C6000BBB15 /* VertexTriangle.glsl */,
 				6A0AC3D51B6A32DB000BBB15 /* FragmentTriangle.glsl */,
+				6A0AC3DC1B6F46B9000BBB15 /* Vertex3DTransform.glsl */,
+				6A0AC3E01B6F4718000BBB15 /* Fragment3DTransform.glsl */,
 			);
 			name = GLSL;
 			sourceTree = "<group>";
@@ -249,11 +255,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A74B6451B68EE740042DDEC /* Main.storyboard in Resources */,
+				6A0AC3DD1B6F46B9000BBB15 /* Vertex3DTransform.glsl in Resources */,
 				6A0AC3D41B6A32C6000BBB15 /* VertexTriangle.glsl in Resources */,
 				6A74B66E1B6A04310042DDEC /* SimpleVertex.glsl in Resources */,
 				6A0AC3DB1B6EECC3000BBB15 /* testImage.png in Resources */,
 				6A74B64A1B68EE740042DDEC /* LaunchScreen.xib in Resources */,
 				6A74B6471B68EE740042DDEC /* Images.xcassets in Resources */,
+				6A0AC3E11B6F4718000BBB15 /* Fragment3DTransform.glsl in Resources */,
 				6A74B6701B6A04680042DDEC /* SimpleFragment.glsl in Resources */,
 				6A0AC3D61B6A32DB000BBB15 /* FragmentTriangle.glsl in Resources */,
 			);
