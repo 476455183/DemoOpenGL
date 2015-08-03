@@ -35,6 +35,10 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
 
 // filters
 @property (nonatomic) UIImage *originImage;
+@property (nonatomic) GLKView *glkView;
+@property (nonatomic) CIFilter *ciFilter;
+@property (nonatomic) CIContext *ciContext;
+@property (nonatomic) CIImage *ciImage;
 
 @end
 
@@ -262,7 +266,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
 
 - (void)displayOriginImage {
     _originImage = [UIImage imageNamed:@"testImage"];
-    UIImageView *originImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 64, self.view.frame.size.width - 20, 280)];
+    UIImageView *originImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 64, self.view.frame.size.width - 20, 260)];
     originImageView.image = _originImage;
     [self.view addSubview:originImageView];
 }
@@ -288,7 +292,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     CGImageRelease(cgImage);
     
     // 4. 显示图片
-    UIImageView *filteredImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 360, self.view.frame.size.width - 20, 280)];
+    UIImageView *filteredImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 340, self.view.frame.size.width - 20, 260)];
     filteredImageView.image = filteredImage;
     [self.view addSubview:filteredImageView];
 }
@@ -299,23 +303,38 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     // 获取OpenGLES渲染的context
     EAGLContext *eaglContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
     // 创建出渲染的buffer
-    GLKView *glkView = [[GLKView alloc] initWithFrame:CGRectMake(10, 360, self.view.frame.size.width - 20, 280) context:eaglContext];
-    [glkView bindDrawable];
-    [self.view addSubview:glkView];
+    _glkView = [[GLKView alloc] initWithFrame:CGRectMake(10, 340, self.view.frame.size.width - 20, 260) context:eaglContext];
+    [_glkView bindDrawable];
+    [self.view addSubview:_glkView];
     
     // 创建CoreImage使用的context
-    CIContext *ciContext = [CIContext contextWithEAGLContext:eaglContext options:@{kCIContextWorkingColorSpace:[NSNull null]}];
+    _ciContext = [CIContext contextWithEAGLContext:eaglContext options:@{kCIContextWorkingColorSpace:[NSNull null]}];
     
     // CoreImage的相关设置
-    CIImage *ciImage = [[CIImage alloc] initWithImage:_originImage];
-    CIFilter *ciFilter = [CIFilter filterWithName:@"CISepiaTone"];
-    [ciFilter setValue:ciImage forKey:kCIInputImageKey];
-    [ciFilter setValue:@(3) forKey:kCIInputIntensityKey];
+    _ciImage = [[CIImage alloc] initWithImage:_originImage];
+    _ciFilter = [CIFilter filterWithName:@"CISepiaTone"];
+    [_ciFilter setValue:_ciImage forKey:kCIInputImageKey];
+    [_ciFilter setValue:@(0) forKey:kCIInputIntensityKey];
 
     // 开始渲染
-    [ciContext drawImage:[ciFilter outputImage] inRect:CGRectMake(0, 0, glkView.drawableWidth, glkView.drawableHeight) fromRect:[ciImage extent]];
-    [glkView display];
+    [_ciContext drawImage:[_ciFilter outputImage] inRect:CGRectMake(0, 0, _glkView.drawableWidth, _glkView.drawableHeight) fromRect:[_ciImage extent]];
+    [_glkView display];
     
+    // 使用Slider进行动态渲染
+    UISlider *slider = [[UISlider alloc] initWithFrame:CGRectMake(10, self.view.frame.size.height - 64, self.view.frame.size.width - 20, 64)];
+    slider.minimumValue = 0.0f;
+    slider.maximumValue = 5.0f;
+    [slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
+    [self.view addSubview:slider];
+}
+
+- (void)sliderValueChanged:(UISlider *)sender {
+    [_ciFilter setValue:_ciImage forKey:kCIInputImageKey];
+    [_ciFilter setValue:@(sender.value) forKey:kCIInputIntensityKey];
+
+    //开始渲染
+    [_ciContext drawImage:[_ciFilter outputImage] inRect:CGRectMake(0, 0, _glkView.drawableWidth, _glkView.drawableHeight) fromRect:[_ciImage extent]];
+    [_glkView display];
 }
 
 @end
