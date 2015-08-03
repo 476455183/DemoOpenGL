@@ -11,12 +11,14 @@
 #import <OpenGLES/ES2/gl.h>
 #import <OpenGLES/ES2/glext.h>
 #import "ShaderOperations.h"
+#import <GLKit/GLKit.h>
 
 typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     demoClearColor = 0,
     demoShader,
     demoTriangle,
     demoCoreImageFilter,
+    demoCoreImageOpenGLESFilter,
 };
 
 @interface ItemViewController ()
@@ -31,6 +33,9 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
 @property (nonatomic) GLuint positionSlot; // ???
 @property (nonatomic) GLuint colorSlot; // ???
 
+// filters
+@property (nonatomic) UIImage *originImage;
+
 @end
 
 @implementation ItemViewController
@@ -41,7 +46,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    self.demosOpenGL = @[@"Clear Color", @"shader", @"triangle", @"Core Image Filter"];
+    self.demosOpenGL = @[@"Clear Color", @"shader", @"triangle", @"Core Image Filter", @"Core Image and OpenGS ES Filter"];
     
     [self setupOpenGLContext];
     [self setupCAEAGLLayer];
@@ -114,7 +119,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
 #pragma mark - demoViaOpenGL
 
 - (void)demoViaOpenGL {
-//    self.demosOpenGL = @[@"Clear Color", @"shader", @"triangle", @"Core Image Filter"];
+//    self.demosOpenGL = @[@"Clear Color", @"shader", @"triangle", @"Core Image Filter", @"Core Image and OpenGS ES Filter"];
     [self tearDownOpenGLBuffers];
     [self setupOpenGLBuffers];
     glClearColor(1.0, 1.0, 1.0, 1.0);
@@ -132,6 +137,9 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
             break;
         case demoCoreImageFilter:
             [self filterViaCoreImage];
+            break;
+        case demoCoreImageOpenGLESFilter:
+            [self filterViaCoreImageAndOpenGLES];
             break;
         default:
             break;
@@ -252,14 +260,18 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
 
 #pragma mark - filters
 
-- (void)filterViaCoreImage {
-    UIImage *originImage = [UIImage imageNamed:@"testImage"];
+- (void)displayOriginImage {
+    _originImage = [UIImage imageNamed:@"testImage"];
     UIImageView *originImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 64, self.view.frame.size.width - 20, 280)];
-    originImageView.image = originImage;
+    originImageView.image = _originImage;
     [self.view addSubview:originImageView];
+}
+
+- (void)filterViaCoreImage {
+    [self displayOriginImage];
 
     // 0. 导入CIImage图片
-    CIImage *ciInputImage = [[CIImage alloc] initWithImage:originImage];
+    CIImage *ciInputImage = [[CIImage alloc] initWithImage:_originImage];
     // 1. 创建CIFilter
     CIFilter *filterPixellate = [CIFilter filterWithName:@"CIPixellate"];
     [filterPixellate setValue:ciInputImage forKey:kCIInputImageKey];
@@ -281,5 +293,29 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     [self.view addSubview:filteredImageView];
 }
 
+- (void)filterViaCoreImageAndOpenGLES {
+    [self displayOriginImage];
+
+    // 获取OpenGLES渲染的context
+    EAGLContext *eaglContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
+    // 创建出渲染的buffer
+    GLKView *glkView = [[GLKView alloc] initWithFrame:CGRectMake(10, 360, self.view.frame.size.width - 20, 280) context:eaglContext];
+    [glkView bindDrawable];
+    [self.view addSubview:glkView];
+    
+    // 创建CoreImage使用的context
+    CIContext *ciContext = [CIContext contextWithEAGLContext:eaglContext options:@{kCIContextWorkingColorSpace:[NSNull null]}];
+    
+    // CoreImage的相关设置
+    CIImage *ciImage = [[CIImage alloc] initWithImage:_originImage];
+    CIFilter *ciFilter = [CIFilter filterWithName:@"CISepiaTone"];
+    [ciFilter setValue:ciImage forKey:kCIInputImageKey];
+    [ciFilter setValue:@(3) forKey:kCIInputIntensityKey];
+
+    // 开始渲染
+    [ciContext drawImage:[ciFilter outputImage] inRect:CGRectMake(0, 0, glkView.drawableWidth, glkView.drawableHeight) fromRect:[ciImage extent]];
+    [glkView display];
+    
+}
 
 @end
