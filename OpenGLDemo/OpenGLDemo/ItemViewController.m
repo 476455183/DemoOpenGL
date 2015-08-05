@@ -21,7 +21,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     demoClearColor = 0,
     demoShader,
     demoTriangleViaShader,
-    demoGraphicsViaGLKView,
+    demoDrawImageViaOpenGLES,
     demoCoreImageFilter,
     demoCoreImageOpenGLESFilter,
     demo3DTransform,
@@ -67,7 +67,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    self.demosOpenGL = @[@"Clear Color", @"Shader", @"Draw Triangle via Shader", @"Draw Graphics via GLKView", @"Core Image Filter", @"Core Image and OpenGS ES Filter", @"3D Transform", @"Display Image via OpenGL ES"];
+    self.demosOpenGL = @[@"Clear Color", @"Shader", @"Draw Triangle via Shader", @"Draw Image via OpenGL ES", @"Core Image Filter", @"Core Image and OpenGS ES Filter", @"3D Transform", @"Display Image via OpenGL ES"];
     
     [self setupOpenGLContext];
     [self setupCAEAGLLayer];
@@ -140,7 +140,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
 #pragma mark - demoViaOpenGL
 
 - (void)demoViaOpenGL {
-    //self.demosOpenGL = @[@"Clear Color", @"Shader", @"Draw Triangle via Shader", @"Draw Graphics via GLKView", @"Core Image Filter", @"Core Image and OpenGS ES Filter", @"3D Transform", @"Display Image via OpenGL ES"];
+    //self.demosOpenGL = @[@"Clear Color", @"Shader", @"Draw Triangle via Shader", @"Draw Image via OpenGL ES", @"Core Image Filter", @"Core Image and OpenGS ES Filter", @"3D Transform", @"Display Image via OpenGL ES"];
     [self tearDownOpenGLBuffers];
     [self setupOpenGLBuffers];
     glClearColor(1.0, 1.0, 1.0, 1.0);
@@ -156,8 +156,8 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
         case demoTriangleViaShader:
             [self drawTriangleViaShader];
             break;
-        case demoGraphicsViaGLKView:
-            [self drawGraphicsViaGLKView];
+        case demoDrawImageViaOpenGLES:
+            [self drawImageViaOpenGLES];
             break;
         case demoCoreImageFilter:
             [self filterViaCoreImage];
@@ -252,9 +252,22 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     glDrawArrays(GL_TRIANGLES, 0, 3);
 }
 
-- (void)drawGraphicsViaGLKView {
+- (void)drawImageViaOpenGLES {
+    [self displayOriginImage]; // 会被影响到, 成倒立图片.
+    _lbOriginalImage.text = @"Click image to choose from local photos...";
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(chooseOriginImageFromPhotos)];
+    tapGestureRecognizer.numberOfTapsRequired = 1;
+    tapGestureRecognizer.numberOfTouchesRequired = 1;
+    tapGestureRecognizer.delegate = self;
+    [_originImageView addGestureRecognizer:tapGestureRecognizer];
+    [_originImageView setUserInteractionEnabled:YES];
+    
+    [self didDrawImageViaOpenGLES:[UIImage imageNamed:@"testImage"]];
+}
+
+- (void)didDrawImageViaOpenGLES:(UIImage *)image {
     // 创建OpenGL视图
-    _glkView = [[GLKView alloc] initWithFrame:CGRectMake(10, 100, self.view.frame.size.width - 20, 260) context:_eaglContext];
+    _glkView = [[GLKView alloc] initWithFrame:CGRectMake(10, 400, self.view.frame.size.width - 20, 260) context:_eaglContext];
     [_glkView bindDrawable];
     [self.view addSubview:_glkView];
     [_glkView display];
@@ -301,7 +314,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 0, texCoords);
     // 因为读取图片信息的时候默认是从图片左上角读取的, 而OpenGL绘制却是从左下角开始的.所以我们要从左下角开始读取图片数据.
     NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:@(YES), GLKTextureLoaderOriginBottomLeft, nil];
-    GLKTextureInfo *textureInfo = [GLKTextureLoader textureWithCGImage:[[UIImage imageNamed:@"testImage"] CGImage] options:options error:nil];
+    GLKTextureInfo *textureInfo = [GLKTextureLoader textureWithCGImage:image.CGImage options:options error:nil];
 
     GLKBaseEffect *baseEffect = [[GLKBaseEffect alloc] init];
     // 创建一个二维的投影矩阵, 即定义一个视野区域(镜头看到的东西)
@@ -310,7 +323,10 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     baseEffect.texture2d0.name = textureInfo.name;
     [baseEffect prepareToDraw];
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+
     glDisableVertexAttribArray(GLKVertexAttribPosition);
+    glDisableVertexAttribArray(GLKVertexAttribColor);
+    glDisableVertexAttribArray(GLKVertexAttribTexCoord0);
 }
 
 #pragma mark - shader related
@@ -388,6 +404,9 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     UIImage *savedImage = editedImage ? editedImage : originalImage;
     [picker dismissViewControllerAnimated:YES completion:^{
         _originImageView.image = savedImage;
+        if ([self.demosOpenGL indexOfObject:self.item] == demoDrawImageViaOpenGLES) {
+            [self didDrawImageViaOpenGLES:savedImage];
+        }
     }];
 }
 

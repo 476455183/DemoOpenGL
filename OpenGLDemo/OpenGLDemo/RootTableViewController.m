@@ -24,7 +24,7 @@
     self.navigationItem.title = @"OpenGL Demos";
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 
-    self.demosOpenGL = @[@"Clear Color", @"Shader", @"Draw Triangle via Shader", @"Draw Graphics via GLKView", @"Core Image Filter", @"Core Image and OpenGS ES Filter", @"3D Transform", @"Display Image via OpenGL ES"];
+    self.demosOpenGL = @[@"Clear Color", @"Shader", @"Draw Triangle via Shader", @"Draw Image via OpenGL ES", @"Core Image Filter", @"Core Image and OpenGS ES Filter", @"3D Transform", @"Display Image via OpenGL ES"];
 }
 
 - (void)didReceiveMemoryWarning {
