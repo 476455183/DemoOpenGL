@@ -66,7 +66,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    self.demosOpenGL = @[@"Clear Color", @"shader", @"triangle", @"Core Image Filter", @"Core Image and OpenGS ES Filter", @"3D Transform", @"Display Image Via OpenGL ES"];
+    self.demosOpenGL = @[@"Clear Color", @"Shader", @"Triangle", @"Core Image Filter", @"Core Image and OpenGS ES Filter", @"3D Transform", @"Display Image via OpenGL ES"];
     
     [self setupOpenGLContext];
     [self setupCAEAGLLayer];
@@ -139,7 +139,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
 #pragma mark - demoViaOpenGL
 
 - (void)demoViaOpenGL {
-    //self.demosOpenGL = @[@"Clear Color", @"shader", @"triangle", @"Core Image Filter", @"Core Image and OpenGS ES Filter", @"3D Transform", @"Display Image Via OpenGL ES"];
+    //self.demosOpenGL = @[@"Clear Color", @"Shader", @"Triangle", @"Core Image Filter", @"Core Image and OpenGS ES Filter", @"3D Transform", @"Display Image via OpenGL ES"];
     [self tearDownOpenGLBuffers];
     [self setupOpenGLBuffers];
     glClearColor(1.0, 1.0, 1.0, 1.0);
