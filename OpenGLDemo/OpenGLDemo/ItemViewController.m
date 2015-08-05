@@ -20,7 +20,8 @@
 typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     demoClearColor = 0,
     demoShader,
-    demoTriangle,
+    demoTriangleViaShader,
+    demoGraphicsViaGLKView,
     demoCoreImageFilter,
     demoCoreImageOpenGLESFilter,
     demo3DTransform,
@@ -66,7 +67,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    self.demosOpenGL = @[@"Clear Color", @"Shader", @"Triangle", @"Core Image Filter", @"Core Image and OpenGS ES Filter", @"3D Transform", @"Display Image via OpenGL ES"];
+    self.demosOpenGL = @[@"Clear Color", @"Shader", @"Draw Triangle via Shader", @"Draw Graphics via GLKView", @"Core Image Filter", @"Core Image and OpenGS ES Filter", @"3D Transform", @"Display Image via OpenGL ES"];
     
     [self setupOpenGLContext];
     [self setupCAEAGLLayer];
@@ -139,7 +140,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
 #pragma mark - demoViaOpenGL
 
 - (void)demoViaOpenGL {
-    //self.demosOpenGL = @[@"Clear Color", @"Shader", @"Triangle", @"Core Image Filter", @"Core Image and OpenGS ES Filter", @"3D Transform", @"Display Image via OpenGL ES"];
+    //self.demosOpenGL = @[@"Clear Color", @"Shader", @"Draw Triangle via Shader", @"Draw Graphics via GLKView", @"Core Image Filter", @"Core Image and OpenGS ES Filter", @"3D Transform", @"Display Image via OpenGL ES"];
     [self tearDownOpenGLBuffers];
     [self setupOpenGLBuffers];
     glClearColor(1.0, 1.0, 1.0, 1.0);
@@ -152,8 +153,11 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
         case demoShader:
             [self drawShader];
             break;
-        case demoTriangle:
-            [self drawTriangle];
+        case demoTriangleViaShader:
+            [self drawTriangleViaShader];
+            break;
+        case demoGraphicsViaGLKView:
+            [self drawGraphicsViaGLKView];
             break;
         case demoCoreImageFilter:
             [self filterViaCoreImage];
@@ -227,7 +231,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     glDrawElements(GL_TRIANGLES, sizeof(Indices)/sizeof(Indices[0]), GL_UNSIGNED_BYTE, 0);
 }
 
-- (void)drawTriangle {
+- (void)drawTriangleViaShader {
     // 先要编译vertex和fragment两个shader
     NSString *shaderVertex = @"VertexTriangle";
     NSString *shaderFragment = @"FragmentTriangle";
@@ -246,6 +250,41 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     
     // Draw triangle
     glDrawArrays(GL_TRIANGLES, 0, 3);
+}
+
+- (void)drawGraphicsViaGLKView {
+    // 创建OpenGL视图
+    _glkView = [[GLKView alloc] initWithFrame:CGRectMake(10, 400, self.view.frame.size.width - 20, 260) context:_eaglContext];
+    [_glkView bindDrawable];
+    [self.view addSubview:_glkView];
+    [_glkView display];
+    
+    GLfloat vertices2[] = {
+        -1, -1,//左下
+        1, -1,//右下
+        1, 1,//右上
+        -1, 1,//左上
+    };
+    // 启用vertex数组
+    glEnableVertexAttribArray(GLKVertexAttribPosition);
+    glVertexAttribPointer(GLKVertexAttribPosition, 2, GL_FLOAT, GL_FALSE, 0, vertices2);
+    
+    static GLfloat colors2[] = {
+        1,0,0,1,
+        0,1,0,1,
+        0,0,1,1,
+        0,0,0,1
+    };
+    // 启用颜色
+    glEnableVertexAttribArray(GLKVertexAttribColor);
+    glVertexAttribPointer(GLKVertexAttribColor, 4, GL_FLOAT, GL_FALSE, 0, colors2);
+    
+    GLKBaseEffect *baseEffect = [[GLKBaseEffect alloc] init];
+    // 创建一个二维的投影矩阵, 即定义一个视野区域(镜头看到的东西)
+    baseEffect.transform.projectionMatrix = GLKMatrix4MakeOrtho(-2, 2, -3, 3, -1, 1);
+    [baseEffect prepareToDraw];
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    glDisableVertexAttribArray(GLKVertexAttribPosition);
 }
 
 #pragma mark - shader related
