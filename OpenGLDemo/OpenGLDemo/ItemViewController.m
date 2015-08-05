@@ -289,11 +289,25 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     // 启用颜色
     glEnableVertexAttribArray(GLKVertexAttribColor);
     glVertexAttribPointer(GLKVertexAttribColor, 4, GL_FLOAT, GL_FALSE, 0, colors2);
-    
+
+    static GLfloat texCoords[] = {
+        0, 0,//左下
+        1, 0,//右下
+        0, 1,//左上
+        1, 1,//右上
+    };
+    // 启用vertex贴图坐标
+    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
+    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 0, texCoords);
+    // 因为读取图片信息的时候默认是从图片左上角读取的, 而OpenGL绘制却是从左下角开始的.所以我们要从左下角开始读取图片数据.
+    NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:@(YES), GLKTextureLoaderOriginBottomLeft, nil];
+    GLKTextureInfo *textureInfo = [GLKTextureLoader textureWithCGImage:[[UIImage imageNamed:@"testImage"] CGImage] options:options error:nil];
+
     GLKBaseEffect *baseEffect = [[GLKBaseEffect alloc] init];
     // 创建一个二维的投影矩阵, 即定义一个视野区域(镜头看到的东西)
     // GLKMatrix4MakeOrtho(float left, float right, float bottom, float top, float nearZ, float farZ)
     baseEffect.transform.projectionMatrix = GLKMatrix4MakeOrtho(-2, 2, -3, 3, -1, 1);
+    baseEffect.texture2d0.name = textureInfo.name;
     [baseEffect prepareToDraw];
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
     glDisableVertexAttribArray(GLKVertexAttribPosition);
