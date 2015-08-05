@@ -297,7 +297,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
         1,1,1,1,
         1,1,1,1,
         1,1,1,1,
-        0,0,0,1
+        1,1,1,1
     };
     // 启用颜色
     glEnableVertexAttribArray(GLKVertexAttribColor);
