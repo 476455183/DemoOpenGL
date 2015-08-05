@@ -23,6 +23,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     demoCoreImageFilter,
     demoCoreImageOpenGLESFilter,
     demo3DTransform,
+    demoDisplayImageViaOpenGLES,
 };
 
 @interface ItemViewController ()
@@ -41,6 +42,10 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
 
 // filters
 @property (nonatomic) UIImage *originImage;
+// GLKit framework provides a view that draws OpenGL es content and manages its own frame buffer object,
+// and a view controller that supports animating OpenGL es content.
+// GLKView manages OpenGL es infrastructure to provide a place for your drawing code.
+// GLKViewController provides a rendering loop for smooth animation of OpenGL es content in a GLKit view.
 @property (nonatomic) GLKView *glkView;
 @property (nonatomic) CIFilter *ciFilter;
 @property (nonatomic) CIContext *ciContext;
@@ -56,7 +61,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    self.demosOpenGL = @[@"Clear Color", @"shader", @"triangle", @"Core Image Filter", @"Core Image and OpenGS ES Filter", @"3D Transform"];
+    self.demosOpenGL = @[@"Clear Color", @"shader", @"triangle", @"Core Image Filter", @"Core Image and OpenGS ES Filter", @"3D Transform", @"Display Image Via OpenGL ES"];
     
     [self setupOpenGLContext];
     [self setupCAEAGLLayer];
@@ -129,7 +134,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
 #pragma mark - demoViaOpenGL
 
 - (void)demoViaOpenGL {
-    //self.demosOpenGL = @[@"Clear Color", @"shader", @"triangle", @"Core Image Filter", @"Core Image and OpenGS ES Filter", @"3D Transform"];
+    //self.demosOpenGL = @[@"Clear Color", @"shader", @"triangle", @"Core Image Filter", @"Core Image and OpenGS ES Filter", @"3D Transform", @"Display Image Via OpenGL ES"];
     [self tearDownOpenGLBuffers];
     [self setupOpenGLBuffers];
     glClearColor(1.0, 1.0, 1.0, 1.0);
@@ -153,6 +158,9 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
             break;
         case demo3DTransform:
             [self demo3DTransform];
+            break;
+        case demoDisplayImageViaOpenGLES:
+            [self displayImageViaOpenGLES];
             break;
         default:
             break;
@@ -379,6 +387,16 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     
     // draw lines
     glDrawElements(GL_LINES, sizeof(indices)/sizeof(GLubyte), GL_UNSIGNED_BYTE, indices);
+}
+
+- (void)displayImageViaOpenGLES {
+    [self displayOriginImage];
+
+    // 创建出渲染的buffer
+    _glkView = [[GLKView alloc] initWithFrame:CGRectMake(10, 340, self.view.frame.size.width - 20, 260) context:_eaglContext];
+    [_glkView bindDrawable];
+    [self.view addSubview:_glkView];
+    [_glkView display];
 }
 
 @end
