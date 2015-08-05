@@ -10,8 +10,11 @@
 #import <QuartzCore/QuartzCore.h>
 #import <OpenGLES/ES2/gl.h>
 #import <OpenGLES/ES2/glext.h>
-#import "ShaderOperations.h"
 #import <GLKit/GLKit.h>
+#import <OpenGLES/EAGL.h>
+
+#import "ShaderOperations.h"
+
 
 typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     demoClearColor = 0,
@@ -260,14 +263,16 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     
     // 4 让OpenGL执行program
     glUseProgram(programHandle);
-    
+
     // 5 获取指向vertex shader传入变量的指针, 然后就通过该指针来使用
     _positionSlot = glGetAttribLocation(programHandle, "Position");
     _colorSlot = glGetAttribLocation(programHandle, "SourceColor");
     _modelViewSlot = glGetUniformLocation(programHandle, "ModelView");
     _projectionSlot = glGetUniformLocation(programHandle, "Projection");
     glEnableVertexAttribArray(_positionSlot); // 启用这些数据
-    glEnableVertexAttribArray(_colorSlot); 
+    glEnableVertexAttribArray(_colorSlot);
+    glEnableVertexAttribArray(_modelViewSlot);
+    glEnableVertexAttribArray(_projectionSlot);
 }
 
 #pragma mark - filters
@@ -352,8 +357,30 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     NSString *shaderVertex = @"Vertex3DTransform";
     NSString *shaderFragment = @"Fragment3DTransform";
     [self compileShaders:shaderVertex shaderFragment:shaderFragment];
-
     
+    GLfloat vertices[] = {
+        0.5f, 0.5f, 0.0f,
+        0.5f, -0.5f, 0.0f,
+        -0.5f, -0.5f, 0.0f,
+        -0.5f, 0.5f, 0.0f,
+        0.0f, 0.0f, -0.707f,
+    };
+    GLubyte indices[] = {
+        0, 1, 1, 2, 2, 3, 3, 0,
+        4, 0, 4, 1, 4, 2, 4, 3
+    };
+    
+    //设置UIView用于渲染的部分, 这里是整个屏幕
+    glViewport(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, vertices);
+    glVertexAttribPointer(_modelViewSlot, 3, GL_FLOAT, GL_FALSE, 0, vertices);
+    glVertexAttribPointer(_projectionSlot, 3, GL_FLOAT, GL_FALSE, 0, vertices);
+    glEnableVertexAttribArray(_positionSlot);
+    glEnableVertexAttribArray(_modelViewSlot);
+    glEnableVertexAttribArray(_projectionSlot);
+    
+    // draw lines
+    glDrawElements(GL_LINES, sizeof(indices)/sizeof(GLubyte), GL_UNSIGNED_BYTE, indices);
 }
 
 @end
