@@ -254,7 +254,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
 
 - (void)drawGraphicsViaGLKView {
     // 创建OpenGL视图
-    _glkView = [[GLKView alloc] initWithFrame:CGRectMake(10, 400, self.view.frame.size.width - 20, 260) context:_eaglContext];
+    _glkView = [[GLKView alloc] initWithFrame:CGRectMake(10, 100, self.view.frame.size.width - 20, 260) context:_eaglContext];
     [_glkView bindDrawable];
     [self.view addSubview:_glkView];
     [_glkView display];
@@ -281,9 +281,9 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     glVertexAttribPointer(GLKVertexAttribPosition, 2, GL_FLOAT, GL_FALSE, 0, vertices2);
     
     static GLfloat colors2[] = {
-        1,0,0,1,
-        0,1,0,1,
-        0,0,1,1,
+        1,1,1,1,
+        1,1,1,1,
+        1,1,1,1,
         0,0,0,1
     };
     // 启用颜色
@@ -306,7 +306,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     GLKBaseEffect *baseEffect = [[GLKBaseEffect alloc] init];
     // 创建一个二维的投影矩阵, 即定义一个视野区域(镜头看到的东西)
     // GLKMatrix4MakeOrtho(float left, float right, float bottom, float top, float nearZ, float farZ)
-    baseEffect.transform.projectionMatrix = GLKMatrix4MakeOrtho(-2, 2, -3, 3, -1, 1);
+    baseEffect.transform.projectionMatrix = GLKMatrix4MakeOrtho(-1, 1, -1, 1, -1, 1);
     baseEffect.texture2d0.name = textureInfo.name;
     [baseEffect prepareToDraw];
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
