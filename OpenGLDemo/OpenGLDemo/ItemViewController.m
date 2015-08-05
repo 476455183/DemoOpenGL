@@ -12,6 +12,7 @@
 #import <OpenGLES/ES2/glext.h>
 #import <GLKit/GLKit.h>
 #import <OpenGLES/EAGL.h>
+#import <AVFoundation/AVFoundation.h>
 
 #import "ShaderOperations.h"
 
@@ -26,7 +27,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     demoDisplayImageViaOpenGLES,
 };
 
-@interface ItemViewController ()
+@interface ItemViewController () <UIImagePickerControllerDelegate>
 
 @property (nonatomic) NSArray *demosOpenGL;
 
@@ -42,6 +43,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
 
 // filters
 @property (nonatomic) UIImage *originImage;
+@property (nonatomic) UIImageView *originImageView;
 // GLKit framework provides a view that draws OpenGL es content and manages its own frame buffer object,
 // and a view controller that supports animating OpenGL es content.
 // GLKView manages OpenGL es infrastructure to provide a place for your drawing code.
@@ -283,7 +285,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     glEnableVertexAttribArray(_projectionSlot);
 }
 
-#pragma mark - filters
+#pragma mark - display origin image
 
 - (void)displayOriginImage {
     _originImage = [UIImage imageNamed:@"testImage"];
@@ -291,6 +293,31 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     originImageView.image = _originImage;
     [self.view addSubview:originImageView];
 }
+
+- (void)chooseOriginImageFromPhotos {
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+    imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    imagePicker.allowsEditing = YES;
+    imagePicker.delegate = self;
+    [self presentViewController:imagePicker animated:YES completion:nil];
+}
+
+#pragma mark - UIImagePickerControllerDelegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    UIImage *originalImage = [info valueForKey:UIImagePickerControllerOriginalImage];
+    UIImage *editedImage = [info valueForKey:UIImagePickerControllerEditedImage];
+    UIImage *savedImage = editedImage ? editedImage : originalImage;
+    [picker dismissViewControllerAnimated:YES completion:^{
+        _originImageView.image = savedImage;
+    }];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - filters
 
 - (void)filterViaCoreImage {
     [self displayOriginImage];
@@ -390,10 +417,25 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
 }
 
 - (void)displayImageViaOpenGLES {
-    [self displayOriginImage];
+    UILabel *lbClickToChooseImage = [[UILabel alloc] initWithFrame:CGRectMake(10, 70, self.view.frame.size.width - 20, 30)];
+    lbClickToChooseImage.text = @"Click image to choose from local photos...";
+    lbClickToChooseImage.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:lbClickToChooseImage];
+
+    _originImage = [UIImage imageNamed:@"testImage"];
+    _originImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 100, self.view.frame.size.width - 20, 260)];
+    _originImageView.image = _originImage;
+    [self.view addSubview:_originImageView];
+
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(chooseOriginImageFromPhotos)];
+    tapGestureRecognizer.numberOfTapsRequired = 1;
+    tapGestureRecognizer.numberOfTouchesRequired = 1;
+    tapGestureRecognizer.delegate = self;
+    [_originImageView addGestureRecognizer:tapGestureRecognizer];
+    [_originImageView setUserInteractionEnabled:YES];
 
     // 创建出渲染的buffer
-    _glkView = [[GLKView alloc] initWithFrame:CGRectMake(10, 340, self.view.frame.size.width - 20, 260) context:_eaglContext];
+    _glkView = [[GLKView alloc] initWithFrame:CGRectMake(10, 400, self.view.frame.size.width - 20, 260) context:_eaglContext];
     [_glkView bindDrawable];
     [self.view addSubview:_glkView];
     [_glkView display];
