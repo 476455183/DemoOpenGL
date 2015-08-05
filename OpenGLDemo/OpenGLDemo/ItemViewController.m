@@ -42,8 +42,11 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
 @property (nonatomic) GLint projectionSlot;
 
 // filters
+@property (nonatomic) UILabel *lbOriginalImage;
+@property (nonatomic) UILabel *lbProcessedImage;
 @property (nonatomic) UIImage *originImage;
 @property (nonatomic) UIImageView *originImageView;
+
 // GLKit framework provides a view that draws OpenGL es content and manages its own frame buffer object,
 // and a view controller that supports animating OpenGL es content.
 // GLKView manages OpenGL es infrastructure to provide a place for your drawing code.
@@ -288,10 +291,20 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
 #pragma mark - display origin image
 
 - (void)displayOriginImage {
+    _lbOriginalImage = [[UILabel alloc] initWithFrame:CGRectMake(10, 70, self.view.frame.size.width - 20, 30)];
+    _lbOriginalImage.text = @"Original image...";
+    _lbOriginalImage.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:_lbOriginalImage];
+
     _originImage = [UIImage imageNamed:@"testImage"];
-    UIImageView *originImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 64, self.view.frame.size.width - 20, 260)];
-    originImageView.image = _originImage;
-    [self.view addSubview:originImageView];
+    _originImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 100, self.view.frame.size.width - 20, 260)];
+    _originImageView.image = _originImage;
+    [self.view addSubview:_originImageView];
+    
+    _lbProcessedImage = [[UILabel alloc] initWithFrame:CGRectMake(10, 370, self.view.frame.size.width - 20, 30)];
+    _lbProcessedImage.text = @"Processed image...";
+    _lbProcessedImage.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:_lbProcessedImage];
 }
 
 - (void)chooseOriginImageFromPhotos {
@@ -340,7 +353,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     CGImageRelease(cgImage);
     
     // 4. 显示图片
-    UIImageView *filteredImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 340, self.view.frame.size.width - 20, 260)];
+    UIImageView *filteredImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 400, self.view.frame.size.width - 20, 260)];
     filteredImageView.image = filteredImage;
     [self.view addSubview:filteredImageView];
 }
@@ -349,7 +362,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     [self displayOriginImage];
 
     // 创建出渲染的buffer
-    _glkView = [[GLKView alloc] initWithFrame:CGRectMake(10, 340, self.view.frame.size.width - 20, 260) context:_eaglContext];
+    _glkView = [[GLKView alloc] initWithFrame:CGRectMake(10, 400, self.view.frame.size.width - 20, 260) context:_eaglContext];
     [_glkView bindDrawable];
     [self.view addSubview:_glkView];
     
@@ -366,6 +379,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     [_ciContext drawImage:[_ciFilter outputImage] inRect:CGRectMake(0, 0, _glkView.drawableWidth, _glkView.drawableHeight) fromRect:[_ciImage extent]];
     [_glkView display];
     
+    _lbProcessedImage.text = @"Slide to change the filter effect...";
     // 使用Slider进行动态渲染
     UISlider *slider = [[UISlider alloc] initWithFrame:CGRectMake(10, self.view.frame.size.height - 64, self.view.frame.size.width - 20, 64)];
     slider.minimumValue = 0.0f;
@@ -417,16 +431,8 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
 }
 
 - (void)displayImageViaOpenGLES {
-    UILabel *lbClickToChooseImage = [[UILabel alloc] initWithFrame:CGRectMake(10, 70, self.view.frame.size.width - 20, 30)];
-    lbClickToChooseImage.text = @"Click image to choose from local photos...";
-    lbClickToChooseImage.textAlignment = NSTextAlignmentCenter;
-    [self.view addSubview:lbClickToChooseImage];
-
-    _originImage = [UIImage imageNamed:@"testImage"];
-    _originImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 100, self.view.frame.size.width - 20, 260)];
-    _originImageView.image = _originImage;
-    [self.view addSubview:_originImageView];
-
+    [self displayOriginImage];
+    _lbOriginalImage.text = @"Click image to choose from local photos...";
     UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(chooseOriginImageFromPhotos)];
     tapGestureRecognizer.numberOfTapsRequired = 1;
     tapGestureRecognizer.numberOfTouchesRequired = 1;
