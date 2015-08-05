@@ -30,7 +30,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
 @property (nonatomic) NSArray *demosOpenGL;
 
 @property (nonatomic) CAEAGLLayer *eaglLayer;
-@property (nonatomic) EAGLContext *context; // OpenGL context,管理使用opengl es进行绘制的状态,命令及资源
+@property (nonatomic) EAGLContext *eaglContext; // OpenGL context,管理使用opengl es进行绘制的状态,命令及资源
 @property (nonatomic) GLuint frameBuffer; // 帧缓冲区
 @property (nonatomic) GLuint colorRenderBuffer; // 渲染缓冲区
 
@@ -77,8 +77,8 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
 
 - (void)setupOpenGLContext {
     //setup context, 渲染上下文，管理所有绘制的状态，命令及资源信息。
-    _context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2]; //opengl es 2.0
-    [EAGLContext setCurrentContext:_context]; //设置为当前上下文。
+    _eaglContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2]; //opengl es 2.0
+    [EAGLContext setCurrentContext:_eaglContext]; //设置为当前上下文。
 }
 
 #pragma mark - setupCAEAGLLayer
@@ -103,7 +103,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     glGenRenderbuffers(1, &_colorRenderBuffer);
     glBindRenderbuffer(GL_RENDERBUFFER, _colorRenderBuffer);
     //为color renderbuffer 分配存储空间
-    [_context renderbufferStorage:GL_RENDERBUFFER fromDrawable:_eaglLayer];
+    [_eaglContext renderbufferStorage:GL_RENDERBUFFER fromDrawable:_eaglLayer];
 
     glGenFramebuffers(1, &_frameBuffer);
     //设置为当前framebuffer
@@ -157,7 +157,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
         default:
             break;
     }
-    [_context presentRenderbuffer:GL_RENDERBUFFER];
+    [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
 }
 
 #pragma mark - draw somethings
@@ -313,15 +313,13 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
 - (void)filterViaCoreImageAndOpenGLES {
     [self displayOriginImage];
 
-    // 获取OpenGLES渲染的context
-    EAGLContext *eaglContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
     // 创建出渲染的buffer
-    _glkView = [[GLKView alloc] initWithFrame:CGRectMake(10, 340, self.view.frame.size.width - 20, 260) context:eaglContext];
+    _glkView = [[GLKView alloc] initWithFrame:CGRectMake(10, 340, self.view.frame.size.width - 20, 260) context:_eaglContext];
     [_glkView bindDrawable];
     [self.view addSubview:_glkView];
     
     // 创建CoreImage使用的context
-    _ciContext = [CIContext contextWithEAGLContext:eaglContext options:@{kCIContextWorkingColorSpace:[NSNull null]}];
+    _ciContext = [CIContext contextWithEAGLContext:_eaglContext options:@{kCIContextWorkingColorSpace:[NSNull null]}];
     
     // CoreImage的相关设置
     _ciImage = [[CIImage alloc] initWithImage:_originImage];
