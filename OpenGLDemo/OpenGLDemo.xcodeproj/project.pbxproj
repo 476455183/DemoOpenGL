@@ -135,6 +135,36 @@
 			name = Tools;
 			sourceTree = "<group>";
 		};
+		6A618AAC1B7370E00044FB1F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				6A618AA41B72F79C0044FB1F /* TouchDrawViewViaCoreGraphics.h */,
+				6A618AA51B72F79C0044FB1F /* TouchDrawViewViaCoreGraphics.m */,
+				6A618AA71B736DE10044FB1F /* TouchDrawViewViaOpenGLES.h */,
+				6A618AA81B736DE10044FB1F /* TouchDrawViewViaOpenGLES.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		6A618AAD1B7370F90044FB1F /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				6A74B6621B68EF1B0042DDEC /* RootTableViewController.h */,
+				6A74B6631B68EF1B0042DDEC /* RootTableViewController.m */,
+				6A74B6651B68F2C60042DDEC /* ItemViewController.h */,
+				6A74B6661B68F2C60042DDEC /* ItemViewController.m */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		6A618AAE1B73710A0044FB1F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				6A0AC3DA1B6EECC3000BBB15 /* testImage.png */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		6A74B62D1B68EE730042DDEC = {
 			isa = PBXGroup;
 			children = (
@@ -157,20 +187,14 @@
 		6A74B6381B68EE740042DDEC /* OpenGLDemo */ = {
 			isa = PBXGroup;
 			children = (
+				6A618AAE1B73710A0044FB1F /* Resources */,
+				6A618AAD1B7370F90044FB1F /* ViewControllers */,
+				6A618AAC1B7370E00044FB1F /* Views */,
 				6A618AAB1B736E2A0044FB1F /* Tools */,
 				6A618AAA1B736DF10044FB1F /* Models */,
 				6A74B63D1B68EE740042DDEC /* AppDelegate.h */,
 				6A74B63E1B68EE740042DDEC /* AppDelegate.m */,
-				6A74B6621B68EF1B0042DDEC /* RootTableViewController.h */,
-				6A74B6631B68EF1B0042DDEC /* RootTableViewController.m */,
-				6A618AA41B72F79C0044FB1F /* TouchDrawViewViaCoreGraphics.h */,
-				6A618AA51B72F79C0044FB1F /* TouchDrawViewViaCoreGraphics.m */,
-				6A618AA71B736DE10044FB1F /* TouchDrawViewViaOpenGLES.h */,
-				6A618AA81B736DE10044FB1F /* TouchDrawViewViaOpenGLES.m */,
-				6A74B6651B68F2C60042DDEC /* ItemViewController.h */,
-				6A74B6661B68F2C60042DDEC /* ItemViewController.m */,
 				6A74B6461B68EE740042DDEC /* Images.xcassets */,
-				6A0AC3DA1B6EECC3000BBB15 /* testImage.png */,
 				6A74B6431B68EE740042DDEC /* Main.storyboard */,
 				6A74B6481B68EE740042DDEC /* LaunchScreen.xib */,
 				6A0AC3D21B6A31F7000BBB15 /* GLSL */,
