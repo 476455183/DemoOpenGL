@@ -335,16 +335,13 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
 
 - (void)drawViaSimplePaint {
     _lbOriginalImage = [[UILabel alloc] initWithFrame:CGRectMake(10, 70, self.view.frame.size.width - 20, 30)];
-    _lbOriginalImage.text = @"Original image...";
+    _lbOriginalImage.text = @"Paint via CoreGraphics and QuartzCore...";
     _lbOriginalImage.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:_lbOriginalImage];
     
     TouchDrawView *drawView = [[TouchDrawView alloc] initWithFrame:CGRectMake(10, 100, self.view.frame.size.width - 20, 260)];
+    drawView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:drawView];
-    _originImage = [UIImage imageNamed:@"testImage"];
-    _originImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, drawView.frame.size.width, drawView.frame.size.height)];
-    _originImageView.image = _originImage;
-    [drawView addSubview:_originImageView];
 }
 
 #pragma mark - shader related

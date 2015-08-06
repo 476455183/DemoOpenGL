@@ -60,3 +60,19 @@ OpenGL Learning Demo
     [baseEffect prepareToDraw];  
     // 最后绘制图片  
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);  
+
+14. 使用CGContextRef等绘制图片:  
+    CGContextRef context = UIGraphicsGetCurrentContext();  
+    CGImageRef image = CGImageRetain([[UIImage imageNamed:@"testImage.png"] CGImage]);  
+    CGContextDrawImage(context, CGRectMake(0, 0, self.frame.size.width, self.frame.size.height), image);  
+    在图片上使用画笔:  
+    先通过touchesMoved等方法将划过的点(调用UITouch的locationInView方法取得CGPoint)存入_linesCompleted中, 然后在drawRect中:  
+    CGContextSetLineWidth(context, 5.0);
+    CGContextSetLineCap(context, kCGLineCapRound);
+    CGContextSetRGBStrokeColor(context, 0.5, 0.5, 0.5, 0.5);
+    for (Line *l in _linesCompleted) {
+        CGContextMoveToPoint(context, l.begin.x, l.begin.y);
+        CGContextAddLineToPoint(context, l.end.x, l.end.y);
+        CGContextStrokePath(context);
+    }
+
