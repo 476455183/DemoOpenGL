@@ -16,6 +16,7 @@
 
 #import "ShaderOperations.h"
 #import "TouchDrawViewViaCoreGraphics.h"
+#import "TouchDrawViewViaOpenGLES.h"
 
 typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     demoClearColor = 0,
@@ -343,6 +344,16 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     TouchDrawViewViaCoreGraphics *drawView = [[TouchDrawViewViaCoreGraphics alloc] initWithFrame:CGRectMake(10, 100, self.view.frame.size.width - 20, 260)];
     drawView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:drawView];
+
+    _lbProcessedImage = [[UILabel alloc] initWithFrame:CGRectMake(10, 370, self.view.frame.size.width - 20, 30)];
+    _lbProcessedImage.text = @"Paint via OpenGL ES...";
+    _lbProcessedImage.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:_lbProcessedImage];
+
+    // 使用OpenGL ES绘制图片, 添加画笔
+    TouchDrawViewViaOpenGLES *touchDrawViewViaOpenGLES = [[TouchDrawViewViaOpenGLES alloc] initWithFrame:CGRectMake(10, 400, self.view.frame.size.width - 20, 260)];
+    touchDrawViewViaOpenGLES.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:touchDrawViewViaOpenGLES];
 }
 
 #pragma mark - shader related

@@ -17,6 +17,7 @@
 		6A618AA11B72F4750044FB1F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A618AA01B72F4750044FB1F /* UIKit.framework */; };
 		6A618AA31B72F47B0044FB1F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A618AA21B72F47B0044FB1F /* CoreGraphics.framework */; };
 		6A618AA61B72F79C0044FB1F /* TouchDrawViewViaCoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A618AA51B72F79C0044FB1F /* TouchDrawViewViaCoreGraphics.m */; };
+		6A618AA91B736DE10044FB1F /* TouchDrawViewViaOpenGLES.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A618AA81B736DE10044FB1F /* TouchDrawViewViaOpenGLES.m */; };
 		6A74B63C1B68EE740042DDEC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A74B63B1B68EE740042DDEC /* main.m */; };
 		6A74B63F1B68EE740042DDEC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A74B63E1B68EE740042DDEC /* AppDelegate.m */; };
 		6A74B6451B68EE740042DDEC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A74B6431B68EE740042DDEC /* Main.storyboard */; };
@@ -55,6 +56,8 @@
 		6A618AA21B72F47B0044FB1F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		6A618AA41B72F79C0044FB1F /* TouchDrawViewViaCoreGraphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchDrawViewViaCoreGraphics.h; sourceTree = "<group>"; };
 		6A618AA51B72F79C0044FB1F /* TouchDrawViewViaCoreGraphics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouchDrawViewViaCoreGraphics.m; sourceTree = "<group>"; };
+		6A618AA71B736DE10044FB1F /* TouchDrawViewViaOpenGLES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchDrawViewViaOpenGLES.h; sourceTree = "<group>"; };
+		6A618AA81B736DE10044FB1F /* TouchDrawViewViaOpenGLES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouchDrawViewViaOpenGLES.m; sourceTree = "<group>"; };
 		6A74B6361B68EE740042DDEC /* OpenGLDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenGLDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A74B63A1B68EE740042DDEC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6A74B63B1B68EE740042DDEC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -114,6 +117,24 @@
 			name = GLSL;
 			sourceTree = "<group>";
 		};
+		6A618AAA1B736DF10044FB1F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				6A618A9B1B72F40A0044FB1F /* Line.h */,
+				6A618A9C1B72F40A0044FB1F /* Line.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		6A618AAB1B736E2A0044FB1F /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				6A74B6711B6A16630042DDEC /* ShaderOperations.h */,
+				6A74B6721B6A16630042DDEC /* ShaderOperations.m */,
+			);
+			name = Tools;
+			sourceTree = "<group>";
+		};
 		6A74B62D1B68EE730042DDEC = {
 			isa = PBXGroup;
 			children = (
@@ -136,18 +157,18 @@
 		6A74B6381B68EE740042DDEC /* OpenGLDemo */ = {
 			isa = PBXGroup;
 			children = (
+				6A618AAB1B736E2A0044FB1F /* Tools */,
+				6A618AAA1B736DF10044FB1F /* Models */,
 				6A74B63D1B68EE740042DDEC /* AppDelegate.h */,
 				6A74B63E1B68EE740042DDEC /* AppDelegate.m */,
 				6A74B6621B68EF1B0042DDEC /* RootTableViewController.h */,
 				6A74B6631B68EF1B0042DDEC /* RootTableViewController.m */,
-				6A618A9B1B72F40A0044FB1F /* Line.h */,
-				6A618A9C1B72F40A0044FB1F /* Line.m */,
 				6A618AA41B72F79C0044FB1F /* TouchDrawViewViaCoreGraphics.h */,
 				6A618AA51B72F79C0044FB1F /* TouchDrawViewViaCoreGraphics.m */,
+				6A618AA71B736DE10044FB1F /* TouchDrawViewViaOpenGLES.h */,
+				6A618AA81B736DE10044FB1F /* TouchDrawViewViaOpenGLES.m */,
 				6A74B6651B68F2C60042DDEC /* ItemViewController.h */,
 				6A74B6661B68F2C60042DDEC /* ItemViewController.m */,
-				6A74B6711B6A16630042DDEC /* ShaderOperations.h */,
-				6A74B6721B6A16630042DDEC /* ShaderOperations.m */,
 				6A74B6461B68EE740042DDEC /* Images.xcassets */,
 				6A0AC3DA1B6EECC3000BBB15 /* testImage.png */,
 				6A74B6431B68EE740042DDEC /* Main.storyboard */,
@@ -309,6 +330,7 @@
 				6A74B6671B68F2C60042DDEC /* ItemViewController.m in Sources */,
 				6A74B6731B6A16630042DDEC /* ShaderOperations.m in Sources */,
 				6A74B63F1B68EE740042DDEC /* AppDelegate.m in Sources */,
+				6A618AA91B736DE10044FB1F /* TouchDrawViewViaOpenGLES.m in Sources */,
 				6A74B63C1B68EE740042DDEC /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
