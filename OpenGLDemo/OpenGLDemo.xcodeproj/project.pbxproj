@@ -12,6 +12,11 @@
 		6A0AC3DB1B6EECC3000BBB15 /* testImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A0AC3DA1B6EECC3000BBB15 /* testImage.png */; };
 		6A0AC3DD1B6F46B9000BBB15 /* Vertex3DTransform.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 6A0AC3DC1B6F46B9000BBB15 /* Vertex3DTransform.glsl */; };
 		6A0AC3E11B6F4718000BBB15 /* Fragment3DTransform.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 6A0AC3E01B6F4718000BBB15 /* Fragment3DTransform.glsl */; };
+		6A618A9D1B72F40A0044FB1F /* Line.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A618A9C1B72F40A0044FB1F /* Line.m */; };
+		6A618A9F1B72F46F0044FB1F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A618A9E1B72F46F0044FB1F /* Foundation.framework */; };
+		6A618AA11B72F4750044FB1F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A618AA01B72F4750044FB1F /* UIKit.framework */; };
+		6A618AA31B72F47B0044FB1F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A618AA21B72F47B0044FB1F /* CoreGraphics.framework */; };
+		6A618AA61B72F79C0044FB1F /* TouchDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A618AA51B72F79C0044FB1F /* TouchDrawView.m */; };
 		6A74B63C1B68EE740042DDEC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A74B63B1B68EE740042DDEC /* main.m */; };
 		6A74B63F1B68EE740042DDEC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A74B63E1B68EE740042DDEC /* AppDelegate.m */; };
 		6A74B6451B68EE740042DDEC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A74B6431B68EE740042DDEC /* Main.storyboard */; };
@@ -43,6 +48,13 @@
 		6A0AC3DA1B6EECC3000BBB15 /* testImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = testImage.png; sourceTree = "<group>"; };
 		6A0AC3DC1B6F46B9000BBB15 /* Vertex3DTransform.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Vertex3DTransform.glsl; sourceTree = "<group>"; };
 		6A0AC3E01B6F4718000BBB15 /* Fragment3DTransform.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Fragment3DTransform.glsl; sourceTree = "<group>"; };
+		6A618A9B1B72F40A0044FB1F /* Line.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Line.h; sourceTree = "<group>"; };
+		6A618A9C1B72F40A0044FB1F /* Line.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Line.m; sourceTree = "<group>"; };
+		6A618A9E1B72F46F0044FB1F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		6A618AA01B72F4750044FB1F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		6A618AA21B72F47B0044FB1F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		6A618AA41B72F79C0044FB1F /* TouchDrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchDrawView.h; sourceTree = "<group>"; };
+		6A618AA51B72F79C0044FB1F /* TouchDrawView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouchDrawView.m; sourceTree = "<group>"; };
 		6A74B6361B68EE740042DDEC /* OpenGLDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenGLDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A74B63A1B68EE740042DDEC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6A74B63B1B68EE740042DDEC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -71,6 +83,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A618AA31B72F47B0044FB1F /* CoreGraphics.framework in Frameworks */,
+				6A618AA11B72F4750044FB1F /* UIKit.framework in Frameworks */,
+				6A618A9F1B72F46F0044FB1F /* Foundation.framework in Frameworks */,
 				6A74B66B1B69BD920042DDEC /* QuartzCore.framework in Frameworks */,
 				6A74B6691B69BD8C0042DDEC /* OpenGLES.framework in Frameworks */,
 			);
@@ -125,6 +140,10 @@
 				6A74B63E1B68EE740042DDEC /* AppDelegate.m */,
 				6A74B6621B68EF1B0042DDEC /* RootTableViewController.h */,
 				6A74B6631B68EF1B0042DDEC /* RootTableViewController.m */,
+				6A618A9B1B72F40A0044FB1F /* Line.h */,
+				6A618A9C1B72F40A0044FB1F /* Line.m */,
+				6A618AA41B72F79C0044FB1F /* TouchDrawView.h */,
+				6A618AA51B72F79C0044FB1F /* TouchDrawView.m */,
 				6A74B6651B68F2C60042DDEC /* ItemViewController.h */,
 				6A74B6661B68F2C60042DDEC /* ItemViewController.m */,
 				6A74B6711B6A16630042DDEC /* ShaderOperations.h */,
@@ -168,6 +187,9 @@
 		6A74B66C1B69BD990042DDEC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6A618AA21B72F47B0044FB1F /* CoreGraphics.framework */,
+				6A618AA01B72F4750044FB1F /* UIKit.framework */,
+				6A618A9E1B72F46F0044FB1F /* Foundation.framework */,
 				6A74B66A1B69BD920042DDEC /* QuartzCore.framework */,
 				6A74B6681B69BD8C0042DDEC /* OpenGLES.framework */,
 			);
@@ -282,6 +304,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A74B6641B68EF1B0042DDEC /* RootTableViewController.m in Sources */,
+				6A618AA61B72F79C0044FB1F /* TouchDrawView.m in Sources */,
+				6A618A9D1B72F40A0044FB1F /* Line.m in Sources */,
 				6A74B6671B68F2C60042DDEC /* ItemViewController.m in Sources */,
 				6A74B6731B6A16630042DDEC /* ShaderOperations.m in Sources */,
 				6A74B63F1B68EE740042DDEC /* AppDelegate.m in Sources */,
