@@ -15,7 +15,7 @@
 #import <AVFoundation/AVFoundation.h>
 
 #import "ShaderOperations.h"
-#import "TouchDrawView.h"
+#import "TouchDrawViewViaCoreGraphics.h"
 
 typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     demoClearColor = 0,
@@ -339,7 +339,8 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     _lbOriginalImage.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:_lbOriginalImage];
     
-    TouchDrawView *drawView = [[TouchDrawView alloc] initWithFrame:CGRectMake(10, 100, self.view.frame.size.width - 20, 260)];
+    // 使用Core Graphics绘制图片, 添加画笔
+    TouchDrawViewViaCoreGraphics *drawView = [[TouchDrawViewViaCoreGraphics alloc] initWithFrame:CGRectMake(10, 100, self.view.frame.size.width - 20, 260)];
     drawView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:drawView];
 }

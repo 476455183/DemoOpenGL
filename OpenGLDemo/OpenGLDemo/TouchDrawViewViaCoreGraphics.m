@@ -1,14 +1,14 @@
 //
-//  TouchDrawView.m
+//  TouchDrawViewViaCoreGraphics.m
 //  OpenGLDemo
 //
 //  Created by zj-db0352 on 15/8/6.
 //  Copyright (c) 2015年 zj-db0352. All rights reserved.
 //
 
-#import "TouchDrawView.h"
+#import "TouchDrawViewViaCoreGraphics.h"
 
-@implementation TouchDrawView
+@implementation TouchDrawViewViaCoreGraphics
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];

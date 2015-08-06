@@ -1,5 +1,5 @@
 //
-//  TouchDrawView.h
+//  TouchDrawViewViaCoreGraphics.h
 //  OpenGLDemo
 //
 //  Created by zj-db0352 on 15/8/6.
@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Line.h"
 
-@interface TouchDrawView : UIView
+@interface TouchDrawViewViaCoreGraphics : UIView
 
 @property (nonatomic) NSMutableArray *linesCompleted;
 @property (nonatomic) Line *currentLine;
