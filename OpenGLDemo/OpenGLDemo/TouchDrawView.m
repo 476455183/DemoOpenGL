@@ -38,6 +38,10 @@
     }
 }
 
+- (BOOL)canBecomeFirstResponder {
+    return YES;
+}
+
 #pragma mark - screen touch operations
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -77,6 +81,24 @@
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
     NSLog(@"touchesCancelled");
     [self setNeedsDisplay];
+}
+
+#pragma mark - motion
+
+- (void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+    NSLog(@"motionBegan");
+}
+
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+    NSLog(@"motionEnded");
+    if (motion == UIEventSubtypeMotionShake) {
+        [_linesCompleted removeAllObjects];
+        [self setNeedsDisplay];
+    }
+}
+
+- (void)motionCancelled:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+    NSLog(@"motionCancelled");
 }
 
 @end
