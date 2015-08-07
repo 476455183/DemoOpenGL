@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		6A0AC3D41B6A32C6000BBB15 /* VertexTriangle.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 6A0AC3D31B6A32C6000BBB15 /* VertexTriangle.glsl */; };
 		6A0AC3D61B6A32DB000BBB15 /* FragmentTriangle.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 6A0AC3D51B6A32DB000BBB15 /* FragmentTriangle.glsl */; };
-		6A0AC3DB1B6EECC3000BBB15 /* testImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A0AC3DA1B6EECC3000BBB15 /* testImage.png */; };
 		6A0AC3DD1B6F46B9000BBB15 /* Vertex3DTransform.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 6A0AC3DC1B6F46B9000BBB15 /* Vertex3DTransform.glsl */; };
 		6A0AC3E11B6F4718000BBB15 /* Fragment3DTransform.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 6A0AC3E01B6F4718000BBB15 /* Fragment3DTransform.glsl */; };
 		6A618A9D1B72F40A0044FB1F /* Line.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A618A9C1B72F40A0044FB1F /* Line.m */; };
@@ -18,6 +17,7 @@
 		6A618AA31B72F47B0044FB1F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A618AA21B72F47B0044FB1F /* CoreGraphics.framework */; };
 		6A618AA61B72F79C0044FB1F /* TouchDrawViewViaCoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A618AA51B72F79C0044FB1F /* TouchDrawViewViaCoreGraphics.m */; };
 		6A618AA91B736DE10044FB1F /* TouchDrawViewViaOpenGLES.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A618AA81B736DE10044FB1F /* TouchDrawViewViaOpenGLES.m */; };
+		6A618AB01B74AD480044FB1F /* testImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A618AAF1B74AD480044FB1F /* testImage.png */; };
 		6A74B63C1B68EE740042DDEC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A74B63B1B68EE740042DDEC /* main.m */; };
 		6A74B63F1B68EE740042DDEC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A74B63E1B68EE740042DDEC /* AppDelegate.m */; };
 		6A74B6451B68EE740042DDEC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A74B6431B68EE740042DDEC /* Main.storyboard */; };
@@ -46,7 +46,6 @@
 /* Begin PBXFileReference section */
 		6A0AC3D31B6A32C6000BBB15 /* VertexTriangle.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VertexTriangle.glsl; sourceTree = "<group>"; };
 		6A0AC3D51B6A32DB000BBB15 /* FragmentTriangle.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FragmentTriangle.glsl; sourceTree = "<group>"; };
-		6A0AC3DA1B6EECC3000BBB15 /* testImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = testImage.png; sourceTree = "<group>"; };
 		6A0AC3DC1B6F46B9000BBB15 /* Vertex3DTransform.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Vertex3DTransform.glsl; sourceTree = "<group>"; };
 		6A0AC3E01B6F4718000BBB15 /* Fragment3DTransform.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Fragment3DTransform.glsl; sourceTree = "<group>"; };
 		6A618A9B1B72F40A0044FB1F /* Line.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Line.h; sourceTree = "<group>"; };
@@ -58,6 +57,7 @@
 		6A618AA51B72F79C0044FB1F /* TouchDrawViewViaCoreGraphics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouchDrawViewViaCoreGraphics.m; sourceTree = "<group>"; };
 		6A618AA71B736DE10044FB1F /* TouchDrawViewViaOpenGLES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchDrawViewViaOpenGLES.h; sourceTree = "<group>"; };
 		6A618AA81B736DE10044FB1F /* TouchDrawViewViaOpenGLES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouchDrawViewViaOpenGLES.m; sourceTree = "<group>"; };
+		6A618AAF1B74AD480044FB1F /* testImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = testImage.png; sourceTree = "<group>"; };
 		6A74B6361B68EE740042DDEC /* OpenGLDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenGLDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A74B63A1B68EE740042DDEC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6A74B63B1B68EE740042DDEC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -160,7 +160,7 @@
 		6A618AAE1B73710A0044FB1F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				6A0AC3DA1B6EECC3000BBB15 /* testImage.png */,
+				6A618AAF1B74AD480044FB1F /* testImage.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -325,12 +325,12 @@
 				6A0AC3DD1B6F46B9000BBB15 /* Vertex3DTransform.glsl in Resources */,
 				6A0AC3D41B6A32C6000BBB15 /* VertexTriangle.glsl in Resources */,
 				6A74B66E1B6A04310042DDEC /* SimpleVertex.glsl in Resources */,
-				6A0AC3DB1B6EECC3000BBB15 /* testImage.png in Resources */,
 				6A74B64A1B68EE740042DDEC /* LaunchScreen.xib in Resources */,
 				6A74B6471B68EE740042DDEC /* Images.xcassets in Resources */,
 				6A0AC3E11B6F4718000BBB15 /* Fragment3DTransform.glsl in Resources */,
 				6A74B6701B6A04680042DDEC /* SimpleFragment.glsl in Resources */,
 				6A0AC3D61B6A32DB000BBB15 /* FragmentTriangle.glsl in Resources */,
+				6A618AB01B74AD480044FB1F /* testImage.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
