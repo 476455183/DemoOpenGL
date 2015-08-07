@@ -23,7 +23,8 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     demoShader,
     demoTriangleViaShader,
     demoDrawImageViaOpenGLES,
-    demoDrawViaSimplePaint,
+    demoPaintViaCoreGraphics,
+    demoPaintViaOpenGLES,
     demoCoreImageFilter,
     demoCoreImageOpenGLESFilter,
     demo3DTransform,
@@ -69,7 +70,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    self.demosOpenGL = @[@"Clear Color", @"Shader", @"Draw Triangle via Shader", @"Draw Image via OpenGL ES", @"Draw via Simple Paint", @"Core Image Filter", @"Core Image and OpenGS ES Filter", @"3D Transform", @"Display Image via OpenGL ES"];
+    self.demosOpenGL = @[@"Clear Color", @"Shader", @"Draw Triangle via Shader", @"Draw Image via OpenGL ES", @"Paint via Core Graphics", @"Paint via OpenGL ES", @"Core Image Filter", @"Core Image and OpenGS ES Filter", @"3D Transform", @"Display Image via OpenGL ES"];
     
     [self setupOpenGLContext];
     [self setupCAEAGLLayer];
@@ -142,7 +143,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
 #pragma mark - demoViaOpenGL
 
 - (void)demoViaOpenGL {
-    //self.demosOpenGL = @[@"Clear Color", @"Shader", @"Draw Triangle via Shader", @"Draw Image via OpenGL ES", @"Draw via Simple Paint", @"Core Image Filter", @"Core Image and OpenGS ES Filter", @"3D Transform", @"Display Image via OpenGL ES"];
+    //self.demosOpenGL = @[@"Clear Color", @"Shader", @"Draw Triangle via Shader", @"Draw Image via OpenGL ES", @"Paint via Core Graphics", @"Paint via OpenGL ES", @"Core Image Filter", @"Core Image and OpenGS ES Filter", @"3D Transform", @"Display Image via OpenGL ES"];
     [self tearDownOpenGLBuffers];
     [self setupOpenGLBuffers];
     glClearColor(1.0, 1.0, 1.0, 1.0);
@@ -161,8 +162,11 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
         case demoDrawImageViaOpenGLES:
             [self drawImageViaOpenGLES];
             break;
-        case demoDrawViaSimplePaint:
-            [self drawViaSimplePaint];
+        case demoPaintViaCoreGraphics:
+            [self paintViaCoreGraphics];
+            break;
+        case demoPaintViaOpenGLES:
+            [self paintViaOpenGLES];
             break;
         case demoCoreImageFilter:
             [self filterViaCoreImage];
@@ -337,7 +341,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
 }
 
-- (void)drawViaSimplePaint {
+- (void)paintViaCoreGraphics {
     _lbOriginalImage = [[UILabel alloc] initWithFrame:CGRectMake(10, 70, self.view.frame.size.width - 20, 30)];
     _lbOriginalImage.text = @"Paint via CoreGraphics and QuartzCore...";
     _lbOriginalImage.textAlignment = NSTextAlignmentCenter;
@@ -359,9 +363,11 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     tapGestureRecognizer.delegate = self;
     [_lbProcessedImage addGestureRecognizer:tapGestureRecognizer];
     [_lbProcessedImage setUserInteractionEnabled:YES];
+}
 
+- (void)paintViaOpenGLES {
     // 使用OpenGL ES绘制图片, 添加画笔
-    TouchDrawViewViaOpenGLES *touchDrawViewViaOpenGLES = [[TouchDrawViewViaOpenGLES alloc] initWithFrame:CGRectMake(10, 340, self.view.frame.size.width - 20, 200)];
+    TouchDrawViewViaOpenGLES *touchDrawViewViaOpenGLES = [[TouchDrawViewViaOpenGLES alloc] initWithFrame:self.view.frame];
     touchDrawViewViaOpenGLES.backgroundColor = [UIColor clearColor];
     touchDrawViewViaOpenGLES.delegate = self;
     [self.view addSubview:touchDrawViewViaOpenGLES];
