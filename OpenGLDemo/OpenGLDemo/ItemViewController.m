@@ -599,7 +599,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     glEnableVertexAttribArray(_positionSlot);
     
     // Draw triangle
-    glDrawArrays(GL_TRIANGLES, 0, 4);
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
     [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
 }
 
