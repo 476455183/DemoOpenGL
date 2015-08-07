@@ -333,6 +333,8 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     glDisableVertexAttribArray(GLKVertexAttribPosition);
     glDisableVertexAttribArray(GLKVertexAttribColor);
     glDisableVertexAttribArray(GLKVertexAttribTexCoord0);
+
+    [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
 }
 
 - (void)drawViaSimplePaint {
