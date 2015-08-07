@@ -341,6 +341,8 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
 }
 
+#pragma mark - paint
+
 - (void)paintViaCoreGraphics {
     _lbOriginalImage = [[UILabel alloc] initWithFrame:CGRectMake(10, 70, self.view.frame.size.width - 20, 30)];
     _lbOriginalImage.text = @"Paint via CoreGraphics and QuartzCore...";
@@ -353,7 +355,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     [self.view addSubview:drawView];
 
     _lbProcessedImage = [[UILabel alloc] initWithFrame:CGRectMake(10, 310, self.view.frame.size.width - 20, 30)];
-    _lbProcessedImage.text = @"Paint via OpenGL ES...";
+    _lbProcessedImage.text = @"Click to draw via OpenGL ES...";
     _lbProcessedImage.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:_lbProcessedImage];
 
@@ -576,12 +578,6 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
 }
 
 #pragma mark - TouchDrawViewViaOpenGLESDelegate
-
-- (void)touchDrawViewViaOpenGLES:(NSArray *)linesCompleted inFrame:(CGRect)rect {
-    NSLog(@"%d", linesCompleted.count);
-    glClearColor(1.0, 0, 0, 1.0);
-    glClear(GL_COLOR_BUFFER_BIT);
-}
 
 - (void)drawCGPointViaOpenGLES:(CGPoint)point inFrame:(CGRect)rect {
     NSLog(@"drawCGPointViaOpenGLES : %.1f-%.1f", point.x, point.y);

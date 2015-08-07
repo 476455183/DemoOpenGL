@@ -22,7 +22,6 @@
 }
 
 - (void)draw:(CGPoint)point {
-//    [self.delegate touchDrawViewViaOpenGLES:_linesCompleted inFrame:self.frame];
     [self.delegate drawCGPointViaOpenGLES:point inFrame:self.frame];
 }
 
