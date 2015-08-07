@@ -21,12 +21,9 @@
     return self;
 }
 
-+ (Class)layerClass {
-    return [CAEAGLLayer class];
-}
-
-- (void)drawRect:(CGRect)rect {
-    [self.delegate touchDrawViewViaOpenGLES:_linesCompleted inFrame:self.frame];
+- (void)draw:(CGPoint)point {
+//    [self.delegate touchDrawViewViaOpenGLES:_linesCompleted inFrame:self.frame];
+    [self.delegate drawCGPointViaOpenGLES:point inFrame:self.frame];
 }
 
 - (BOOL)canBecomeFirstResponder {
@@ -44,6 +41,7 @@
         l.begin = p;
         l.end = p;
         _currentLine = l;
+        [self draw:p];
     }
 }
 
@@ -60,18 +58,20 @@
         l.begin = p;
         l.end = p;
         _currentLine = l;
-        [self setNeedsDisplay];
+        [self draw:p];
     }
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     NSLog(@"touchesEnded");
-    [self setNeedsDisplay];
+    for (UITouch *t in touches) {
+        CGPoint p = [t locationInView:self];
+        [self draw:p];
+    }
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
     NSLog(@"touchesCancelled");
-    [self setNeedsDisplay];
 }
 
 #pragma mark - motion
@@ -84,7 +84,6 @@
     NSLog(@"motionEnded");
     if (motion == UIEventSubtypeMotionShake) {
         [_linesCompleted removeAllObjects];
-        [self setNeedsDisplay];
     }
 }
 

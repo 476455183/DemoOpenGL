@@ -12,6 +12,7 @@
 @protocol TouchDrawViewViaOpenGLESDelegate <NSObject>
 
 - (void)touchDrawViewViaOpenGLES:(NSArray *)linesCompleted inFrame:(CGRect)rect;
+- (void)drawCGPointViaOpenGLES:(CGPoint)point inFrame:(CGRect)rect;
 
 @end
 

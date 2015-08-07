@@ -243,9 +243,9 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     [self compileShaders:shaderVertex shaderFragment:shaderFragment];
     
     GLfloat vertices[] = {
-        0.0f,  0.5f, 0.0f,
-        -0.5f, -0.5f, 0.0f,
-        0.5f,  -0.5f, 0.0f };
+        0.0f,  -0.5f, 0.0f,
+        -0.8f, -0.8f, 0.0f,
+        0.8f,  -0.8f, 0.0f };
 
     //设置UIView用于渲染的部分, 这里是整个屏幕
     glViewport(0, 0, self.view.frame.size.width, self.view.frame.size.height);
@@ -255,6 +255,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     
     // Draw triangle
     glDrawArrays(GL_TRIANGLES, 0, 3);
+    [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
 }
 
 - (void)drawImageViaOpenGLES {
@@ -350,9 +351,16 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     _lbProcessedImage.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:_lbProcessedImage];
 
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(drawTriangleViaShader)];
+    tapGestureRecognizer.numberOfTapsRequired = 1;
+    tapGestureRecognizer.numberOfTouchesRequired = 1;
+    tapGestureRecognizer.delegate = self;
+    [_lbProcessedImage addGestureRecognizer:tapGestureRecognizer];
+    [_lbProcessedImage setUserInteractionEnabled:YES];
+
     // 使用OpenGL ES绘制图片, 添加画笔
     TouchDrawViewViaOpenGLES *touchDrawViewViaOpenGLES = [[TouchDrawViewViaOpenGLES alloc] initWithFrame:CGRectMake(10, 400, self.view.frame.size.width - 20, 260)];
-    touchDrawViewViaOpenGLES.backgroundColor = [UIColor whiteColor];
+    touchDrawViewViaOpenGLES.backgroundColor = [UIColor clearColor];
     touchDrawViewViaOpenGLES.delegate = self;
     [self.view addSubview:touchDrawViewViaOpenGLES];
 }
@@ -565,6 +573,32 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     NSLog(@"%d", linesCompleted.count);
     glClearColor(1.0, 0, 0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
+}
+
+- (void)drawCGPointViaOpenGLES:(CGPoint)point inFrame:(CGRect)rect {
+//    NSLog(@"drawCGPointViaOpenGLES : %.1f-%.1f", point.x, point.y);
+//    CGFloat x = -1 + 2 * (point.x - 10) / self.view.frame.size.width;
+//    CGFloat y = 1 - 2 * (point.y - 10) / self.view.frame.size.height;
+//    GLfloat vertices[] = {x, y, 0.0f};
+
+    // 先要编译vertex和fragment两个shader
+    NSString *shaderVertex = @"VertexTriangle";
+    NSString *shaderFragment = @"FragmentTriangle";
+    [self compileShaders:shaderVertex shaderFragment:shaderFragment];
+    
+    GLfloat vertices[] = {
+        0.0f,  -0.5f, 0.0f,
+        -0.8f, -0.8f, 0.0f,
+        0.8f,  -0.8f, 0.0f };
+    //设置UIView用于渲染的部分, 这里是整个屏幕
+    glViewport(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    // Load the vertex data
+    glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, vertices);
+    glEnableVertexAttribArray(_positionSlot);
+    
+    // Draw triangle
+    glDrawArrays(GL_TRIANGLES, 0, 3);
+    [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
 }
 
 @end
