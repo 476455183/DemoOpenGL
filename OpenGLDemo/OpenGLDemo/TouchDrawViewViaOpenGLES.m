@@ -21,8 +21,12 @@
     return self;
 }
 
-- (void)drawRect:(CGRect)rect {
++ (Class)layerClass {
+    return [CAEAGLLayer class];
+}
 
+- (void)drawRect:(CGRect)rect {
+    [self.delegate touchDrawViewViaOpenGLES:_linesCompleted inFrame:self.frame];
 }
 
 - (BOOL)canBecomeFirstResponder {

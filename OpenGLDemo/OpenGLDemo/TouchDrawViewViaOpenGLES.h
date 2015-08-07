@@ -9,9 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "Line.h"
 
+@protocol TouchDrawViewViaOpenGLESDelegate <NSObject>
+
+- (void)touchDrawViewViaOpenGLES:(NSArray *)linesCompleted inFrame:(CGRect)rect;
+
+@end
+
 @interface TouchDrawViewViaOpenGLES : UIView
 
 @property (nonatomic) NSMutableArray *linesCompleted;
 @property (nonatomic) Line *currentLine;
+@property (nonatomic, weak) id<TouchDrawViewViaOpenGLESDelegate> delegate;
 
 @end

@@ -30,7 +30,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     demoDisplayImageViaOpenGLES,
 };
 
-@interface ItemViewController () <UIImagePickerControllerDelegate>
+@interface ItemViewController () <UIImagePickerControllerDelegate, TouchDrawViewViaOpenGLESDelegate>
 
 @property (nonatomic) NSArray *demosOpenGL;
 
@@ -353,6 +353,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     // 使用OpenGL ES绘制图片, 添加画笔
     TouchDrawViewViaOpenGLES *touchDrawViewViaOpenGLES = [[TouchDrawViewViaOpenGLES alloc] initWithFrame:CGRectMake(10, 400, self.view.frame.size.width - 20, 260)];
     touchDrawViewViaOpenGLES.backgroundColor = [UIColor whiteColor];
+    touchDrawViewViaOpenGLES.delegate = self;
     [self.view addSubview:touchDrawViewViaOpenGLES];
 }
 
@@ -556,6 +557,14 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     [_glkView bindDrawable];
     [self.view addSubview:_glkView];
     [_glkView display];
+}
+
+#pragma mark - TouchDrawViewViaOpenGLESDelegate
+
+- (void)touchDrawViewViaOpenGLES:(NSArray *)linesCompleted inFrame:(CGRect)rect {
+    NSLog(@"%d", linesCompleted.count);
+    glClearColor(1.0, 0, 0, 1.0);
+    glClear(GL_COLOR_BUFFER_BIT);
 }
 
 @end
