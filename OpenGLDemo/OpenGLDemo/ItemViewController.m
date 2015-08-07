@@ -576,28 +576,26 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
 }
 
 - (void)drawCGPointViaOpenGLES:(CGPoint)point inFrame:(CGRect)rect {
-//    NSLog(@"drawCGPointViaOpenGLES : %.1f-%.1f", point.x, point.y);
-//    CGFloat x = -1 + 2 * (point.x - 10) / self.view.frame.size.width;
-//    CGFloat y = 1 - 2 * (point.y - 10) / self.view.frame.size.height;
-//    GLfloat vertices[] = {x, y, 0.0f};
+    NSLog(@"drawCGPointViaOpenGLES : %.1f-%.1f", point.x, point.y);
 
     // 先要编译vertex和fragment两个shader
     NSString *shaderVertex = @"VertexTriangle";
     NSString *shaderFragment = @"FragmentTriangle";
     [self compileShaders:shaderVertex shaderFragment:shaderFragment];
-    
+    CGFloat lineWidth = 5.0;
     GLfloat vertices[] = {
-        0.0f,  -0.5f, 0.0f,
-        -0.8f, -0.8f, 0.0f,
-        0.8f,  -0.8f, 0.0f };
-    //设置UIView用于渲染的部分, 这里是整个屏幕
-    glViewport(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+        -1 + 2 * (point.x - lineWidth) / rect.size.width, 1 - 2 * (point.y + lineWidth) / rect.size.height, 0.0f, // 左下
+        -1 + 2 * (point.x + lineWidth) / rect.size.width, 1 - 2 * (point.y + lineWidth) / rect.size.height, 0.0f, // 右下
+        -1 + 2 * (point.x - lineWidth) / rect.size.width, 1 - 2 * (point.y - lineWidth) / rect.size.height, 0.0f, // 左上
+        -1 + 2 * (point.x + lineWidth) / rect.size.width, 1 - 2 * (point.y - lineWidth) / rect.size.height, 0.0f }; //右上
+    //设置UIView用于渲染的部分, 这里是整个rect
+    glViewport(0, 0, rect.size.width, rect.size.height);
     // Load the vertex data
     glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, vertices);
     glEnableVertexAttribArray(_positionSlot);
     
     // Draw triangle
-    glDrawArrays(GL_TRIANGLES, 0, 3);
+    glDrawArrays(GL_TRIANGLES, 0, 4);
     [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
 }
 
