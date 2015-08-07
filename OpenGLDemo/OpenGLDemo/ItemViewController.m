@@ -583,8 +583,8 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     NSLog(@"drawCGPointViaOpenGLES : %.1f-%.1f", point.x, point.y);
 
     // 先要编译vertex和fragment两个shader
-    NSString *shaderVertex = @"VertexTriangle";
-    NSString *shaderFragment = @"FragmentTriangle";
+    NSString *shaderVertex = @"VertexPaint";
+    NSString *shaderFragment = @"FragmentPaint";
     [self compileShaders:shaderVertex shaderFragment:shaderFragment];
     CGFloat lineWidth = 5.0;
     GLfloat vertices[] = {
