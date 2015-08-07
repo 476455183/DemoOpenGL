@@ -273,7 +273,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
 
 - (void)didDrawImageViaOpenGLES:(UIImage *)image {
     // 创建OpenGL视图
-    _glkView = [[GLKView alloc] initWithFrame:CGRectMake(10, 400, self.view.frame.size.width - 20, 260) context:_eaglContext];
+    _glkView = [[GLKView alloc] initWithFrame:CGRectMake(10, 340, self.view.frame.size.width - 20, 200) context:_eaglContext];
     [_glkView bindDrawable];
     [self.view addSubview:_glkView];
     [_glkView display];
@@ -342,11 +342,11 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     [self.view addSubview:_lbOriginalImage];
     
     // 使用Core Graphics绘制图片, 添加画笔
-    TouchDrawViewViaCoreGraphics *drawView = [[TouchDrawViewViaCoreGraphics alloc] initWithFrame:CGRectMake(10, 100, self.view.frame.size.width - 20, 260)];
+    TouchDrawViewViaCoreGraphics *drawView = [[TouchDrawViewViaCoreGraphics alloc] initWithFrame:CGRectMake(10, 100, self.view.frame.size.width - 20, 200)];
     drawView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:drawView];
 
-    _lbProcessedImage = [[UILabel alloc] initWithFrame:CGRectMake(10, 370, self.view.frame.size.width - 20, 30)];
+    _lbProcessedImage = [[UILabel alloc] initWithFrame:CGRectMake(10, 310, self.view.frame.size.width - 20, 30)];
     _lbProcessedImage.text = @"Paint via OpenGL ES...";
     _lbProcessedImage.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:_lbProcessedImage];
@@ -359,7 +359,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     [_lbProcessedImage setUserInteractionEnabled:YES];
 
     // 使用OpenGL ES绘制图片, 添加画笔
-    TouchDrawViewViaOpenGLES *touchDrawViewViaOpenGLES = [[TouchDrawViewViaOpenGLES alloc] initWithFrame:CGRectMake(10, 400, self.view.frame.size.width - 20, 260)];
+    TouchDrawViewViaOpenGLES *touchDrawViewViaOpenGLES = [[TouchDrawViewViaOpenGLES alloc] initWithFrame:CGRectMake(10, 340, self.view.frame.size.width - 20, 200)];
     touchDrawViewViaOpenGLES.backgroundColor = [UIColor clearColor];
     touchDrawViewViaOpenGLES.delegate = self;
     [self.view addSubview:touchDrawViewViaOpenGLES];
@@ -414,11 +414,11 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     [self.view addSubview:_lbOriginalImage];
 
     _originImage = [UIImage imageNamed:@"testImage"];
-    _originImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 100, self.view.frame.size.width - 20, 260)];
+    _originImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 100, self.view.frame.size.width - 20, 200)];
     _originImageView.image = _originImage;
     [self.view addSubview:_originImageView];
     
-    _lbProcessedImage = [[UILabel alloc] initWithFrame:CGRectMake(10, 370, self.view.frame.size.width - 20, 30)];
+    _lbProcessedImage = [[UILabel alloc] initWithFrame:CGRectMake(10, 310, self.view.frame.size.width - 20, 30)];
     _lbProcessedImage.text = @"Processed image...";
     _lbProcessedImage.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:_lbProcessedImage];
@@ -473,7 +473,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     CGImageRelease(cgImage);
     
     // 4. 显示图片
-    UIImageView *filteredImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 400, self.view.frame.size.width - 20, 260)];
+    UIImageView *filteredImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 340, self.view.frame.size.width - 20, 200)];
     filteredImageView.image = filteredImage;
     [self.view addSubview:filteredImageView];
 }
@@ -482,7 +482,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     [self displayOriginImage];
 
     // 创建出渲染的buffer
-    _glkView = [[GLKView alloc] initWithFrame:CGRectMake(10, 400, self.view.frame.size.width - 20, 260) context:_eaglContext];
+    _glkView = [[GLKView alloc] initWithFrame:CGRectMake(10, 340, self.view.frame.size.width - 20, 200) context:_eaglContext];
     [_glkView bindDrawable];
     [self.view addSubview:_glkView];
     
@@ -501,7 +501,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     
     _lbProcessedImage.text = @"Slide to change the filter effect...";
     // 使用Slider进行动态渲染
-    UISlider *slider = [[UISlider alloc] initWithFrame:CGRectMake(10, self.view.frame.size.height - 64, self.view.frame.size.width - 20, 64)];
+    UISlider *slider = [[UISlider alloc] initWithFrame:CGRectMake(10, self.view.frame.size.height - 50, self.view.frame.size.width - 20, 64)];
     slider.minimumValue = 0.0f;
     slider.maximumValue = 5.0f;
     [slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
@@ -561,7 +561,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     [_originImageView setUserInteractionEnabled:YES];
 
     // 创建出渲染的buffer
-    _glkView = [[GLKView alloc] initWithFrame:CGRectMake(10, 400, self.view.frame.size.width - 20, 260) context:_eaglContext];
+    _glkView = [[GLKView alloc] initWithFrame:CGRectMake(10, 340, self.view.frame.size.width - 20, 200) context:_eaglContext];
     [_glkView bindDrawable];
     [self.view addSubview:_glkView];
     [_glkView display];
