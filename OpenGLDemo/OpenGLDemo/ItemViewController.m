@@ -199,6 +199,9 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     NSString *shaderFragment = @"SimpleFragment";
     [self compileShaders:shaderVertex shaderFragment:shaderFragment];
 
+    //设置UIView用于渲染的部分, 这里是整个屏幕
+    glViewport(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+
     // 定义一个Vertex结构
     typedef struct {
         float Position[3];
@@ -206,17 +209,18 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     } Vertex;
     
     // 跟踪每个顶点信息
+    // 如何将vertices数组与shader/opengl关联起来的? 使用glGenBuffers, glBindBuffer, glBufferData进行关联
     const Vertex Vertices[] = {
-        {{1,-1,0}, {1,0,0,1}},
-        {{1,1,0}, {0,1,0,1}},
-        {{-1,1,0}, {0,0,1,1}},
-        {{-1,-1,0}, {0,0,0,1}},
+        {{-1,-1,0}, {0,0,0,1}},// 左下
+        {{1,-1,0}, {1,0,0,1}}, // 右下
+        {{-1,1,0}, {0,0,1,1}}, // 左上
+        {{1,1,0}, {0,1,0,1}},  // 右上
     };
     
-    // 跟踪组成每个三角形的索引信息
+    // 跟踪组成每个三角形的索引信息, 与Vertices对应起来绘制出矩形
     const GLubyte Indices[] = {
-        0,1,2,
-        2,3,0
+        0,1,2, // 三角形0
+        1,2,3  // 三角形1
     };
     
     //
@@ -231,13 +235,15 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Indices), Indices, GL_STATIC_DRAW);
 
-    //设置UIView用于渲染的部分, 这里是整个屏幕
-    glViewport(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     //为vertex shader的两个输入参数设置合适的值
     glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
+    //Vertex结构体, 偏移3个float的位置之后, 即是color的值.
     glVertexAttribPointer(_colorSlot, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid *)(sizeof(float)*3));
+
     //在每个vertex上调用vertex shader, 每个像素调用fragment shader, 最终画出图形
+    //相比glDrawArrays, 使用顶点索引数组结合glDrawElements来渲染, 可以减少存储重复顶点的内存消耗
     glDrawElements(GL_TRIANGLES, sizeof(Indices)/sizeof(Indices[0]), GL_UNSIGNED_BYTE, 0);
+//    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4); // 使用glDrawArrays也可绘制
 }
 
 - (void)drawTriangleViaShader {
@@ -245,20 +251,39 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     NSString *shaderVertex = @"VertexTriangle";
     NSString *shaderFragment = @"FragmentTriangle";
     [self compileShaders:shaderVertex shaderFragment:shaderFragment];
-    
+
+    //设置UIView用于渲染的部分, 这里是整个屏幕
+    glViewport(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+
+    // 创建OpenGL视图, 使用GLKView来取代glViewPort的作用.
+//    _glkView = [[GLKView alloc] initWithFrame:CGRectMake(10, 70, self.view.frame.size.width - 20, self.view.frame.size.height - 70) context:_eaglContext];
+//    [_glkView bindDrawable];
+//    [self.view addSubview:_glkView];
+//    [_glkView display];
+
     GLfloat vertices[] = {
         0.0f,  -0.5f, 0.0f,
         -0.8f, -0.8f, 0.0f,
         0.8f,  -0.8f, 0.0f };
 
-    //设置UIView用于渲染的部分, 这里是整个屏幕
-    glViewport(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    //如何将vertices数组与shader/opengl关联起来的? 如下两种方法:
+    //1. glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, vertices);
+    //2. 使用glGenBuffers, glBindBuffer, glBufferData来进行设置,
+    //此时 glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, 0);
+    //即: 两种方法不能同时使用! 因为glVertexAttribPointer的最后一个参数, 指定第一个组件在数组的第一个顶点属性中的偏移量, 与GL_ARRAY_BUFFER绑定存储于缓冲区中
+//    GLuint vertexBuffer;
+//    glGenBuffers(1, &vertexBuffer);
+//    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+//    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
     // Load the vertex data
+    // 为vertex shader的唯一输入参数Position设置合适的值
     glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, vertices);
     glEnableVertexAttribArray(_positionSlot);
     
     // Draw triangle
     glDrawArrays(GL_TRIANGLES, 0, 3);
+
     [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
 }
 
@@ -423,6 +448,8 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     glUseProgram(programHandle);
 
     // 5 获取指向vertex shader传入变量的指针, 然后就通过该指针来使用
+    // 即将_positionSlot 与 shader中的Position参数绑定起来
+    // 即将_colorSlot 与 shader中的SourceColor参数绑定起来
     _positionSlot = glGetAttribLocation(programHandle, "Position");
     _colorSlot = glGetAttribLocation(programHandle, "SourceColor");
     _modelViewSlot = glGetUniformLocation(programHandle, "ModelView");
@@ -552,7 +579,10 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     NSString *shaderVertex = @"Vertex3DTransform";
     NSString *shaderFragment = @"Fragment3DTransform";
     [self compileShaders:shaderVertex shaderFragment:shaderFragment];
-    
+
+    //设置UIView用于渲染的部分, 这里是整个屏幕
+    glViewport(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+
     GLfloat vertices[] = {
         0.5f, 0.5f, 0.0f,
         0.5f, -0.5f, 0.0f,
@@ -564,9 +594,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
         0, 1, 1, 2, 2, 3, 3, 0,
         4, 0, 4, 1, 4, 2, 4, 3
     };
-    
-    //设置UIView用于渲染的部分, 这里是整个屏幕
-    glViewport(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+
     glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, vertices);
     glVertexAttribPointer(_modelViewSlot, 3, GL_FLOAT, GL_FALSE, 0, vertices);
     glVertexAttribPointer(_projectionSlot, 3, GL_FLOAT, GL_FALSE, 0, vertices);
@@ -604,14 +632,17 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     NSString *shaderVertex = @"VertexPaint";
     NSString *shaderFragment = @"FragmentPaint";
     [self compileShaders:shaderVertex shaderFragment:shaderFragment];
+
+    //设置UIView用于渲染的部分, 这里是整个rect
+    glViewport(0, 0, rect.size.width, rect.size.height);
+
     CGFloat lineWidth = 5.0;
     GLfloat vertices[] = {
         -1 + 2 * (point.x - lineWidth) / rect.size.width, 1 - 2 * (point.y + lineWidth) / rect.size.height, 0.0f, // 左下
         -1 + 2 * (point.x + lineWidth) / rect.size.width, 1 - 2 * (point.y + lineWidth) / rect.size.height, 0.0f, // 右下
         -1 + 2 * (point.x - lineWidth) / rect.size.width, 1 - 2 * (point.y - lineWidth) / rect.size.height, 0.0f, // 左上
         -1 + 2 * (point.x + lineWidth) / rect.size.width, 1 - 2 * (point.y - lineWidth) / rect.size.height, 0.0f }; //右上
-    //设置UIView用于渲染的部分, 这里是整个rect
-    glViewport(0, 0, rect.size.width, rect.size.height);
+
     // Load the vertex data
     glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, vertices);
     glEnableVertexAttribArray(_positionSlot);
