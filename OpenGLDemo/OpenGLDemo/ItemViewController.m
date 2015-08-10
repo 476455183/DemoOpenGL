@@ -373,6 +373,24 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     touchDrawViewViaOpenGLES.backgroundColor = [UIColor clearColor];
     touchDrawViewViaOpenGLES.delegate = self;
     [self.view addSubview:touchDrawViewViaOpenGLES];
+
+    UISegmentedControl *paintColorSegCtl = [[UISegmentedControl alloc] initWithItems:
+                                            [NSArray arrayWithObjects:
+                                             [[UIImage imageNamed:@"Red"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal],
+                                             [[UIImage imageNamed:@"Green"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal],
+                                             [[UIImage imageNamed:@"Blue"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal],
+                                             [[UIImage imageNamed:@"Yellow"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal],
+                                             [[UIImage imageNamed:@"Purple"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal],
+                                             nil]];
+    paintColorSegCtl.frame = CGRectMake(10, 70, self.view.frame.size.width - 20, 30);
+    [paintColorSegCtl addTarget:self action:@selector(changePaintColor:) forControlEvents:UIControlEventValueChanged];
+    paintColorSegCtl.tintColor = [UIColor darkGrayColor];
+    paintColorSegCtl.selectedSegmentIndex = 1;
+    [self.view addSubview:paintColorSegCtl];
+}
+
+- (void)changePaintColor:(id)sender {
+    NSLog(@"changePaintColor");
 }
 
 #pragma mark - shader related

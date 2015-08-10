@@ -33,6 +33,11 @@
 		6A74B66E1B6A04310042DDEC /* SimpleVertex.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 6A74B66D1B6A04310042DDEC /* SimpleVertex.glsl */; };
 		6A74B6701B6A04680042DDEC /* SimpleFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 6A74B66F1B6A04680042DDEC /* SimpleFragment.glsl */; };
 		6A74B6731B6A16630042DDEC /* ShaderOperations.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A74B6721B6A16630042DDEC /* ShaderOperations.m */; };
+		6ADFC80C1B784B440043EFF6 /* Blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 6ADFC80A1B784B440043EFF6 /* Blue.png */; };
+		6ADFC80D1B784B440043EFF6 /* Green.png in Resources */ = {isa = PBXBuildFile; fileRef = 6ADFC80B1B784B440043EFF6 /* Green.png */; };
+		6ADFC8111B784B4C0043EFF6 /* Purple.png in Resources */ = {isa = PBXBuildFile; fileRef = 6ADFC80E1B784B4C0043EFF6 /* Purple.png */; };
+		6ADFC8121B784B4C0043EFF6 /* Red.png in Resources */ = {isa = PBXBuildFile; fileRef = 6ADFC80F1B784B4C0043EFF6 /* Red.png */; };
+		6ADFC8131B784B4C0043EFF6 /* Yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 6ADFC8101B784B4C0043EFF6 /* Yellow.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +88,11 @@
 		6A74B66F1B6A04680042DDEC /* SimpleFragment.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SimpleFragment.glsl; path = ../SimpleFragment.glsl; sourceTree = "<group>"; };
 		6A74B6711B6A16630042DDEC /* ShaderOperations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderOperations.h; sourceTree = "<group>"; };
 		6A74B6721B6A16630042DDEC /* ShaderOperations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShaderOperations.m; sourceTree = "<group>"; };
+		6ADFC80A1B784B440043EFF6 /* Blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Blue.png; sourceTree = "<group>"; };
+		6ADFC80B1B784B440043EFF6 /* Green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Green.png; sourceTree = "<group>"; };
+		6ADFC80E1B784B4C0043EFF6 /* Purple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Purple.png; sourceTree = "<group>"; };
+		6ADFC80F1B784B4C0043EFF6 /* Red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Red.png; sourceTree = "<group>"; };
+		6ADFC8101B784B4C0043EFF6 /* Yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Yellow.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +176,11 @@
 		6A618AAE1B73710A0044FB1F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6ADFC80A1B784B440043EFF6 /* Blue.png */,
+				6ADFC80B1B784B440043EFF6 /* Green.png */,
+				6ADFC80E1B784B4C0043EFF6 /* Purple.png */,
+				6ADFC80F1B784B4C0043EFF6 /* Red.png */,
+				6ADFC8101B784B4C0043EFF6 /* Yellow.png */,
 				6A618AAF1B74AD480044FB1F /* testImage.png */,
 			);
 			name = Resources;
@@ -327,10 +342,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6ADFC8131B784B4C0043EFF6 /* Yellow.png in Resources */,
+				6ADFC80C1B784B440043EFF6 /* Blue.png in Resources */,
 				6A74B6451B68EE740042DDEC /* Main.storyboard in Resources */,
 				6A0AC3DD1B6F46B9000BBB15 /* Vertex3DTransform.glsl in Resources */,
+				6ADFC80D1B784B440043EFF6 /* Green.png in Resources */,
 				6A6A85401B74BBB600D45AD6 /* FragmentPaint.glsl in Resources */,
+				6ADFC8121B784B4C0043EFF6 /* Red.png in Resources */,
 				6A0AC3D41B6A32C6000BBB15 /* VertexTriangle.glsl in Resources */,
+				6ADFC8111B784B4C0043EFF6 /* Purple.png in Resources */,
 				6A74B66E1B6A04310042DDEC /* SimpleVertex.glsl in Resources */,
 				6A74B64A1B68EE740042DDEC /* LaunchScreen.xib in Resources */,
 				6A6A853E1B74BBA000D45AD6 /* VertexPaint.glsl in Resources */,
