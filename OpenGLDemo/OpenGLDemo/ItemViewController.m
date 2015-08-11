@@ -223,14 +223,18 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
         1,2,3  // 三角形1
     };
     
-    //
+    //GL_ARRAY_BUFFER用于顶点数组
     GLuint vertexBuffer;
+    // 创建一个VBO
     glGenBuffers(1, &vertexBuffer);
+    // 绑定一个缓冲区对象, 也可视为切换到该缓冲区
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-    //把数据传到OpenGL
+    // 把数据传到OpenGL
     glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), Vertices, GL_STATIC_DRAW);
     
+    // GL_ELEMENT_ARRAY_BUFFER用于顶点数组对应的indices
     GLuint indexBuffer;
+    // 步骤同vertices, 只是参数不同.
     glGenBuffers(1, &indexBuffer);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Indices), Indices, GL_STATIC_DRAW);
