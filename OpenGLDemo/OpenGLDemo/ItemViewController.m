@@ -31,6 +31,14 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     demoDisplayImageViaOpenGLES,
 };
 
+typedef NS_ENUM(NSInteger, enumPaintColor) {
+    redColor = 0,
+    greenColor,
+    blueColor,
+    yellowColor,
+    purpleColor,
+};
+
 @interface ItemViewController () <UIImagePickerControllerDelegate, TouchDrawViewViaOpenGLESDelegate>
 
 @property (nonatomic) NSArray *demosOpenGL;
@@ -59,6 +67,9 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
 @property (nonatomic) CIFilter *ciFilter;
 @property (nonatomic) CIContext *ciContext;
 @property (nonatomic) CIImage *ciImage;
+
+// Paint Color
+@property (nonatomic) NSInteger paintColor;
 
 @end
 
@@ -414,12 +425,12 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     paintColorSegCtl.frame = CGRectMake(10, 70, self.view.frame.size.width - 20, 30);
     [paintColorSegCtl addTarget:self action:@selector(changePaintColor:) forControlEvents:UIControlEventValueChanged];
     paintColorSegCtl.tintColor = [UIColor darkGrayColor];
-    paintColorSegCtl.selectedSegmentIndex = 1;
+    paintColorSegCtl.selectedSegmentIndex = 0;
     [self.view addSubview:paintColorSegCtl];
 }
 
-- (void)changePaintColor:(id)sender {
-    NSLog(@"changePaintColor");
+- (void)changePaintColor:(UISegmentedControl *)paintColorSegCtl {
+    _paintColor = paintColorSegCtl.selectedSegmentIndex;
 }
 
 #pragma mark - shader related
@@ -455,7 +466,9 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     // 即将_positionSlot 与 shader中的Position参数绑定起来
     // 即将_colorSlot 与 shader中的SourceColor参数绑定起来
     _positionSlot = glGetAttribLocation(programHandle, "Position");
-    _colorSlot = glGetAttribLocation(programHandle, "SourceColor");
+    // SourceColor采用的是uniform类型
+    // 所以不能使用_colorSlot = glGetAttribLocation(programHandle, "SourceColor");
+    _colorSlot = glGetUniformLocation(programHandle, "SourceColor");
     _modelViewSlot = glGetUniformLocation(programHandle, "ModelView");
     _projectionSlot = glGetUniformLocation(programHandle, "Projection");
     glEnableVertexAttribArray(_positionSlot); // 启用这些数据
@@ -651,6 +664,28 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, vertices);
     glEnableVertexAttribArray(_positionSlot);
     
+    // _colorSlot对应SourceColor参数, uniform类型, 使用glUniform4f来传递参数至shader.
+    switch (_paintColor) {
+        case redColor:
+            glUniform4f(_colorSlot, 1.0f, 0.0f, 0.0f, 1.0f);
+            break;
+        case greenColor:
+            glUniform4f(_colorSlot, 0.0f, 1.0f, 0.0f, 1.0f);
+            break;
+        case blueColor:
+            glUniform4f(_colorSlot, 0.0f, 0.0f, 1.0f, 1.0f);
+            break;
+        case yellowColor:
+            glUniform4f(_colorSlot, 1.0f, 1.0f, 0.0f, 1.0f);
+            break;
+        case purpleColor:
+            glUniform4f(_colorSlot, 1.0f, 0.0f, 1.0f, 1.0f);
+            break;
+        default:
+            glUniform4f(_colorSlot, 0.0f, 0.0f, 0.0f, 1.0f);
+            break;
+    }
+
     // Draw triangle
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
     [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
