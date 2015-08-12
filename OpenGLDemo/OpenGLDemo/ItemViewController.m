@@ -737,12 +737,15 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
             1, 2, 3  // 三角形1
         };
 
+        //之前将_positionSlot与shader中的Position绑定起来, 这里将顶点数据vertices与_positionSlot绑定起来
         glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, vertices);
         glEnableVertexAttribArray(_positionSlot);
 
         // glDrawArrays(GL_TRIANGLE_STRIP, 0, 4); // 从0开始绘制4个点, 即两个三角形(012, 123)
 
-        //通过index来绘制vertex, 第二个参数表示绘制的vertex的个数, 第四个参数表示存放索引的数组
+        //通过index来绘制vertex,
+        //参数1表示图元类型, 参数2表示索引数据的个数(不一定是要绘制的vertex的个数), 参数3表示索引数据格式(必须是GL_UNSIGNED_BYTE等).
+        //参数4表示存放索引的数组(使用VBO:索引数据在VBO中的偏移量;不使用VBO:指向CPU内存中的索引数据数组).
         //相比glDrawArrays, 其优势在于:
         //通过index指定了要绘制的6个的vertex(用index对应),而1,2(index)重复了,所以实际只绘制0,1,2,3(index)对应的四个vertex
         glDrawElements(GL_TRIANGLE_STRIP, sizeof(indices)/sizeof(indices[0]), GL_UNSIGNED_BYTE, indices);
