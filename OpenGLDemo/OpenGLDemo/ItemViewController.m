@@ -691,4 +691,51 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
 }
 
+- (void)drawCGPointsViaOpenGLES:(NSArray *)points inFrame:(CGRect)rect {
+    // 先要编译vertex和fragment两个shader
+    NSString *shaderVertex = @"VertexPaint";
+    NSString *shaderFragment = @"FragmentPaint";
+    [self compileShaders:shaderVertex shaderFragment:shaderFragment];
+    
+    //设置viewport,即OpenGL ES要渲染的部分
+    glViewport(0, 0, rect.size.width, rect.size.height);
+    
+    // _colorSlot对应SourceColor参数, uniform类型, 使用glUniform4f来传递参数至shader.
+    switch (_paintColor) {
+        case redColor:
+            glUniform4f(_colorSlot, 1.0f, 0.0f, 0.0f, 1.0f);
+            break;
+        case greenColor:
+            glUniform4f(_colorSlot, 0.0f, 1.0f, 0.0f, 1.0f);
+            break;
+        case blueColor:
+            glUniform4f(_colorSlot, 0.0f, 0.0f, 1.0f, 1.0f);
+            break;
+        case yellowColor:
+            glUniform4f(_colorSlot, 1.0f, 1.0f, 0.0f, 1.0f);
+            break;
+        case purpleColor:
+            glUniform4f(_colorSlot, 1.0f, 0.0f, 1.0f, 1.0f);
+            break;
+        default:
+            glUniform4f(_colorSlot, 0.0f, 0.0f, 0.0f, 1.0f);
+            break;
+    }
+    
+    for (id rawPoint in points) {
+        CGPoint point = [rawPoint CGPointValue];
+        NSLog(@"drawCGPointsViaOpenGLES : %.1f-%.1f", point.x, point.y);
+        CGFloat lineWidth = 5.0;
+        GLfloat vertices[] = {
+            -1 + 2 * (point.x - lineWidth) / rect.size.width, 1 - 2 * (point.y + lineWidth) / rect.size.height, 0.0f, // 左下
+            -1 + 2 * (point.x + lineWidth) / rect.size.width, 1 - 2 * (point.y + lineWidth) / rect.size.height, 0.0f, // 右下
+            -1 + 2 * (point.x - lineWidth) / rect.size.width, 1 - 2 * (point.y - lineWidth) / rect.size.height, 0.0f, // 左上
+            -1 + 2 * (point.x + lineWidth) / rect.size.width, 1 - 2 * (point.y - lineWidth) / rect.size.height, 0.0f }; //右上
+        glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, vertices);
+        glEnableVertexAttribArray(_positionSlot);
+        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    }
+    [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
+}
+
 @end

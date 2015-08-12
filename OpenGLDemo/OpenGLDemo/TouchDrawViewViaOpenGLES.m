@@ -44,16 +44,19 @@ typedef NS_ENUM(NSInteger, touchType) {
             return;
         }
     }
-    if (touchType == touchesMoved) {
-        [_points insertObject:[NSValue valueWithCGPoint:start] atIndex:0];
-        [self addCGPointsFrom:start to:end];
-        [_points addObject:[NSValue valueWithCGPoint:end]];
-        NSLog(@"_points : %@", _points);
-        if ([self.delegate respondsToSelector:@selector(drawCGPointViaOpenGLES:inFrame:)]) {
-            for (id rawPoint in _points) {
-                [self.delegate drawCGPointViaOpenGLES:[rawPoint CGPointValue] inFrame:self.frame];
-            }
-        }
+
+    [_points insertObject:[NSValue valueWithCGPoint:start] atIndex:0];
+    [self addCGPointsFrom:start to:end];
+    [_points addObject:[NSValue valueWithCGPoint:end]];
+    NSLog(@"_points : %@", _points);
+//        if ([self.delegate respondsToSelector:@selector(drawCGPointViaOpenGLES:inFrame:)]) {
+//            for (id rawPoint in _points) {
+//                [self.delegate drawCGPointViaOpenGLES:[rawPoint CGPointValue] inFrame:self.frame];
+//            }
+//        }
+
+    if ([self.delegate respondsToSelector:@selector(drawCGPointsViaOpenGLES:inFrame:)]) {
+        [self.delegate drawCGPointsViaOpenGLES:_points inFrame:self.frame];
     }
 }
 
