@@ -731,9 +731,21 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
             -1 + 2 * (point.x + lineWidth) / rect.size.width, 1 - 2 * (point.y + lineWidth) / rect.size.height, 0.0f, // 右下
             -1 + 2 * (point.x - lineWidth) / rect.size.width, 1 - 2 * (point.y - lineWidth) / rect.size.height, 0.0f, // 左上
             -1 + 2 * (point.x + lineWidth) / rect.size.width, 1 - 2 * (point.y - lineWidth) / rect.size.height, 0.0f }; //右上
+
+        const GLubyte indices[] = {
+            0, 1, 2, // 三角形0
+            1, 2, 3  // 三角形1
+        };
+
         glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, vertices);
         glEnableVertexAttribArray(_positionSlot);
-        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+
+        // glDrawArrays(GL_TRIANGLE_STRIP, 0, 4); // 从0开始绘制4个点, 即两个三角形(012, 123)
+
+        //通过index来绘制vertex, 第二个参数表示绘制的vertex的个数, 第四个参数表示存放索引的数组
+        //相比glDrawArrays, 其优势在于:
+        //通过index指定了要绘制的6个的vertex(用index对应),而1,2(index)重复了,所以实际只绘制0,1,2,3(index)对应的四个vertex
+        glDrawElements(GL_TRIANGLE_STRIP, sizeof(indices)/sizeof(indices[0]), GL_UNSIGNED_BYTE, indices);
     }
     [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
 }

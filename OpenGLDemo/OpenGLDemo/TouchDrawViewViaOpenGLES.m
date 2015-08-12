@@ -120,6 +120,7 @@ typedef NS_ENUM(NSInteger, touchType) {
         CGPoint p = [t locationInView:self];
         [self drawFrom:_previousPoint to:p touchType:touchesEnded];
         _previousPoint = CGPointZero;
+        [_points removeAllObjects];
     }
 }
 
