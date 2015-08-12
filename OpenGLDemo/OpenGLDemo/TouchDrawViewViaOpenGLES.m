@@ -8,6 +8,19 @@
 
 #import "TouchDrawViewViaOpenGLES.h"
 
+typedef NS_ENUM(NSInteger, touchType) {
+    touchesBegan = 0,
+    touchesMoved,
+    touchesEnded,
+};
+
+@interface TouchDrawViewViaOpenGLES ()
+
+@property (nonatomic) CGPoint previousPoint;
+@property (nonatomic) NSMutableArray *points;
+
+@end
+
 @implementation TouchDrawViewViaOpenGLES
 
 - (id)initWithFrame:(CGRect)frame {
@@ -16,13 +29,46 @@
         _linesCompleted = [[NSMutableArray alloc] init];
         [self setMultipleTouchEnabled:YES];
         [self becomeFirstResponder];
+
+        _points = [[NSMutableArray alloc] init];
+        _previousPoint = CGPointZero;
     }
 
     return self;
 }
 
-- (void)draw:(CGPoint)point {
-    [self.delegate drawCGPointViaOpenGLES:point inFrame:self.frame];
+- (void)drawFrom:(CGPoint)start to:(CGPoint)end touchType:(NSInteger)touchType {
+    if (CGPointEqualToPoint(start, end) || touchType == touchesBegan || touchType == touchesEnded) {
+        if ([self.delegate respondsToSelector:@selector(drawCGPointViaOpenGLES:inFrame:)]) {
+            [self.delegate drawCGPointViaOpenGLES:end inFrame:self.frame];
+            return;
+        }
+    }
+    if (touchType == touchesMoved) {
+        [_points insertObject:[NSValue valueWithCGPoint:start] atIndex:0];
+        [self addCGPointsFrom:start to:end];
+        [_points addObject:[NSValue valueWithCGPoint:end]];
+        NSLog(@"_points : %@", _points);
+        if ([self.delegate respondsToSelector:@selector(drawCGPointViaOpenGLES:inFrame:)]) {
+            for (id rawPoint in _points) {
+                [self.delegate drawCGPointViaOpenGLES:[rawPoint CGPointValue] inFrame:self.frame];
+            }
+        }
+    }
+}
+
+- (void)addCGPointsFrom:(CGPoint)start to:(CGPoint)end {
+    NSLog(@"start : %.1f-%.1f", start.x, start.y);
+    NSLog(@"end : %.1f-%.1f", end.x, end.y);
+    // line width 为 10
+    if ((end.x - start.x) > 10 || (end.y - start.y) > 10) {
+        CGPoint middle = {
+            start.x + (end.x - start.x) / 2,
+            start.y + (end.y - start.y) / 2};
+        [self addCGPointsFrom:start to:middle];
+        [_points addObject:[NSValue valueWithCGPoint:middle]];
+        [self addCGPointsFrom:middle to:end];
+    }
 }
 
 - (BOOL)canBecomeFirstResponder {
@@ -36,11 +82,14 @@
     for (UITouch *t in touches) {
         // 获取该touch的point
         CGPoint p = [t locationInView:self];
+        if (CGPointEqualToPoint(_previousPoint, CGPointZero)) {
+            _previousPoint = p;
+        }
         Line *l = [[Line alloc] init];
         l.begin = p;
         l.end = p;
         _currentLine = l;
-        [self draw:p];
+        [self drawFrom:_previousPoint to:p touchType:touchesBegan];
     }
 }
 
@@ -57,7 +106,8 @@
         l.begin = p;
         l.end = p;
         _currentLine = l;
-        [self draw:p];
+        [self drawFrom:_previousPoint to:p touchType:touchesMoved];
+        _previousPoint = p;
     }
 }
 
@@ -65,7 +115,8 @@
     NSLog(@"touchesEnded");
     for (UITouch *t in touches) {
         CGPoint p = [t locationInView:self];
-        [self draw:p];
+        [self drawFrom:_previousPoint to:p touchType:touchesEnded];
+        _previousPoint = CGPointZero;
     }
 }
 
