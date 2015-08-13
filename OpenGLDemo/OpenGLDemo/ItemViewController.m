@@ -101,6 +101,11 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     [self demoViaOpenGL];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [_glkView deleteDrawable];
+}
+
 #pragma mark - setupOpenGLContext
 
 - (void)setupOpenGLContext {
