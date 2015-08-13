@@ -787,12 +787,17 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
 #pragma mark - GLKView demos
 
 - (void)demoGLKViewSimple {
+    _lbOriginalImage = [[UILabel alloc] initWithFrame:CGRectMake(10, 70, self.view.frame.size.width - 20, 30)];
+    _lbOriginalImage.text = @"Draw triangle via GLKView & OpenGLES";
+    _lbOriginalImage.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:_lbOriginalImage];
+    
     // 先要编译vertex和fragment两个shader
     NSString *shaderVertex = @"VertexTriangle";
     NSString *shaderFragment = @"FragmentTriangle";
     [self compileShaders:shaderVertex shaderFragment:shaderFragment];
     
-    _glkView = [[GLKView alloc] initWithFrame:CGRectMake(10, 70, self.view.frame.size.width - 20, self.view.frame.size.height - 20) context:_eaglContext];
+    _glkView = [[GLKView alloc] initWithFrame:CGRectMake(10, 100, self.view.frame.size.width - 20, 200) context:_eaglContext];
     [_glkView bindDrawable];
     [self.view addSubview:_glkView];
     [_glkView display];
@@ -806,6 +811,14 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     glEnableVertexAttribArray(_positionSlot);
     glDrawArrays(GL_TRIANGLES, 0, 3);
     [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
+    
+    
+    _lbProcessedImage = [[UILabel alloc] initWithFrame:CGRectMake(10, 310, self.view.frame.size.width - 20, 30)];
+    _lbProcessedImage.text = @"Draw Image via GLKView & OpenGLES";
+    _lbProcessedImage.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:_lbProcessedImage];
+    
+    [self didDrawImageViaOpenGLES:[UIImage imageNamed:@"testImage"] inFrame:CGRectMake(10, 340, self.view.frame.size.width - 20, 200)];
 }
 
 @end
