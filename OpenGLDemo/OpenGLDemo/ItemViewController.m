@@ -257,8 +257,11 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
 
     //为vertex shader的两个输入参数设置合适的值
     glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
+    glEnableVertexAttribArray(_positionSlot);
+    
     //Vertex结构体, 偏移3个float的位置之后, 即是color的值.
     glVertexAttribPointer(_aColorSlot, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid *)(sizeof(float)*3));
+    glEnableVertexAttribArray(_aColorSlot);
 
     //在每个vertex上调用vertex shader, 每个像素调用fragment shader, 最终画出图形
     //相比glDrawArrays, 使用顶点索引数组结合glDrawElements来渲染, 可以减少存储重复顶点的内存消耗
@@ -349,8 +352,7 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
         -1, 1,//左上
         1, 1,//右上
     };
-    // 启用vertex数组
-    glEnableVertexAttribArray(GLKVertexAttribPosition);
+
     // glVertexAttribPointer:加载vertex数据
     // 参数1:传递的顶点位置数据GLKVertexAttribPosition, 或顶点颜色数据GLKVertexAttribColor
     // 参数2:数据大小(2维为2, 3维为3)
@@ -359,6 +361,7 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     // 参数5:指定连续顶点属性之间的偏移量, 用于描述每个vertex数据大小
     // 参数6:指定第一个组件在数组的第一个顶点属性中的偏移量, 与GL_ARRAY_BUFFER绑定存储于缓冲区中
     glVertexAttribPointer(GLKVertexAttribPosition, 2, GL_FLOAT, GL_FALSE, 0, vertices);
+    glEnableVertexAttribArray(GLKVertexAttribPosition); // 启用position
     
     static GLfloat colors[] = {
         1,1,1,1,
@@ -366,19 +369,20 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
         1,1,1,1,
         1,1,1,1
     };
-    // 启用颜色
-    glEnableVertexAttribArray(GLKVertexAttribColor);
-    glVertexAttribPointer(GLKVertexAttribColor, 4, GL_FLOAT, GL_FALSE, 0, colors);
 
+    glVertexAttribPointer(GLKVertexAttribColor, 4, GL_FLOAT, GL_FALSE, 0, colors);
+    glEnableVertexAttribArray(GLKVertexAttribColor); // 启用颜色
+    
     static GLfloat texCoords[] = {
         0, 0,//左下
         1, 0,//右下
         0, 1,//左上
         1, 1,//右上
     };
-    // 启用vertex贴图坐标
-    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
+
     glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 0, texCoords);
+    glEnableVertexAttribArray(GLKVertexAttribTexCoord0); // 启用vertex贴图坐标
+
     // 因为读取图片信息的时候默认是从图片左上角读取的, 而OpenGL绘制却是从左下角开始的.所以我们要从左下角开始读取图片数据.
     NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:@(YES), GLKTextureLoaderOriginBottomLeft, nil];
     GLKTextureInfo *textureInfo = [GLKTextureLoader textureWithCGImage:image.CGImage options:options error:nil];
@@ -492,11 +496,7 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
 
     _modelViewSlot = glGetUniformLocation(programHandle, "ModelView");
     _projectionSlot = glGetUniformLocation(programHandle, "Projection");
-    glEnableVertexAttribArray(_positionSlot); // 启用这些数据
-    glEnableVertexAttribArray(_colorSlot);
-    glEnableVertexAttribArray(_aColorSlot);
-    glEnableVertexAttribArray(_modelViewSlot);
-    glEnableVertexAttribArray(_projectionSlot);
+    // 在使用的地方, 调用glEnableVertexAttribArray以启用这些数据
 }
 
 #pragma mark - display origin image
