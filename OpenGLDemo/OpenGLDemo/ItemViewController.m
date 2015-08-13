@@ -49,8 +49,9 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
 @property (nonatomic) GLuint frameBuffer; // 帧缓冲区
 @property (nonatomic) GLuint colorRenderBuffer; // 渲染缓冲区
 
-@property (nonatomic) GLuint positionSlot; // ???
-@property (nonatomic) GLuint colorSlot; // ???
+@property (nonatomic) GLuint positionSlot; // Position参数
+@property (nonatomic) GLuint colorSlot; // uniform类型的SourceColor参数
+@property (nonatomic) GLuint aColorSlot; // Attribute类型的ASourceColor参数
 @property (nonatomic) GLint modelViewSlot;
 @property (nonatomic) GLint projectionSlot;
 
@@ -257,7 +258,7 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     //为vertex shader的两个输入参数设置合适的值
     glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
     //Vertex结构体, 偏移3个float的位置之后, 即是color的值.
-    glVertexAttribPointer(_colorSlot, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid *)(sizeof(float)*3));
+    glVertexAttribPointer(_aColorSlot, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid *)(sizeof(float)*3));
 
     //在每个vertex上调用vertex shader, 每个像素调用fragment shader, 最终画出图形
     //相比glDrawArrays, 使用顶点索引数组结合glDrawElements来渲染, 可以减少存储重复顶点的内存消耗
@@ -481,15 +482,19 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
 
     // 5 获取指向vertex shader传入变量的指针, 然后就通过该指针来使用
     // 即将_positionSlot 与 shader中的Position参数绑定起来
-    // 即将_colorSlot 与 shader中的SourceColor参数绑定起来
     _positionSlot = glGetAttribLocation(programHandle, "Position");
-    // SourceColor采用的是uniform类型
-    // 所以不能使用_colorSlot = glGetAttribLocation(programHandle, "SourceColor");
+    
+    // 即将_colorSlot 与 shader中的SourceColor参数绑定起来
+    // 采用的是Attribute类型
+    _aColorSlot = glGetAttribLocation(programHandle, "ASourceColor");
+    // 采用的是uniform类型
     _colorSlot = glGetUniformLocation(programHandle, "SourceColor");
+
     _modelViewSlot = glGetUniformLocation(programHandle, "ModelView");
     _projectionSlot = glGetUniformLocation(programHandle, "Projection");
     glEnableVertexAttribArray(_positionSlot); // 启用这些数据
     glEnableVertexAttribArray(_colorSlot);
+    glEnableVertexAttribArray(_aColorSlot);
     glEnableVertexAttribArray(_modelViewSlot);
     glEnableVertexAttribArray(_projectionSlot);
 }
