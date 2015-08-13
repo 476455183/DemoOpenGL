@@ -677,9 +677,6 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     NSString *shaderFragment = @"FragmentPaint";
     [self compileShaders:shaderVertex shaderFragment:shaderFragment];
 
-    //设置UIView用于渲染的部分, 这里是整个rect
-    glViewport(0, 0, rect.size.width, rect.size.height);
-
     CGFloat lineWidth = 5.0;
     GLfloat vertices[] = {
         -1 + 2 * (point.x - lineWidth) / rect.size.width, 1 - 2 * (point.y + lineWidth) / rect.size.height, 0.0f, // 左下
@@ -726,9 +723,6 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     NSString *shaderVertex = @"VertexPaint";
     NSString *shaderFragment = @"FragmentPaint";
     [self compileShaders:shaderVertex shaderFragment:shaderFragment];
-    
-    //设置viewport,即OpenGL ES要渲染的部分
-    glViewport(0, 0, rect.size.width, rect.size.height);
     
     // _colorSlot对应SourceColor参数, uniform类型, 使用glUniform4f来传递参数至shader.
     switch (_paintColor) {
