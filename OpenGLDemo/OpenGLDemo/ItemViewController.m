@@ -412,6 +412,7 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     TouchDrawViewViaOpenGLES *touchDrawViewViaOpenGLES = [[TouchDrawViewViaOpenGLES alloc] initWithFrame:self.view.frame];
     touchDrawViewViaOpenGLES.backgroundColor = [UIColor clearColor];
     touchDrawViewViaOpenGLES.delegate = self;
+    [touchDrawViewViaOpenGLES addImageViaOpenGLES:[UIImage imageNamed:@"testImage"]];
     [self.view addSubview:touchDrawViewViaOpenGLES];
 
     UISegmentedControl *paintColorSegCtl = [[UISegmentedControl alloc] initWithItems:
@@ -751,6 +752,10 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
         glDrawElements(GL_TRIANGLE_STRIP, sizeof(indices)/sizeof(indices[0]), GL_UNSIGNED_BYTE, indices);
     }
     [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
+}
+
+- (void)addImageViaOpenGLES:(UIImage *)image inFrame:(CGRect)rect {
+    [self didDrawImageViaOpenGLES:image];
 }
 
 @end

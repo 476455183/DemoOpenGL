@@ -15,6 +15,8 @@
 
 - (void)drawCGPointsViaOpenGLES:(NSArray *)points inFrame:(CGRect)rect;
 
+- (void)addImageViaOpenGLES:(UIImage *)image inFrame:(CGRect)rect;
+
 @end
 
 @interface TouchDrawViewViaOpenGLES : UIView
@@ -22,5 +24,7 @@
 @property (nonatomic) NSMutableArray *linesCompleted;
 @property (nonatomic) Line *currentLine;
 @property (nonatomic, weak) id<TouchDrawViewViaOpenGLESDelegate> delegate;
+
+- (void)addImageViaOpenGLES:(UIImage *)image;
 
 @end
