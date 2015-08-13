@@ -341,8 +341,8 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     // 因OpenGL只能绘制三角形, 则该verteices2数组与glDrawArrays的组合要认真仔细.
     // 如glDrawArrays(GL_TRIANGLE_STRIP, 0, 4)是两个三角形:(左下,右下,右上)与(右下,右上,左上).
     // 而glDrawArrays(GL_TRIANGLE_STRIP, 1, 3)是一个三角形:(右下,右上,左上)
-    // 若将vertices2中的右上与左上互换, 则glDrawArrays(GL_TRIANGLE_STRIP, 0, 4)刚好绘制出一片白板(两个三角形拼接).
-    GLfloat vertices2[] = {
+    // 若将vertices中的右上与左上互换, 则glDrawArrays(GL_TRIANGLE_STRIP, 0, 4)刚好绘制出一片白板(两个三角形拼接).
+    GLfloat vertices[] = {
         -1, -1,//左下
         1, -1,//右下
         -1, 1,//左上
@@ -357,9 +357,9 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     // 参数4:指定当被访问时, 固定点数据值是否应该被归一化或直接转换为固定点值.
     // 参数5:指定连续顶点属性之间的偏移量, 用于描述每个vertex数据大小
     // 参数6:指定第一个组件在数组的第一个顶点属性中的偏移量, 与GL_ARRAY_BUFFER绑定存储于缓冲区中
-    glVertexAttribPointer(GLKVertexAttribPosition, 2, GL_FLOAT, GL_FALSE, 0, vertices2);
+    glVertexAttribPointer(GLKVertexAttribPosition, 2, GL_FLOAT, GL_FALSE, 0, vertices);
     
-    static GLfloat colors2[] = {
+    static GLfloat colors[] = {
         1,1,1,1,
         1,1,1,1,
         1,1,1,1,
@@ -367,7 +367,7 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     };
     // 启用颜色
     glEnableVertexAttribArray(GLKVertexAttribColor);
-    glVertexAttribPointer(GLKVertexAttribColor, 4, GL_FLOAT, GL_FALSE, 0, colors2);
+    glVertexAttribPointer(GLKVertexAttribColor, 4, GL_FLOAT, GL_FALSE, 0, colors);
 
     static GLfloat texCoords[] = {
         0, 0,//左下
