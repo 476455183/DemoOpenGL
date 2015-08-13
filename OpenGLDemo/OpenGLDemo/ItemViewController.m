@@ -614,35 +614,57 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
 #pragma mark - 3D Transform
 
 - (void)demo3DTransform {
-    // 先要编译vertex和fragment两个shader
     NSString *shaderVertex = @"Vertex3DTransform";
     NSString *shaderFragment = @"Fragment3DTransform";
     [self compileShaders:shaderVertex shaderFragment:shaderFragment];
-
-    //设置UIView用于渲染的部分, 这里是整个屏幕
-    glViewport(0, 0, self.view.frame.size.width, self.view.frame.size.height);
-
-    GLfloat vertices[] = {
-        0.5f, 0.5f, 0.0f,
-        0.5f, -0.5f, 0.0f,
-        -0.5f, -0.5f, 0.0f,
-        -0.5f, 0.5f, 0.0f,
-        0.0f, 0.0f, -0.707f,
-    };
-    GLubyte indices[] = {
-        0, 1, 1, 2, 2, 3, 3, 0,
-        4, 0, 4, 1, 4, 2, 4, 3
-    };
-
-    glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, vertices);
-    glVertexAttribPointer(_modelViewSlot, 3, GL_FLOAT, GL_FALSE, 0, vertices);
-    glVertexAttribPointer(_projectionSlot, 3, GL_FLOAT, GL_FALSE, 0, vertices);
-    glEnableVertexAttribArray(_positionSlot);
-    glEnableVertexAttribArray(_modelViewSlot);
-    glEnableVertexAttribArray(_projectionSlot);
     
-    // draw lines
-    glDrawElements(GL_LINES, sizeof(indices)/sizeof(GLubyte), GL_UNSIGNED_BYTE, indices);
+    glViewport(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    
+    typedef struct {
+        float Position[3];
+        float Color[4];
+    } Vertex;
+    
+    const Vertex Vertices[] = {
+        {{-1,-1,0}, {0,0,0,1}},// 左下
+        {{1,-1,0}, {1,0,0,1}}, // 右下
+        {{-1,1,0}, {0,0,1,1}}, // 左上
+        {{1,1,0}, {0,1,0,1}},  // 右上
+    };
+    
+    const GLubyte Indices[] = {
+        0,1,2, // 三角形0
+        1,2,3  // 三角形1
+    };
+    
+    GLuint vertexBuffer;
+    glGenBuffers(1, &vertexBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), Vertices, GL_STATIC_DRAW);
+    
+    GLuint indexBuffer;
+    glGenBuffers(1, &indexBuffer);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Indices), Indices, GL_STATIC_DRAW);
+    
+    glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
+    glEnableVertexAttribArray(_positionSlot);
+    
+    glVertexAttribPointer(_aColorSlot, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid *)(sizeof(float)*3));
+    glEnableVertexAttribArray(_aColorSlot);
+    
+    /*
+    //使用Cocos3DMathLib中的方法来创建投影矩阵.
+    CC3GLMatrix *projection = [CC3GLMatrix matrix];
+    float h = 4.0f * self.view.frame.size.height / self.view.frame.size.width;
+    //只需要指定坐标, 远近屏位置即可.
+    [projection populateFromFrustumLeft:-2 andRight:2 andBottom:-h/2 andTop:h/2 andNear:4 andFar:0];
+    //projection.glMatrix将矩阵转换成OpenGL的array格式.
+    glUniformMatrix4fv(_projectionSlot, 1, 0, projection.glMatrix);
+    glEnableVertexAttribArray(_projectionSlot);
+    */
+    
+    glDrawElements(GL_TRIANGLES, sizeof(Indices)/sizeof(Indices[0]), GL_UNSIGNED_BYTE, 0);
 }
 
 - (void)displayImageViaOpenGLES {
