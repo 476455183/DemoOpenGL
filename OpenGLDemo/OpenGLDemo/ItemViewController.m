@@ -33,7 +33,8 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
 };
 
 typedef NS_ENUM(NSInteger, enumPaintColor) {
-    redColor = 0,
+    nullColor = 0,
+    redColor,
     greenColor,
     blueColor,
     yellowColor,
@@ -447,12 +448,11 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     paintColorSegCtl.frame = CGRectMake(10, 70, self.view.frame.size.width - 20, 30);
     [paintColorSegCtl addTarget:self action:@selector(changePaintColor:) forControlEvents:UIControlEventValueChanged];
     paintColorSegCtl.tintColor = [UIColor darkGrayColor];
-    paintColorSegCtl.selectedSegmentIndex = 0;
     [self.view addSubview:paintColorSegCtl];
 }
 
 - (void)changePaintColor:(UISegmentedControl *)paintColorSegCtl {
-    _paintColor = paintColorSegCtl.selectedSegmentIndex;
+    _paintColor = paintColorSegCtl.selectedSegmentIndex + 1;
 }
 
 #pragma mark - shader related
@@ -693,6 +693,9 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     
     // _colorSlot对应SourceColor参数, uniform类型, 使用glUniform4f来传递参数至shader.
     switch (_paintColor) {
+        case nullColor:
+            glUniform4f(_colorSlot, 1.0f, 1.0f, 1.0f, 1.0f);
+            break;
         case redColor:
             glUniform4f(_colorSlot, 1.0f, 0.0f, 0.0f, 1.0f);
             break;
@@ -729,6 +732,9 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     
     // _colorSlot对应SourceColor参数, uniform类型, 使用glUniform4f来传递参数至shader.
     switch (_paintColor) {
+        case nullColor:
+            glUniform4f(_colorSlot, 1.0f, 1.0f, 1.0f, 1.0f);
+            break;
         case redColor:
             glUniform4f(_colorSlot, 1.0f, 0.0f, 0.0f, 1.0f);
             break;
