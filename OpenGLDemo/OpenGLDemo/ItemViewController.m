@@ -29,7 +29,6 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     demoCoreImageFilter,
     demoCoreImageOpenGLESFilter,
     demo3DTransform,
-    demoDisplayImageViaOpenGLES,
     demoGLKViewSimple,
 };
 
@@ -84,7 +83,7 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    self.demosOpenGL = @[@"Clear Color", @"Shader", @"Draw Triangle via Shader", @"Draw Image via Core Graphics", @"Draw Image via OpenGL ES", @"Paint via Core Graphics", @"Paint via OpenGL ES", @"Core Image Filter", @"Core Image and OpenGS ES Filter", @"3D Transform", @"Display Image via OpenGL ES", @"GLKView Demo"];
+    self.demosOpenGL = @[@"Clear Color", @"Shader", @"Draw Triangle via Shader", @"Draw Image via Core Graphics", @"Draw Image via OpenGL ES", @"Paint via Core Graphics", @"Paint via OpenGL ES", @"Core Image Filter", @"Core Image and OpenGS ES Filter", @"3D Transform", @"GLKView Demo"];
     
     [self setupOpenGLContext];
     [self setupCAEAGLLayer];
@@ -157,7 +156,7 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
 #pragma mark - demoViaOpenGL
 
 - (void)demoViaOpenGL {
-    //self.demosOpenGL = @[@"Clear Color", @"Shader", @"Draw Triangle via Shader", @"Draw Image via Core Graphics", @"Draw Image via OpenGL ES", @"Paint via Core Graphics", @"Paint via OpenGL ES", @"Core Image Filter", @"Core Image and OpenGS ES Filter", @"3D Transform", @"Display Image via OpenGL ES", @"GLKView Demo"];
+    //self.demosOpenGL = @[@"Clear Color", @"Shader", @"Draw Triangle via Shader", @"Draw Image via Core Graphics", @"Draw Image via OpenGL ES", @"Paint via Core Graphics", @"Paint via OpenGL ES", @"Core Image Filter", @"Core Image and OpenGS ES Filter", @"3D Transform", @"GLKView Demo"];
     [self tearDownOpenGLBuffers];
     [self setupOpenGLBuffers];
     glClearColor(1.0, 1.0, 1.0, 1.0);
@@ -193,9 +192,6 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
             break;
         case demo3DTransform:
             [self demo3DTransform];
-            break;
-        case demoDisplayImageViaOpenGLES:
-            [self displayImageViaOpenGLES];
             break;
         case demoGLKViewSimple:
             [self demoGLKViewSimple];
@@ -669,23 +665,6 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     */
     
     glDrawElements(GL_TRIANGLES, sizeof(Indices)/sizeof(Indices[0]), GL_UNSIGNED_BYTE, 0);
-}
-
-- (void)displayImageViaOpenGLES {
-    [self displayOriginImage];
-    _lbOriginalImage.text = @"Click image to choose from local photos...";
-    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(chooseOriginImageFromPhotos)];
-    tapGestureRecognizer.numberOfTapsRequired = 1;
-    tapGestureRecognizer.numberOfTouchesRequired = 1;
-    tapGestureRecognizer.delegate = self;
-    [_originImageView addGestureRecognizer:tapGestureRecognizer];
-    [_originImageView setUserInteractionEnabled:YES];
-
-    // 创建出渲染的buffer
-    _glkView = [[GLKView alloc] initWithFrame:CGRectMake(10, 340, self.view.frame.size.width - 20, 200) context:_eaglContext];
-    [_glkView bindDrawable];
-    [self.view addSubview:_glkView];
-    [_glkView display];
 }
 
 #pragma mark - TouchDrawViewViaOpenGLESDelegate
