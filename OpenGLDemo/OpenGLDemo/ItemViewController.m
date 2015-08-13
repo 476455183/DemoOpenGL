@@ -30,6 +30,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     demoCoreImageOpenGLESFilter,
     demo3DTransform,
     demoDisplayImageViaOpenGLES,
+    demoGLKViewSimple,
 };
 
 typedef NS_ENUM(NSInteger, enumPaintColor) {
@@ -83,7 +84,7 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    self.demosOpenGL = @[@"Clear Color", @"Shader", @"Draw Triangle via Shader", @"Draw Image via Core Graphics", @"Draw Image via OpenGL ES", @"Paint via Core Graphics", @"Paint via OpenGL ES", @"Core Image Filter", @"Core Image and OpenGS ES Filter", @"3D Transform", @"Display Image via OpenGL ES"];
+    self.demosOpenGL = @[@"Clear Color", @"Shader", @"Draw Triangle via Shader", @"Draw Image via Core Graphics", @"Draw Image via OpenGL ES", @"Paint via Core Graphics", @"Paint via OpenGL ES", @"Core Image Filter", @"Core Image and OpenGS ES Filter", @"3D Transform", @"Display Image via OpenGL ES", @"GLKView Demo"];
     
     [self setupOpenGLContext];
     [self setupCAEAGLLayer];
@@ -156,7 +157,7 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
 #pragma mark - demoViaOpenGL
 
 - (void)demoViaOpenGL {
-    //self.demosOpenGL = @[@"Clear Color", @"Shader", @"Draw Triangle via Shader", @"Draw Image via Core Graphics", @"Draw Image via OpenGL ES", @"Paint via Core Graphics", @"Paint via OpenGL ES", @"Core Image Filter", @"Core Image and OpenGS ES Filter", @"3D Transform", @"Display Image via OpenGL ES"];
+    //self.demosOpenGL = @[@"Clear Color", @"Shader", @"Draw Triangle via Shader", @"Draw Image via Core Graphics", @"Draw Image via OpenGL ES", @"Paint via Core Graphics", @"Paint via OpenGL ES", @"Core Image Filter", @"Core Image and OpenGS ES Filter", @"3D Transform", @"Display Image via OpenGL ES", @"GLKView Demo"];
     [self tearDownOpenGLBuffers];
     [self setupOpenGLBuffers];
     glClearColor(1.0, 1.0, 1.0, 1.0);
@@ -195,6 +196,9 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
             break;
         case demoDisplayImageViaOpenGLES:
             [self displayImageViaOpenGLES];
+            break;
+        case demoGLKViewSimple:
+            [self demoGLKViewSimple];
             break;
         default:
             break;
@@ -799,6 +803,30 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
 
 - (void)addImageViaOpenGLES:(UIImage *)image inFrame:(CGRect)rect {
     [self didDrawImageViaOpenGLES:image inFrame:rect];
+}
+
+#pragma mark - GLKView demos
+
+- (void)demoGLKViewSimple {
+    // 先要编译vertex和fragment两个shader
+    NSString *shaderVertex = @"VertexTriangle";
+    NSString *shaderFragment = @"FragmentTriangle";
+    [self compileShaders:shaderVertex shaderFragment:shaderFragment];
+    
+    _glkView = [[GLKView alloc] initWithFrame:CGRectMake(10, 70, self.view.frame.size.width - 20, self.view.frame.size.height - 20) context:_eaglContext];
+    [_glkView bindDrawable];
+    [self.view addSubview:_glkView];
+    [_glkView display];
+    
+    GLfloat vertices[] = {
+        0.0f,  -0.5f, 0.0f,
+        -0.8f, -0.8f, 0.0f,
+        0.8f,  -0.8f, 0.0f };
+    
+    glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, vertices);
+    glEnableVertexAttribArray(_positionSlot);
+    glDrawArrays(GL_TRIANGLES, 0, 3);
+    [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
 }
 
 @end
