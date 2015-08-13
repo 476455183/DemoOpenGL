@@ -312,12 +312,12 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     [_originImageView addGestureRecognizer:tapGestureRecognizer];
     [_originImageView setUserInteractionEnabled:YES];
     
-    [self didDrawImageViaOpenGLES:[UIImage imageNamed:@"testImage"]];
+    [self didDrawImageViaOpenGLES:[UIImage imageNamed:@"testImage"] inFrame:CGRectMake(10, 340, self.view.frame.size.width - 20, 200)];
 }
 
-- (void)didDrawImageViaOpenGLES:(UIImage *)image {
+- (void)didDrawImageViaOpenGLES:(UIImage *)image inFrame:(CGRect)rect {
     // 创建OpenGL视图
-    _glkView = [[GLKView alloc] initWithFrame:CGRectMake(10, 340, self.view.frame.size.width - 20, 200) context:_eaglContext];
+    _glkView = [[GLKView alloc] initWithFrame:rect context:_eaglContext];
     [_glkView bindDrawable];
     [self.view addSubview:_glkView];
     [_glkView display];
@@ -514,7 +514,7 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     [picker dismissViewControllerAnimated:YES completion:^{
         _originImageView.image = savedImage;
         if ([self.demosOpenGL indexOfObject:self.item] == demoDrawImageViaOpenGLES) {
-            [self didDrawImageViaOpenGLES:savedImage];
+            [self didDrawImageViaOpenGLES:savedImage inFrame:CGRectMake(10, 340, self.view.frame.size.width - 20, 200)];
         }
     }];
 }
@@ -755,7 +755,7 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
 }
 
 - (void)addImageViaOpenGLES:(UIImage *)image inFrame:(CGRect)rect {
-    [self didDrawImageViaOpenGLES:image];
+    [self didDrawImageViaOpenGLES:image inFrame:rect];
 }
 
 @end
