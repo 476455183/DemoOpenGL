@@ -219,8 +219,8 @@
     CGContextAddQuadCurveToPoint(_context,190, 110, 120, 200);//设置贝塞尔曲线的控制点坐标和终点坐标
     CGContextStrokePath(_context);
     //三次曲线函数
-    CGContextMoveToPoint(_context, 200, 0);//设置Path的起点
-    CGContextAddCurveToPoint(_context, 250, 280, 250, 400, 280, 300);//设置贝塞尔曲线的控制点坐标和控制点坐标终点坐标
+    CGContextMoveToPoint(_context, 10, 100);//设置Path的起点
+    CGContextAddCurveToPoint(_context, 100, 50, 200, 200, 300, 100);//设置贝塞尔曲线的控制点坐标和控制点坐标终点坐标
     CGContextStrokePath(_context);
     
     /*图片*/
