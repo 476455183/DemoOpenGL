@@ -15,6 +15,7 @@
 #import <AVFoundation/AVFoundation.h>
 
 #import "ShaderOperations.h"
+#import "GLTexture.h"
 #import "TouchDrawViewViaCoreGraphics.h"
 #import "TouchDrawViewViaOpenGLES.h"
 
@@ -55,6 +56,8 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
 @property (nonatomic) GLuint aColorSlot; // Attribute类型的ASourceColor参数
 @property (nonatomic) GLint modelViewSlot;
 @property (nonatomic) GLint projectionSlot;
+@property (nonatomic) GLint textureSlot;
+@property (nonatomic) GLint textureCoordsSlot;
 
 // filters
 @property (nonatomic) UILabel *lbOriginalImage;
@@ -73,6 +76,11 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
 
 // Paint Color
 @property (nonatomic) NSInteger paintColor;
+
+
+@property (nonatomic) GLuint glName;
+
+@property (nonatomic) GLTexture *glTexture;
 
 @end
 
@@ -501,6 +509,9 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
 
     _modelViewSlot = glGetUniformLocation(programHandle, "ModelView");
     _projectionSlot = glGetUniformLocation(programHandle, "Projection");
+    
+    _textureSlot = glGetUniformLocation(programHandle, "Texture");
+    _textureCoordsSlot = glGetAttribLocation(programHandle, "TextureCoords");
     // 在使用的地方, 调用glEnableVertexAttribArray以启用这些数据
 }
 
@@ -682,7 +693,7 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     NSString *shaderFragment = @"FragmentPaint";
     [self compileShaders:shaderVertex shaderFragment:shaderFragment];
 
-    CGFloat lineWidth = 5.0;
+    CGFloat lineWidth = 15.0;
     GLfloat vertices[] = {
         -1 + 2 * (point.x - lineWidth) / rect.size.width, 1 - 2 * (point.y + lineWidth) / rect.size.height, 0.0f, // 左下
         -1 + 2 * (point.x + lineWidth) / rect.size.width, 1 - 2 * (point.y + lineWidth) / rect.size.height, 0.0f, // 右下
@@ -718,9 +729,61 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
             break;
     }
 
+    
+    // 添加纹理贴图以消除锯齿
+    glEnable(GL_BLEND);
+    glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+    glGenTextures(1, &_glName);
+    glBindTexture(GL_TEXTURE_2D, _glName);
+    
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);//贴图与原图不一样大
+    
+    [self prepareImageDataForTexture];
+
+    
+    glActiveTexture(GL_TEXTURE5);
+    glBindTexture(GL_TEXTURE_2D, _glName);
+    
+    glUniform1i(_textureSlot, 5);
+    GLfloat texCoords[] = {
+        0,0,
+        1,0,
+        0,1,
+        1,1
+    };
+    glEnableVertexAttribArray(_textureCoordsSlot);
+    glVertexAttribPointer(_textureCoordsSlot, 2, GL_FLOAT, GL_FALSE, 0, texCoords);
+
+    //1: 脚本输出颜色, 2:原来颜色
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    
     // Draw triangle
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
     [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
+}
+
+- (void)prepareImageDataForTexture {
+//    _glTexture = [[GLTexture alloc] initWithImage:[UIImage imageNamed:@"Radial"]];
+    
+    CGImageRef cgImageRef = [[UIImage imageNamed:@"Radial"] CGImage];
+    GLuint width = (GLuint)CGImageGetWidth(cgImageRef);
+    GLuint height = (GLuint)CGImageGetHeight(cgImageRef);
+    
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    void *imageData = malloc(width * height * 4);
+    CGContextRef ctx = CGBitmapContextCreate(imageData, width, height, 8, width * 4, colorSpace, kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
+    CGContextTranslateCTM(ctx, 0, height);
+    CGContextScaleCTM(ctx, 1.0f, -1.0f);
+    CGColorSpaceRelease(colorSpace);
+    CGContextClearRect(ctx, CGRectMake(0, 0, width, height));
+    CGContextDrawImage(ctx, CGRectMake(0, 0, width, height), cgImageRef);
+
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, imageData);
+    CGContextRelease(ctx);
+    free(imageData);
 }
 
 - (void)drawCGPointsViaOpenGLES:(NSArray *)points inFrame:(CGRect)rect {
