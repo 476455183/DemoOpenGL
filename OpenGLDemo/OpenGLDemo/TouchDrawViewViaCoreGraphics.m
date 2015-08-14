@@ -9,6 +9,7 @@
 #import "TouchDrawViewViaCoreGraphics.h"
 
 #define PI 3.14159265358979323846
+#define DEGREES_TO_RADIANS(degrees) ((PI * degrees)/ 180)
 
 @interface TouchDrawViewViaCoreGraphics ()
 
@@ -36,6 +37,7 @@
 
     [self paintAboveImage];
     [self demosCGDraw];
+    [self drawBezierPath];
 }
 
 - (void)paintAboveImage {
@@ -230,6 +232,71 @@
     CGContextDrawImage(_context, CGRectMake(10, 70, 20, 20), image.CGImage);//使用这个使图片上下颠倒了，参考http://blog.csdn.net/koupoo/article/details/8670024
     
     //    CGContextDrawTiledImage(_context, CGRectMake(0, 0, 20, 20), image.CGImage);//平铺图
+}
+
+- (void)drawBezierPath {
+    UIColor *color = [UIColor redColor];
+    [color set];  //设置线条颜色
+    
+    UIBezierPath* aPath = [UIBezierPath bezierPath];
+    aPath.lineWidth = 5.0;
+    aPath.lineCapStyle = kCGLineCapRound;   //线条拐角
+    aPath.lineJoinStyle = kCGLineCapRound;  //终点处理
+    
+    //设置起始点
+    [aPath moveToPoint:CGPointMake(100.0, 0.0)];
+    
+    //创建line, line的起点是之前的一个点, 终点即指定的点.
+    [aPath addLineToPoint:CGPointMake(200.0, 40.0)];
+    [aPath addLineToPoint:CGPointMake(160.0, 140.0)];
+    [aPath addLineToPoint:CGPointMake(40.0, 140.0)];
+    [aPath addLineToPoint:CGPointMake(0.0, 40.0)];
+    //第五条线通过调用closePath方法得到的, 连接起始点与终点.
+    [aPath closePath];
+    
+    [aPath stroke]; //绘制图形
+//    [aPath fill]; //填充图形
+    
+    //绘制矩形
+    UIBezierPath *bPath = [UIBezierPath bezierPathWithRect:CGRectMake(10, 10, 100, 100)];
+    bPath.lineWidth = 5.0;
+    aPath.lineCapStyle = kCGLineCapRound;
+    aPath.lineJoinStyle = kCGLineCapRound;
+    [bPath stroke];
+
+    //绘制圆形
+    UIBezierPath *cPath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(200, 10, 100, 100)];
+    cPath.lineWidth = 5.0;
+    cPath.lineCapStyle = kCGLineCapRound;
+    cPath.lineJoinStyle = kCGLineCapRound;
+    [cPath stroke];
+    
+    //绘制一段弧线
+    UIBezierPath *dPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(150, 100) radius:75 startAngle:0 endAngle:DEGREES_TO_RADIANS(135) clockwise:YES];
+    dPath.lineWidth = 5.0;
+    dPath.lineCapStyle = kCGLineCapRound;
+    dPath.lineJoinStyle = kCGLineCapRound;
+    [dPath stroke];
+    
+    [[UIColor blueColor] set];
+    
+    //二次曲线
+    UIBezierPath *ePath = [UIBezierPath bezierPath];
+    ePath.lineWidth = 5.0;
+    ePath.lineCapStyle = kCGLineCapRound;
+    ePath.lineJoinStyle = kCGLineCapRound;
+    [ePath moveToPoint:CGPointMake(20, 100)];
+    [ePath addQuadCurveToPoint:CGPointMake(120, 100) controlPoint:CGPointMake(70, 0)];
+    [ePath stroke];
+    
+    //三次曲线
+    UIBezierPath *fPath = [UIBezierPath bezierPath];
+    fPath.lineWidth = 5.0;
+    fPath.lineCapStyle = kCGLineCapRound;
+    fPath.lineJoinStyle = kCGLineCapRound;
+    [fPath moveToPoint:CGPointMake(100, 100)];
+    [fPath addCurveToPoint:CGPointMake(300, 100) controlPoint1:CGPointMake(150, 50) controlPoint2:CGPointMake(250, 150)];
+    [fPath stroke];
 }
 
 - (BOOL)canBecomeFirstResponder {
