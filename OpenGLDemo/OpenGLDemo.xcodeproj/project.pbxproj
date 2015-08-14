@@ -38,6 +38,8 @@
 		6ADFC8111B784B4C0043EFF6 /* Purple.png in Resources */ = {isa = PBXBuildFile; fileRef = 6ADFC80E1B784B4C0043EFF6 /* Purple.png */; };
 		6ADFC8121B784B4C0043EFF6 /* Red.png in Resources */ = {isa = PBXBuildFile; fileRef = 6ADFC80F1B784B4C0043EFF6 /* Red.png */; };
 		6ADFC8131B784B4C0043EFF6 /* Yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 6ADFC8101B784B4C0043EFF6 /* Yellow.png */; };
+		A48DC2391B7DEC5700FC3492 /* Radial.png in Resources */ = {isa = PBXBuildFile; fileRef = A48DC2381B7DEC5700FC3492 /* Radial.png */; };
+		A48DC23C1B7DF3D300FC3492 /* GLTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = A48DC23B1B7DF3D300FC3492 /* GLTexture.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +95,9 @@
 		6ADFC80E1B784B4C0043EFF6 /* Purple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Purple.png; sourceTree = "<group>"; };
 		6ADFC80F1B784B4C0043EFF6 /* Red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Red.png; sourceTree = "<group>"; };
 		6ADFC8101B784B4C0043EFF6 /* Yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Yellow.png; sourceTree = "<group>"; };
+		A48DC2381B7DEC5700FC3492 /* Radial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Radial.png; sourceTree = "<group>"; };
+		A48DC23A1B7DF3D300FC3492 /* GLTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLTexture.h; sourceTree = "<group>"; };
+		A48DC23B1B7DF3D300FC3492 /* GLTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLTexture.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +150,8 @@
 		6A618AAB1B736E2A0044FB1F /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				A48DC23A1B7DF3D300FC3492 /* GLTexture.h */,
+				A48DC23B1B7DF3D300FC3492 /* GLTexture.m */,
 				6A74B6711B6A16630042DDEC /* ShaderOperations.h */,
 				6A74B6721B6A16630042DDEC /* ShaderOperations.m */,
 			);
@@ -176,6 +183,7 @@
 		6A618AAE1B73710A0044FB1F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A48DC2381B7DEC5700FC3492 /* Radial.png */,
 				6ADFC80A1B784B440043EFF6 /* Blue.png */,
 				6ADFC80B1B784B440043EFF6 /* Green.png */,
 				6ADFC80E1B784B4C0043EFF6 /* Purple.png */,
@@ -350,6 +358,7 @@
 				6A6A85401B74BBB600D45AD6 /* FragmentPaint.glsl in Resources */,
 				6ADFC8121B784B4C0043EFF6 /* Red.png in Resources */,
 				6A0AC3D41B6A32C6000BBB15 /* VertexTriangle.glsl in Resources */,
+				A48DC2391B7DEC5700FC3492 /* Radial.png in Resources */,
 				6ADFC8111B784B4C0043EFF6 /* Purple.png in Resources */,
 				6A74B66E1B6A04310042DDEC /* SimpleVertex.glsl in Resources */,
 				6A74B64A1B68EE740042DDEC /* LaunchScreen.xib in Resources */,
@@ -384,6 +393,7 @@
 				6A74B63F1B68EE740042DDEC /* AppDelegate.m in Sources */,
 				6A618AA91B736DE10044FB1F /* TouchDrawViewViaOpenGLES.m in Sources */,
 				6A74B63C1B68EE740042DDEC /* main.m in Sources */,
+				A48DC23C1B7DF3D300FC3492 /* GLTexture.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
