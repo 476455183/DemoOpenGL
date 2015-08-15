@@ -683,6 +683,29 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     glDrawElements(GL_TRIANGLES, sizeof(Indices)/sizeof(Indices[0]), GL_UNSIGNED_BYTE, 0);
 }
 
+#pragma mark - prepareImageDataAndTexture
+
+- (void)prepareImageDataAndTexture:(UIImage *)image {
+    //    _glTexture = [[GLTexture alloc] initWithImage:[UIImage imageNamed:@"Radial"]];
+    
+    CGImageRef cgImageRef = [image CGImage];
+    GLuint width = (GLuint)CGImageGetWidth(cgImageRef);
+    GLuint height = (GLuint)CGImageGetHeight(cgImageRef);
+    
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    void *imageData = malloc(width * height * 4);
+    CGContextRef ctx = CGBitmapContextCreate(imageData, width, height, 8, width * 4, colorSpace, kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
+    CGContextTranslateCTM(ctx, 0, height);
+    CGContextScaleCTM(ctx, 1.0f, -1.0f);
+    CGColorSpaceRelease(colorSpace);
+    CGContextClearRect(ctx, CGRectMake(0, 0, width, height));
+    CGContextDrawImage(ctx, CGRectMake(0, 0, width, height), cgImageRef);
+    
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, imageData);
+    CGContextRelease(ctx);
+    free(imageData);
+}
+
 #pragma mark - TouchDrawViewViaOpenGLESDelegate
 
 - (void)drawCGPointViaOpenGLES:(CGPoint)point inFrame:(CGRect)rect {
@@ -741,7 +764,7 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);//贴图与原图不一样大
     
-    [self prepareImageDataForTexture];
+    [self prepareImageDataAndTexture:[UIImage imageNamed:@"Radial"]];
 
     
     glActiveTexture(GL_TEXTURE5);
@@ -765,32 +788,14 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
 }
 
-- (void)prepareImageDataForTexture {
-//    _glTexture = [[GLTexture alloc] initWithImage:[UIImage imageNamed:@"Radial"]];
-    
-    CGImageRef cgImageRef = [[UIImage imageNamed:@"Radial"] CGImage];
-    GLuint width = (GLuint)CGImageGetWidth(cgImageRef);
-    GLuint height = (GLuint)CGImageGetHeight(cgImageRef);
-    
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    void *imageData = malloc(width * height * 4);
-    CGContextRef ctx = CGBitmapContextCreate(imageData, width, height, 8, width * 4, colorSpace, kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
-    CGContextTranslateCTM(ctx, 0, height);
-    CGContextScaleCTM(ctx, 1.0f, -1.0f);
-    CGColorSpaceRelease(colorSpace);
-    CGContextClearRect(ctx, CGRectMake(0, 0, width, height));
-    CGContextDrawImage(ctx, CGRectMake(0, 0, width, height), cgImageRef);
-
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, imageData);
-    CGContextRelease(ctx);
-    free(imageData);
-}
 
 - (void)drawCGPointsViaOpenGLES:(NSArray *)points inFrame:(CGRect)rect {
     // 先要编译vertex和fragment两个shader
     NSString *shaderVertex = @"VertexPaint";
     NSString *shaderFragment = @"FragmentPaint";
     [self compileShaders:shaderVertex shaderFragment:shaderFragment];
+
+    CGFloat lineWidth = 15.0;
     
     // _colorSlot对应SourceColor参数, uniform类型, 使用glUniform4f来传递参数至shader.
     switch (_paintColor) {
@@ -820,7 +825,6 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     for (id rawPoint in points) {
         CGPoint point = [rawPoint CGPointValue];
         NSLog(@"drawCGPointsViaOpenGLES : %.1f-%.1f", point.x, point.y);
-        CGFloat lineWidth = 5.0;
         GLfloat vertices[] = {
             -1 + 2 * (point.x - lineWidth) / rect.size.width, 1 - 2 * (point.y + lineWidth) / rect.size.height, 0.0f, // 左下
             -1 + 2 * (point.x + lineWidth) / rect.size.width, 1 - 2 * (point.y + lineWidth) / rect.size.height, 0.0f, // 右下
@@ -836,6 +840,37 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
         glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, vertices);
         glEnableVertexAttribArray(_positionSlot);
 
+        
+        // 添加纹理贴图以消除锯齿
+        glEnable(GL_BLEND);
+        glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+        glGenTextures(1, &_glName);
+        glBindTexture(GL_TEXTURE_2D, _glName);
+        
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);//贴图与原图不一样大
+        
+        [self prepareImageDataAndTexture:[UIImage imageNamed:@"Radial"]];
+        
+        glActiveTexture(GL_TEXTURE5);
+        glBindTexture(GL_TEXTURE_2D, _glName);
+        
+        glUniform1i(_textureSlot, 5);
+        GLfloat texCoords[] = {
+            0,0,
+            1,0,
+            0,1,
+            1,1
+        };
+        glEnableVertexAttribArray(_textureCoordsSlot);
+        glVertexAttribPointer(_textureCoordsSlot, 2, GL_FLOAT, GL_FALSE, 0, texCoords);
+        
+        //1: 脚本输出颜色, 2:原来颜色
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        
+        
         // glDrawArrays(GL_TRIANGLE_STRIP, 0, 4); // 从0开始绘制4个点, 即两个三角形(012, 123)
 
         //通过index来绘制vertex,
