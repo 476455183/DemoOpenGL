@@ -684,13 +684,14 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
 }
 
 #pragma mark - prepareImageDataAndTexture
-
+// 加载image, 使用CoreGraphics将位图以RGBA格式存放.将UIImage图像数据转化成OpenGL ES接受的数据.
 - (void)prepareImageDataAndTexture:(UIImage *)image {
     //    _glTexture = [[GLTexture alloc] initWithImage:[UIImage imageNamed:@"Radial"]];
     
     CGImageRef cgImageRef = [image CGImage];
     GLuint width = (GLuint)CGImageGetWidth(cgImageRef);
     GLuint height = (GLuint)CGImageGetHeight(cgImageRef);
+    CGRect rect = CGRectMake(0, 0, width, height);
     
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     void *imageData = malloc(width * height * 4);
@@ -698,9 +699,10 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     CGContextTranslateCTM(ctx, 0, height);
     CGContextScaleCTM(ctx, 1.0f, -1.0f);
     CGColorSpaceRelease(colorSpace);
-    CGContextClearRect(ctx, CGRectMake(0, 0, width, height));
-    CGContextDrawImage(ctx, CGRectMake(0, 0, width, height), cgImageRef);
+    CGContextClearRect(ctx, rect);
+    CGContextDrawImage(ctx, rect, cgImageRef);
     
+    // 将图像数据传递给OpenGL ES
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, imageData);
     CGContextRelease(ctx);
     free(imageData);
@@ -754,15 +756,19 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
 
     
     // 添加纹理贴图以消除锯齿
-    glEnable(GL_BLEND);
+    glEnable(GL_TEXTURE_2D);
+    glEnable(GL_BLEND); // 混合模式
     glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
     glGenTextures(1, &_glName);
     glBindTexture(GL_TEXTURE_2D, _glName);
     
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    // 贴图与原图不一样大, 这里采用简单的线性插值来调整图像
+    // 纹理需要被缩小到适合多边形的尺寸
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);//贴图与原图不一样大
+    // 纹理需要被放大到适合多边形的尺寸
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     
     [self prepareImageDataAndTexture:[UIImage imageNamed:@"Radial"]];
 
@@ -780,7 +786,8 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     glEnableVertexAttribArray(_textureCoordsSlot);
     glVertexAttribPointer(_textureCoordsSlot, 2, GL_FLOAT, GL_FALSE, 0, texCoords);
 
-    //1: 脚本输出颜色, 2:原来颜色
+    // 参数1: 源纹理, 脚本输出颜色,
+    // 参数2: 目标纹理, 原来颜色
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     
     // Draw triangle
