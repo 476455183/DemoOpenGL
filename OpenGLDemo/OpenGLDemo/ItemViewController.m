@@ -786,9 +786,22 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     glEnableVertexAttribArray(_textureCoordsSlot);
     glVertexAttribPointer(_textureCoordsSlot, 2, GL_FLOAT, GL_FALSE, 0, texCoords);
 
-    // 参数1: 源纹理, 脚本输出颜色,
-    // 参数2: 目标纹理, 原来颜色
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    // 参数1: 源颜色, 即将要拿去加入混合的颜色. 纹理原图.
+    // 参数2: 目标颜色, 即做处理之前的原来颜色. 原来颜色.
+    //    glBlendFunc(GL_ZERO, GL_ZERO); // 黑色矩形. SRC为0, DST为0
+    //    glBlendFunc(GL_ONE, GL_ONE); // 白色圆(不带黑色部分). 直接相加.
+    //    glBlendFunc(GL_ONE, GL_ZERO); // 纹理原图
+    //    glBlendFunc(GL_ZERO, GL_ONE); // 目标颜色不受texture影响
+    //    glBlendFunc(GL_SRC_COLOR, GL_ZERO); // 纹理原图
+    //    glBlendFunc(GL_SRC_ALPHA, GL_ZERO); // 纹理原图
+    //    glBlendFunc(GL_DST_COLOR, GL_ZERO); // 黑框矩形, 中间白色圆变为透明.源颜色
+    //    glBlendFunc(GL_DST_ALPHA, GL_ZERO); // 纹理原图
+    //    glBlendFunc(GL_SRC_ALPHA_SATURATE, GL_ZERO); // 黑色矩形, 圆形线框
+    //    glBlendFunc(GL_ONE_MINUS_SRC_COLOR, GL_ZERO); // 黑色矩形, 圆形线框
+    //    glBlendFunc(GL_DST_ALPHA, GL_ONE_MINUS_DST_ALPHA);
+
+    
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // 白色圆(圆周边缘还有点黑色部分).通过透明度来混合. 源颜色*自身的alpha值, 目标颜色*(1-源颜色的alpha值).
     
     // Draw triangle
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
