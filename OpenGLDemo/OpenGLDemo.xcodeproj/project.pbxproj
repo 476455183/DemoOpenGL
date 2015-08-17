@@ -41,6 +41,8 @@
 		A48DC2391B7DEC5700FC3492 /* Radial.png in Resources */ = {isa = PBXBuildFile; fileRef = A48DC2381B7DEC5700FC3492 /* Radial.png */; };
 		A48DC23C1B7DF3D300FC3492 /* GLTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = A48DC23B1B7DF3D300FC3492 /* GLTexture.m */; };
 		A48DC23F1B81CD5D00FC3492 /* PaintViaOpenGLESTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = A48DC23E1B81CD5D00FC3492 /* PaintViaOpenGLESTexture.m */; };
+		A48DC2411B81D57B00FC3492 /* VertexPaintTexture.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A48DC2401B81D57B00FC3492 /* VertexPaintTexture.glsl */; };
+		A48DC2431B81D58D00FC3492 /* FragmentPaintTexture.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A48DC2421B81D58D00FC3492 /* FragmentPaintTexture.glsl */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,6 +103,8 @@
 		A48DC23B1B7DF3D300FC3492 /* GLTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLTexture.m; sourceTree = "<group>"; };
 		A48DC23D1B81CD5D00FC3492 /* PaintViaOpenGLESTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintViaOpenGLESTexture.h; sourceTree = "<group>"; };
 		A48DC23E1B81CD5D00FC3492 /* PaintViaOpenGLESTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintViaOpenGLESTexture.m; sourceTree = "<group>"; };
+		A48DC2401B81D57B00FC3492 /* VertexPaintTexture.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VertexPaintTexture.glsl; sourceTree = "<group>"; };
+		A48DC2421B81D58D00FC3492 /* FragmentPaintTexture.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FragmentPaintTexture.glsl; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +141,8 @@
 				6A0AC3E01B6F4718000BBB15 /* Fragment3DTransform.glsl */,
 				6A6A853D1B74BBA000D45AD6 /* VertexPaint.glsl */,
 				6A6A853F1B74BBB600D45AD6 /* FragmentPaint.glsl */,
+				A48DC2401B81D57B00FC3492 /* VertexPaintTexture.glsl */,
+				A48DC2421B81D58D00FC3492 /* FragmentPaintTexture.glsl */,
 			);
 			name = GLSL;
 			sourceTree = "<group>";
@@ -361,6 +367,7 @@
 				6A0AC3DD1B6F46B9000BBB15 /* Vertex3DTransform.glsl in Resources */,
 				6ADFC80D1B784B440043EFF6 /* Green.png in Resources */,
 				6A6A85401B74BBB600D45AD6 /* FragmentPaint.glsl in Resources */,
+				A48DC2431B81D58D00FC3492 /* FragmentPaintTexture.glsl in Resources */,
 				6ADFC8121B784B4C0043EFF6 /* Red.png in Resources */,
 				6A0AC3D41B6A32C6000BBB15 /* VertexTriangle.glsl in Resources */,
 				A48DC2391B7DEC5700FC3492 /* Radial.png in Resources */,
@@ -372,6 +379,7 @@
 				6A0AC3E11B6F4718000BBB15 /* Fragment3DTransform.glsl in Resources */,
 				6A74B6701B6A04680042DDEC /* SimpleFragment.glsl in Resources */,
 				6A0AC3D61B6A32DB000BBB15 /* FragmentTriangle.glsl in Resources */,
+				A48DC2411B81D57B00FC3492 /* VertexPaintTexture.glsl in Resources */,
 				6A618AB01B74AD480044FB1F /* testImage.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

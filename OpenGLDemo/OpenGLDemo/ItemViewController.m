@@ -929,8 +929,8 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     NSLog(@"drawCGPointViaOpenGLES : %.1f-%.1f", point.x, point.y);
 
     // 先要编译vertex和fragment两个shader
-    NSString *shaderVertex = @"VertexPaint";
-    NSString *shaderFragment = @"FragmentPaint";
+    NSString *shaderVertex = @"VertexPaintTexture";
+    NSString *shaderFragment = @"FragmentPaintTexture";
     [self compileShaders:shaderVertex shaderFragment:shaderFragment];
 
     CGFloat lineWidth = 15.0;
