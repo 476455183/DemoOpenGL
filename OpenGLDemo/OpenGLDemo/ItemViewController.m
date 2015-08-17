@@ -851,8 +851,6 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
 #pragma mark - PaintViaOpenGLESTextureDelegate
 
 - (void)drawCGPointViaOpenGLESTexture:(CGPoint)point inFrame:(CGRect)rect {
-    NSLog(@"drawCGPointViaOpenGLES : %.1f-%.1f", point.x, point.y);
-
     // 先要编译vertex和fragment两个shader
     NSString *shaderVertex = @"VertexPaintTexture";
     NSString *shaderFragment = @"FragmentPaintTexture";
@@ -868,32 +866,6 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     // Load the vertex data
     glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, vertices);
     glEnableVertexAttribArray(_positionSlot);
-    
-    // _colorSlot对应SourceColor参数, uniform类型, 使用glUniform4f来传递参数至shader.
-    switch (_paintColor) {
-        case nullColor:
-            glUniform4f(_colorSlot, 1.0f, 1.0f, 1.0f, 1.0f);
-            break;
-        case redColor:
-            glUniform4f(_colorSlot, 1.0f, 0.0f, 0.0f, 1.0f);
-            break;
-        case greenColor:
-            glUniform4f(_colorSlot, 0.0f, 1.0f, 0.0f, 1.0f);
-            break;
-        case blueColor:
-            glUniform4f(_colorSlot, 0.0f, 0.0f, 1.0f, 1.0f);
-            break;
-        case yellowColor:
-            glUniform4f(_colorSlot, 1.0f, 1.0f, 0.0f, 1.0f);
-            break;
-        case purpleColor:
-            glUniform4f(_colorSlot, 1.0f, 0.0f, 1.0f, 1.0f);
-            break;
-        default:
-            glUniform4f(_colorSlot, 0.0f, 0.0f, 0.0f, 1.0f);
-            break;
-    }
-
     
     // 添加纹理贴图以消除锯齿
     glEnable(GL_TEXTURE_2D);
@@ -911,7 +883,6 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     
     [self prepareImageDataAndTexture:[UIImage imageNamed:@"Radial"]];
-
     
     glActiveTexture(GL_TEXTURE5);
     glBindTexture(GL_TEXTURE_2D, _glName);
@@ -956,31 +927,6 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     [self compileShaders:shaderVertex shaderFragment:shaderFragment];
 
     CGFloat lineWidth = 15.0;
-    
-    // _colorSlot对应SourceColor参数, uniform类型, 使用glUniform4f来传递参数至shader.
-    switch (_paintColor) {
-        case nullColor:
-            glUniform4f(_colorSlot, 1.0f, 1.0f, 1.0f, 1.0f);
-            break;
-        case redColor:
-            glUniform4f(_colorSlot, 1.0f, 0.0f, 0.0f, 1.0f);
-            break;
-        case greenColor:
-            glUniform4f(_colorSlot, 0.0f, 1.0f, 0.0f, 1.0f);
-            break;
-        case blueColor:
-            glUniform4f(_colorSlot, 0.0f, 0.0f, 1.0f, 1.0f);
-            break;
-        case yellowColor:
-            glUniform4f(_colorSlot, 1.0f, 1.0f, 0.0f, 1.0f);
-            break;
-        case purpleColor:
-            glUniform4f(_colorSlot, 1.0f, 0.0f, 1.0f, 1.0f);
-            break;
-        default:
-            glUniform4f(_colorSlot, 0.0f, 0.0f, 0.0f, 1.0f);
-            break;
-    }
     
     for (id rawPoint in points) {
         CGPoint point = [rawPoint CGPointValue];
