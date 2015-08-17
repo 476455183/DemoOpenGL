@@ -29,6 +29,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     demoPaintViaCoreGraphics,
     demoPaintViaOpenGLES,
     demoPaintViaOpenGLESTexture,
+    demoPaintAndFilterViaOpenGLESTexture,
     demoCoreImageFilter,
     demoCoreImageOpenGLESFilter,
     demo3DTransform,
@@ -94,7 +95,7 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    self.demosOpenGL = @[@"Clear Color", @"Shader", @"Draw Triangle via Shader", @"Draw Image via Core Graphics", @"Draw Image via OpenGL ES", @"Paint via Core Graphics", @"Paint via OpenGL ES", @"Paint via OpenGL ES Texture", @"Core Image Filter", @"Core Image and OpenGS ES Filter", @"3D Transform", @"GLKView Demo"];
+    self.demosOpenGL = @[@"Clear Color", @"Shader", @"Draw Triangle via Shader", @"Draw Image via Core Graphics", @"Draw Image via OpenGL ES", @"Paint via Core Graphics", @"Paint via OpenGL ES", @"Paint via OpenGL ES Texture", @"Paint and Filter via OpenGLES Texture", @"Core Image Filter", @"Core Image and OpenGS ES Filter", @"3D Transform", @"GLKView Demo"];
     
     [self setupOpenGLContext];
     [self setupCAEAGLLayer];
@@ -172,7 +173,7 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
 #pragma mark - demoViaOpenGL
 
 - (void)demoViaOpenGL {
-    //self.demosOpenGL = @[@"Clear Color", @"Shader", @"Draw Triangle via Shader", @"Draw Image via Core Graphics", @"Draw Image via OpenGL ES", @"Paint via Core Graphics", @"Paint via OpenGL ES", @"Paint via OpenGL ES Texture", @"Core Image Filter", @"Core Image and OpenGS ES Filter", @"3D Transform", @"GLKView Demo"];
+    //self.demosOpenGL = @[@"Clear Color", @"Shader", @"Draw Triangle via Shader", @"Draw Image via Core Graphics", @"Draw Image via OpenGL ES", @"Paint via Core Graphics", @"Paint via OpenGL ES", @"Paint via OpenGL ES Texture", @"Paint and Filter via OpenGLES Texture", @"Core Image Filter", @"Core Image and OpenGS ES Filter", @"3D Transform", @"GLKView Demo"];
     [self tearDownOpenGLBuffers];
     [self setupOpenGLBuffers];
     glClearColor(1.0, 1.0, 1.0, 1.0);
@@ -202,6 +203,9 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
             break;
         case demoPaintViaOpenGLESTexture:
             [self paintViaOpenGLESTexture];
+            break;
+        case demoPaintAndFilterViaOpenGLESTexture:
+            [self paintAndFilterViaOpenGLESTexture];
             break;
         case demoCoreImageFilter:
             [self filterViaCoreImage];
@@ -480,6 +484,10 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     paintViaOpenGLESTexture.delegate = self;
     [paintViaOpenGLESTexture addImageViaOpenGLES:[UIImage imageNamed:@"testImage"]];
     [self.view addSubview:paintViaOpenGLESTexture];
+}
+
+- (void)paintAndFilterViaOpenGLESTexture {
+
 }
 
 #pragma mark - shader related
