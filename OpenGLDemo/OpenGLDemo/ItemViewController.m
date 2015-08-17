@@ -798,10 +798,11 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     //    glBlendFunc(GL_DST_ALPHA, GL_ZERO); // 纹理原图
     //    glBlendFunc(GL_SRC_ALPHA_SATURATE, GL_ZERO); // 黑色矩形, 圆形线框
     //    glBlendFunc(GL_ONE_MINUS_SRC_COLOR, GL_ZERO); // 黑色矩形, 圆形线框
-    //    glBlendFunc(GL_DST_ALPHA, GL_ONE_MINUS_DST_ALPHA);
-
+    //    glBlendFunc(GL_DST_ALPHA, GL_ONE_MINUS_DST_ALPHA); // 纹理原图
+    //    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // 白色圆(圆周边缘还有点黑色部分).通过透明度来混合. 源颜色*自身的alpha值, 目标颜色*(1-源颜色的alpha值).
     
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // 白色圆(圆周边缘还有点黑色部分).通过透明度来混合. 源颜色*自身的alpha值, 目标颜色*(1-源颜色的alpha值).
+    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA); // 源颜色全取, 目标颜色:若该像素的源颜色为白色,则不取该目标颜色;若源颜色无值(黑色),则全取目标颜色;若介于黑白中间,则根据透明度来取目标颜色值.
+    // 所以黑色的圆周边缘也不存在了.
     
     // Draw triangle
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
@@ -888,7 +889,8 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
         glVertexAttribPointer(_textureCoordsSlot, 2, GL_FLOAT, GL_FALSE, 0, texCoords);
         
         //1: 脚本输出颜色, 2:原来颜色
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+//        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // 有一个黑色的圆周边缘
+        glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         
         
         // glDrawArrays(GL_TRIANGLE_STRIP, 0, 4); // 从0开始绘制4个点, 即两个三角形(012, 123)
