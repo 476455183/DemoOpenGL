@@ -40,15 +40,15 @@ typedef NS_ENUM(NSInteger, touchType) {
 #pragma mark - addImageViaOpenGLES
 
 - (void)addImageViaOpenGLES:(UIImage *)image {
-    if ([self.delegate respondsToSelector:@selector(addImageViaOpenGLES:inFrame:)]) {
-        [self.delegate addImageViaOpenGLES:image inFrame:self.frame];
+    if ([self.delegate respondsToSelector:@selector(addImageViaOpenGLESTexture:inFrame:)]) {
+        [self.delegate addImageViaOpenGLESTexture:image inFrame:self.frame];
     }
 }
 
 - (void)drawFrom:(CGPoint)start to:(CGPoint)end touchType:(NSInteger)touchType {
     if (CGPointEqualToPoint(start, end) || touchType == touchesBegan || touchType == touchesEnded) {
-        if ([self.delegate respondsToSelector:@selector(drawCGPointViaOpenGLES:inFrame:)]) {
-            [self.delegate drawCGPointViaOpenGLES:end inFrame:self.frame];
+        if ([self.delegate respondsToSelector:@selector(drawCGPointViaOpenGLESTexture:inFrame:)]) {
+            [self.delegate drawCGPointViaOpenGLESTexture:end inFrame:self.frame];
             return;
         }
     }
@@ -57,14 +57,14 @@ typedef NS_ENUM(NSInteger, touchType) {
     [self addCGPointsFrom:start to:end];
     [_points addObject:[NSValue valueWithCGPoint:end]];
     NSLog(@"_points : %@", _points);
-    //        if ([self.delegate respondsToSelector:@selector(drawCGPointViaOpenGLES:inFrame:)]) {
+    //        if ([self.delegate respondsToSelector:@selector(drawCGPointViaOpenGLESTexture:inFrame:)]) {
     //            for (id rawPoint in _points) {
-    //                [self.delegate drawCGPointViaOpenGLES:[rawPoint CGPointValue] inFrame:self.frame];
+    //                [self.delegate drawCGPointViaOpenGLESTexture:[rawPoint CGPointValue] inFrame:self.frame];
     //            }
     //        }
     
-    if ([self.delegate respondsToSelector:@selector(drawCGPointsViaOpenGLES:inFrame:)]) {
-        [self.delegate drawCGPointsViaOpenGLES:_points inFrame:self.frame];
+    if ([self.delegate respondsToSelector:@selector(drawCGPointsViaOpenGLESTexture:inFrame:)]) {
+        [self.delegate drawCGPointsViaOpenGLESTexture:_points inFrame:self.frame];
     }
 }
 

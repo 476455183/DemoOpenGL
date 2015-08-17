@@ -9,13 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "Line.h"
 
-@protocol TouchDrawViewViaOpenGLESDelegate <NSObject>
+@protocol PaintViaOpenGLESTextureDelegate <NSObject>
 
-- (void)drawCGPointViaOpenGLES:(CGPoint)point inFrame:(CGRect)rect;
+- (void)drawCGPointViaOpenGLESTexture:(CGPoint)point inFrame:(CGRect)rect;
 
-- (void)drawCGPointsViaOpenGLES:(NSArray *)points inFrame:(CGRect)rect;
+- (void)drawCGPointsViaOpenGLESTexture:(NSArray *)points inFrame:(CGRect)rect;
 
-- (void)addImageViaOpenGLES:(UIImage *)image inFrame:(CGRect)rect;
+- (void)addImageViaOpenGLESTexture:(UIImage *)image inFrame:(CGRect)rect;
 
 @end
 
@@ -23,7 +23,7 @@
 
 @property (nonatomic) NSMutableArray *linesCompleted;
 @property (nonatomic) Line *currentLine;
-@property (nonatomic, weak) id<TouchDrawViewViaOpenGLESDelegate> delegate;
+@property (nonatomic, weak) id<PaintViaOpenGLESTextureDelegate> delegate;
 
 - (void)addImageViaOpenGLES:(UIImage *)image;
 
