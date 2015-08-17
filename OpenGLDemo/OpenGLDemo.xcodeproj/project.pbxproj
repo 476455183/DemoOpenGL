@@ -40,6 +40,7 @@
 		6ADFC8131B784B4C0043EFF6 /* Yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 6ADFC8101B784B4C0043EFF6 /* Yellow.png */; };
 		A48DC2391B7DEC5700FC3492 /* Radial.png in Resources */ = {isa = PBXBuildFile; fileRef = A48DC2381B7DEC5700FC3492 /* Radial.png */; };
 		A48DC23C1B7DF3D300FC3492 /* GLTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = A48DC23B1B7DF3D300FC3492 /* GLTexture.m */; };
+		A48DC23F1B81CD5D00FC3492 /* PaintViaOpenGLESTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = A48DC23E1B81CD5D00FC3492 /* PaintViaOpenGLESTexture.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +99,8 @@
 		A48DC2381B7DEC5700FC3492 /* Radial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Radial.png; sourceTree = "<group>"; };
 		A48DC23A1B7DF3D300FC3492 /* GLTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLTexture.h; sourceTree = "<group>"; };
 		A48DC23B1B7DF3D300FC3492 /* GLTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLTexture.m; sourceTree = "<group>"; };
+		A48DC23D1B81CD5D00FC3492 /* PaintViaOpenGLESTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintViaOpenGLESTexture.h; sourceTree = "<group>"; };
+		A48DC23E1B81CD5D00FC3492 /* PaintViaOpenGLESTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintViaOpenGLESTexture.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +168,8 @@
 				6A618AA51B72F79C0044FB1F /* TouchDrawViewViaCoreGraphics.m */,
 				6A618AA71B736DE10044FB1F /* TouchDrawViewViaOpenGLES.h */,
 				6A618AA81B736DE10044FB1F /* TouchDrawViewViaOpenGLES.m */,
+				A48DC23D1B81CD5D00FC3492 /* PaintViaOpenGLESTexture.h */,
+				A48DC23E1B81CD5D00FC3492 /* PaintViaOpenGLESTexture.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -385,6 +390,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A48DC23F1B81CD5D00FC3492 /* PaintViaOpenGLESTexture.m in Sources */,
 				6A74B6641B68EF1B0042DDEC /* RootTableViewController.m in Sources */,
 				6A618AA61B72F79C0044FB1F /* TouchDrawViewViaCoreGraphics.m in Sources */,
 				6A618A9D1B72F40A0044FB1F /* Line.m in Sources */,
