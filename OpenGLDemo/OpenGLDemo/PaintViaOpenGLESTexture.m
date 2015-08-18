@@ -26,7 +26,6 @@ typedef NS_ENUM(NSInteger, touchType) {
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        _linesCompleted = [[NSMutableArray alloc] init];
         [self setMultipleTouchEnabled:YES];
         [self becomeFirstResponder];
         
@@ -96,10 +95,6 @@ typedef NS_ENUM(NSInteger, touchType) {
         if (CGPointEqualToPoint(_previousPoint, CGPointZero)) {
             _previousPoint = p;
         }
-        Line *l = [[Line alloc] init];
-        l.begin = p;
-        l.end = p;
-        _currentLine = l;
         [self drawFrom:_previousPoint to:p touchType:touchesBegan];
     }
 }
@@ -108,15 +103,6 @@ typedef NS_ENUM(NSInteger, touchType) {
     NSLog(@"touchesMoved");
     for (UITouch *t in touches) {
         CGPoint p = [t locationInView:self];
-        _currentLine.end = p;
-        
-        if (_currentLine) {
-            [_linesCompleted addObject:_currentLine];
-        }
-        Line *l = [[Line alloc] init];
-        l.begin = p;
-        l.end = p;
-        _currentLine = l;
         [self drawFrom:_previousPoint to:p touchType:touchesMoved];
         _previousPoint = p;
     }
@@ -145,7 +131,6 @@ typedef NS_ENUM(NSInteger, touchType) {
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
     NSLog(@"motionEnded");
     if (motion == UIEventSubtypeMotionShake) {
-        [_linesCompleted removeAllObjects];
     }
 }
 

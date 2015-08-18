@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Line.h"
 
 @protocol TouchDrawViewViaOpenGLESDelegate <NSObject>
 
@@ -21,8 +20,6 @@
 
 @interface TouchDrawViewViaOpenGLES : UIView
 
-@property (nonatomic) NSMutableArray *linesCompleted;
-@property (nonatomic) Line *currentLine;
 @property (nonatomic, weak) id<TouchDrawViewViaOpenGLESDelegate> delegate;
 
 - (void)addImageViaOpenGLES:(UIImage *)image;

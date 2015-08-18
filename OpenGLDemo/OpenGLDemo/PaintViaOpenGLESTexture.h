@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Line.h"
 
 @protocol PaintViaOpenGLESTextureDelegate <NSObject>
 
@@ -21,8 +20,6 @@
 
 @interface PaintViaOpenGLESTexture : UIView
 
-@property (nonatomic) NSMutableArray *linesCompleted;
-@property (nonatomic) Line *currentLine;
 @property (nonatomic, weak) id<PaintViaOpenGLESTextureDelegate> delegate;
 
 - (void)addImageViaOpenGLES:(UIImage *)image;
