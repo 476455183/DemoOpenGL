@@ -899,21 +899,41 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
 
     // 参数1: 源颜色, 即将要拿去加入混合的颜色. 纹理原图.
     // 参数2: 目标颜色, 即做处理之前的原来颜色. 原来颜色.
-    //    glBlendFunc(GL_ZERO, GL_ZERO); // 黑色矩形. SRC为0, DST为0
-    //    glBlendFunc(GL_ONE, GL_ONE); // 白色圆(不带黑色部分). 直接相加.
-    //    glBlendFunc(GL_ONE, GL_ZERO); // 纹理原图
-    //    glBlendFunc(GL_ZERO, GL_ONE); // 目标颜色不受texture影响
-    //    glBlendFunc(GL_SRC_COLOR, GL_ZERO); // 纹理原图
-    //    glBlendFunc(GL_SRC_ALPHA, GL_ZERO); // 纹理原图
-    //    glBlendFunc(GL_DST_COLOR, GL_ZERO); // 黑框矩形, 中间白色圆变为透明.源颜色
-    //    glBlendFunc(GL_DST_ALPHA, GL_ZERO); // 纹理原图
-    //    glBlendFunc(GL_SRC_ALPHA_SATURATE, GL_ZERO); // 黑色矩形, 圆形线框
-    //    glBlendFunc(GL_ONE_MINUS_SRC_COLOR, GL_ZERO); // 黑色矩形, 圆形线框
-    //    glBlendFunc(GL_DST_ALPHA, GL_ONE_MINUS_DST_ALPHA); // 纹理原图
-    //    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // 白色圆(圆周边缘还有点黑色部分).通过透明度来混合. 源颜色*自身的alpha值, 目标颜色*(1-源颜色的alpha值).
+    //    glBlendFunc(GL_ZERO, GL_ZERO);                        // 黑色矩形. SRC为0, DST为0
+    //    glBlendFunc(GL_ZERO, GL_ONE);                         // 目标颜色不受texture影响
     
-    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA); // 源颜色全取, 目标颜色:若该像素的源颜色为白色,则不取该目标颜色;若源颜色无值(黑色),则全取目标颜色;若介于黑白中间,则根据透明度来取目标颜色值.
-    // 所以黑色的圆周边缘也不存在了.
+    //    glBlendFunc(GL_ONE, GL_ZERO);                         // 纹理原图
+    //    glBlendFunc(GL_ONE, GL_ONE);                          // 白色圆(不带黑色部分). 直接相加.
+    //    glBlendFunc(GL_ONE, GL_ONE_MINUS_DST_ALPHA);          // 纹理原图
+    
+    //    glBlendFunc(GL_SRC_COLOR, GL_ZERO);                   // 纹理原图
+    //    glBlendFunc(GL_SRC_COLOR, GL_ONE);                    // 白色圆(不带黑色部分).
+    
+    //    glBlendFunc(GL_DST_COLOR, GL_ZERO);                   // 黑框矩形, 中间白色圆变为透明.源颜色
+    //    glBlendFunc(GL_DST_COLOR, GL_ONE);                    // 部分透明的白色圆, 目标白色则纯白圆, 目标深色则透明圆.
+    
+    //    glBlendFunc(GL_SRC_ALPHA, GL_ZERO);                   // 纹理原图, 渐变部分消失, 白色圆偏小
+    //    glBlendFunc(GL_SRC_ALPHA, GL_ONE);                    // 白色圆(不带黑色部分). 常用于表达光亮效果.
+    //    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);    // 白色圆(圆周边缘还有点黑色部分). 通过透明度来混合. 源颜色*自身的alpha值, 目标颜色*(1-源颜色的alpha值). 常用于在物体前面绘制物体.
+    
+    //    glBlendFunc(GL_DST_ALPHA, GL_ZERO);                   // 纹理原图, 渐变部分消失, 白色圆偏小
+    //    glBlendFunc(GL_DST_ALPHA, GL_ONE);                    // 白色圆
+    //    glBlendFunc(GL_DST_ALPHA, GL_ONE_MINUS_DST_ALPHA);    // 纹理原图
+
+    //    glBlendFunc(GL_ONE_MINUS_SRC_COLOR, GL_ZERO);         // 黑色矩形, 圆周边缘类似半透明灰白
+    //    glBlendFunc(GL_ONE_MINUS_SRC_COLOR, GL_ONE);          // 白色圆圈, 中间透明
+    
+    //    glBlendFunc(GL_ONE_MINUS_SRC_ALPHA, GL_ZERO);         // 黑色矩形, 圆周边缘类似半透明灰白
+    //    glBlendFunc(GL_ONE_MINUS_SRC_ALPHA, GL_ONE);          // 白色圆圈, 中间透明
+
+    //    glBlendFunc(GL_ONE_MINUS_DST_ALPHA, GL_ZERO);         // 纹理原图
+    //    glBlendFunc(GL_ONE_MINUS_DST_ALPHA, GL_ONE);          // 目标颜色不受texture影响
+
+    //    glBlendFunc(GL_SRC_ALPHA_SATURATE, GL_ZERO);          // 黑色矩形, 圆周边缘类似半透明灰白
+    
+    
+    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);                // 源颜色全取,目标颜色:若该像素的源颜色透明度为1(白色),则不取该目标颜色;若源颜色透明度为0(黑色),则全取目标颜色;若介于之间,则根据透明度来取目标颜色值.
+    // 所以黑色的圆周边缘也不存在了. 类似锐化?
     
     // Draw triangle
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
