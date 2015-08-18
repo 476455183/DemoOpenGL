@@ -15,6 +15,8 @@
 
 @property (nonatomic) CGContextRef context;
 
+@property (nonatomic) NSMutableArray *points;
+
 @end
 
 @implementation TouchDrawViewViaCoreGraphics
@@ -22,9 +24,10 @@
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        _linesCompleted = [[NSMutableArray alloc] init];
         [self setMultipleTouchEnabled:YES];
         [self becomeFirstResponder];
+        
+        _points = [[NSMutableArray alloc] init];
     }
 
     return self;
@@ -35,21 +38,25 @@
     //一个不透明类型的Quartz 2D绘画环境, 相当于一个画布.
     _context = UIGraphicsGetCurrentContext();
 
-    [self paintAboveImage];
+    [self drawImage:[UIImage imageNamed:@"testImage"]];
+    [self drawCGPoint];
     [self demosCGDraw];
     [self drawBezierPath];
 }
 
-- (void)paintAboveImage {
-    CGImageRef image = CGImageRetain([[UIImage imageNamed:@"testImage.png"] CGImage]);
-    CGContextDrawImage(_context, CGRectMake(0, 0, self.frame.size.width, self.frame.size.height), image);
-    
-    CGContextSetLineWidth(_context, 5.0);
+- (void)drawImage:(UIImage *)image {
+    CGImageRef cgImageRef = CGImageRetain([image CGImage]);
+    CGContextDrawImage(_context, CGRectMake(0, 0, self.frame.size.width, self.frame.size.height), cgImageRef);
+}
+
+- (void)drawCGPoint {
+    CGContextSetLineWidth(_context, 10.0);
     CGContextSetLineCap(_context, kCGLineCapRound);
-    CGContextSetRGBStrokeColor(_context, 0.5, 0.5, 0.5, 0.5);
-    for (Line *l in _linesCompleted) {
-        CGContextMoveToPoint(_context, l.begin.x, l.begin.y);
-        CGContextAddLineToPoint(_context, l.end.x, l.end.y);
+    CGContextSetRGBStrokeColor(_context, 1, 0, 1, 1);
+    for (id rawPoint in _points) {
+        CGPoint p = [rawPoint CGPointValue];
+        CGContextMoveToPoint(_context, p.x, p.y);
+        CGContextAddLineToPoint(_context, p.x, p.y);
         CGContextStrokePath(_context);
     }
 }
@@ -310,10 +317,8 @@
     for (UITouch *t in touches) {
         // 获取该touch的point
         CGPoint p = [t locationInView:self];
-        Line *l = [[Line alloc] init];
-        l.begin = p;
-        l.end = p;
-        _currentLine = l;
+        [_points addObject:[NSValue valueWithCGPoint:p]];
+        [self setNeedsDisplay];
     }
 }
 
@@ -321,15 +326,7 @@
     NSLog(@"touchesMoved");
     for (UITouch *t in touches) {
         CGPoint p = [t locationInView:self];
-        _currentLine.end = p;
-
-        if (_currentLine) {
-            [_linesCompleted addObject:_currentLine];
-        }
-        Line *l = [[Line alloc] init];
-        l.begin = p;
-        l.end = p;
-        _currentLine = l;
+        [_points addObject:[NSValue valueWithCGPoint:p]];
         [self setNeedsDisplay];
     }
 }
@@ -353,7 +350,7 @@
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
     NSLog(@"motionEnded");
     if (motion == UIEventSubtypeMotionShake) {
-        [_linesCompleted removeAllObjects];
+        [_points removeAllObjects];
         [self setNeedsDisplay];
     }
 }

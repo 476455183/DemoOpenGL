@@ -7,11 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Line.h"
 
 @interface TouchDrawViewViaCoreGraphics : UIView
-
-@property (nonatomic) NSMutableArray *linesCompleted;
-@property (nonatomic) Line *currentLine;
 
 @end
