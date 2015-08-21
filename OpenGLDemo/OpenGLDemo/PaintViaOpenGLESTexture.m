@@ -76,9 +76,7 @@ typedef NS_ENUM(NSInteger, touchType) {
     NSLog(@"end : %.1f-%.1f", end.x, end.y);
     // line width 为 10
     if (fabs(end.x - start.x) > 10 || fabs(end.y - start.y) > 10) {
-        CGPoint middle = {
-            start.x + (end.x - start.x) / 2,
-            start.y + (end.y - start.y) / 2};
+        CGPoint middle = Middle_CGPoint(start, end);
         [self addCGPointsFrom:start to:middle];
         [_points addObject:[NSValue valueWithCGPoint:middle]];
         [self addCGPointsFrom:middle to:end];
