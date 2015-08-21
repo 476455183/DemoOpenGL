@@ -8,6 +8,9 @@
 
 #import "TouchDrawViewViaOpenGLES.h"
 
+#define Middle_CGPoint(start, end) CGPointMake(start.x + (end.x - start.x) / 2, start.y + (end.y - start.y) / 2)
+#define Distance_CGPoints(start, end) sqrt((end.x-start.x)*(end.x-start.x) + (end.y - start.y) * (end.y - start.y))
+
 typedef NS_ENUM(NSInteger, touchType) {
     touchesBegan = 0,
     touchesMoved,
@@ -19,6 +22,7 @@ typedef NS_ENUM(NSInteger, touchType) {
 @property (nonatomic) CGPoint previousPoint;
 @property (nonatomic) NSMutableArray *points;
 
+@property (nonatomic) NSMutableArray *tmpTouchPoints; // 计算贝塞尔曲线的时候使用.
 @end
 
 @implementation TouchDrawViewViaOpenGLES
@@ -30,6 +34,7 @@ typedef NS_ENUM(NSInteger, touchType) {
         [self becomeFirstResponder];
 
         _points = [[NSMutableArray alloc] init];
+        _tmpTouchPoints = [[NSMutableArray alloc] init];
         _previousPoint = CGPointZero;
     }
 
@@ -52,15 +57,13 @@ typedef NS_ENUM(NSInteger, touchType) {
         }
     }
 
-    [_points insertObject:[NSValue valueWithCGPoint:start] atIndex:0];
-    [self addCGPointsFrom:start to:end];
-    [_points addObject:[NSValue valueWithCGPoint:end]];
+//    [_points insertObject:[NSValue valueWithCGPoint:start] atIndex:0];
+//    [self addCGPointsFrom:start to:end];
+//    [_points addObject:[NSValue valueWithCGPoint:end]];
+    
+    [self addCGPointsViaBezeier:start to:end];
+    
     NSLog(@"_points : %@", _points);
-//        if ([self.delegate respondsToSelector:@selector(drawCGPointViaOpenGLES:inFrame:)]) {
-//            for (id rawPoint in _points) {
-//                [self.delegate drawCGPointViaOpenGLES:[rawPoint CGPointValue] inFrame:self.frame];
-//            }
-//        }
 
     if ([self.delegate respondsToSelector:@selector(drawCGPointsViaOpenGLES:inFrame:)]) {
         [self.delegate drawCGPointsViaOpenGLES:_points inFrame:self.frame];
@@ -81,6 +84,29 @@ typedef NS_ENUM(NSInteger, touchType) {
     }
 }
 
+- (void)addCGPointsViaBezeier:(CGPoint)start to:(CGPoint)end {
+    CGPoint p1, p2, p3;
+    if (_tmpTouchPoints.count > 2) {
+        p1 = Middle_CGPoint([_tmpTouchPoints[_tmpTouchPoints.count - 3] CGPointValue], start);
+        p2 = start;
+        p3 = Middle_CGPoint(start, end);
+    } else {
+        p1 = start;
+        p3 = Middle_CGPoint(start, end);
+        p2 = Middle_CGPoint(start, p3);
+    }
+    
+    CGFloat tValue = 0.5 / Distance_CGPoints(p1, p3);
+    if (tValue > 0.5) {
+        tValue = 0.5;
+    }
+    for (CGFloat t=0; t<1; t+=tValue) {
+        CGFloat x = (1 - t) * (1 - t) * p1.x + 2 * t * (1 - t) * p2.x + t * t * p3.x;
+        CGFloat y = (1 - t) * (1 - t) * p1.y + 2 * t * (1 - t) * p2.y + t * t * p3.y;
+        [_points addObject:[NSValue valueWithCGPoint:CGPointMake(x, y)]];
+    }
+}
+
 - (BOOL)canBecomeFirstResponder {
     return YES;
 }
@@ -89,20 +115,24 @@ typedef NS_ENUM(NSInteger, touchType) {
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     NSLog(@"touchesBegan");
+    [_points removeAllObjects];
     for (UITouch *t in touches) {
         // 获取该touch的point
         CGPoint p = [t locationInView:self];
         if (CGPointEqualToPoint(_previousPoint, CGPointZero)) {
             _previousPoint = p;
         }
+        [_tmpTouchPoints addObject:[NSValue valueWithCGPoint:p]];
         [self drawFrom:_previousPoint to:p touchType:touchesBegan];
     }
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
     NSLog(@"touchesMoved");
+    [_points removeAllObjects];
     for (UITouch *t in touches) {
         CGPoint p = [t locationInView:self];
+        [_tmpTouchPoints addObject:[NSValue valueWithCGPoint:p]];
         [self drawFrom:_previousPoint to:p touchType:touchesMoved];
         _previousPoint = p;
     }
@@ -115,6 +145,7 @@ typedef NS_ENUM(NSInteger, touchType) {
         [self drawFrom:_previousPoint to:p touchType:touchesEnded];
         _previousPoint = CGPointZero;
         [_points removeAllObjects];
+        [_tmpTouchPoints removeAllObjects];
     }
 }
 
