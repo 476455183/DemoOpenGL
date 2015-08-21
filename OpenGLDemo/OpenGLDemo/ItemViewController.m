@@ -816,7 +816,6 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     
     for (id rawPoint in points) {
         CGPoint point = [rawPoint CGPointValue];
-        NSLog(@"drawCGPointsViaOpenGLES : %.1f-%.1f", point.x, point.y);
         GLfloat vertices[] = {
             -1 + 2 * (point.x - lineWidth) / rect.size.width, 1 - 2 * (point.y + lineWidth) / rect.size.height, 0.0f, // 左下
             -1 + 2 * (point.x + lineWidth) / rect.size.width, 1 - 2 * (point.y + lineWidth) / rect.size.height, 0.0f, // 右下
@@ -856,7 +855,7 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     NSString *shaderFragment = @"FragmentPaintTexture";
     [self compileShaders:shaderVertex shaderFragment:shaderFragment];
 
-    CGFloat lineWidth = 15.0;
+    CGFloat lineWidth = 5.0;
     GLfloat vertices[] = {
         -1 + 2 * (point.x - lineWidth) / rect.size.width, 1 - 2 * (point.y + lineWidth) / rect.size.height, 0.0f, // 左下
         -1 + 2 * (point.x + lineWidth) / rect.size.width, 1 - 2 * (point.y + lineWidth) / rect.size.height, 0.0f, // 右下
@@ -946,11 +945,10 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     NSString *shaderFragment = @"FragmentPaintTexture";
     [self compileShaders:shaderVertex shaderFragment:shaderFragment];
 
-    CGFloat lineWidth = 15.0;
+    CGFloat lineWidth = 5.0;
     
     for (id rawPoint in points) {
         CGPoint point = [rawPoint CGPointValue];
-        NSLog(@"drawCGPointsViaOpenGLES : %.1f-%.1f", point.x, point.y);
         GLfloat vertices[] = {
             -1 + 2 * (point.x - lineWidth) / rect.size.width, 1 - 2 * (point.y + lineWidth) / rect.size.height, 0.0f, // 左下
             -1 + 2 * (point.x + lineWidth) / rect.size.width, 1 - 2 * (point.y + lineWidth) / rect.size.height, 0.0f, // 右下
