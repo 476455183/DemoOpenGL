@@ -457,6 +457,7 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     touchDrawViewViaOpenGLES.backgroundColor = [UIColor clearColor];
     touchDrawViewViaOpenGLES.delegate = self;
     [touchDrawViewViaOpenGLES addImageViaOpenGLES:[UIImage imageNamed:@"testImage"]];
+    [touchDrawViewViaOpenGLES.delegate preparePaintOpenGLES];
     [self.view addSubview:touchDrawViewViaOpenGLES];
 
     UISegmentedControl *paintColorSegCtl = [[UISegmentedControl alloc] initWithItems:
@@ -733,14 +734,40 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
 
 #pragma mark - TouchDrawViewViaOpenGLESDelegate
 
-- (void)drawCGPointViaOpenGLES:(CGPoint)point inFrame:(CGRect)rect {
-    NSLog(@"drawCGPointViaOpenGLES : %.1f-%.1f", point.x, point.y);
-    
+- (void)preparePaintOpenGLES {
     // 先要编译vertex和fragment两个shader
     NSString *shaderVertex = @"VertexPaint";
     NSString *shaderFragment = @"FragmentPaint";
     [self compileShaders:shaderVertex shaderFragment:shaderFragment];
-    
+
+    glEnableVertexAttribArray(_positionSlot);
+    // _colorSlot对应SourceColor参数, uniform类型, 使用glUniform4f来传递参数至shader.
+    switch (_paintColor) {
+        case nullColor:
+            glUniform4f(_colorSlot, 1.0f, 1.0f, 1.0f, 1.0f);
+            break;
+        case redColor:
+            glUniform4f(_colorSlot, 1.0f, 0.0f, 0.0f, 1.0f);
+            break;
+        case greenColor:
+            glUniform4f(_colorSlot, 0.0f, 1.0f, 0.0f, 1.0f);
+            break;
+        case blueColor:
+            glUniform4f(_colorSlot, 0.0f, 0.0f, 1.0f, 1.0f);
+            break;
+        case yellowColor:
+            glUniform4f(_colorSlot, 1.0f, 1.0f, 0.0f, 1.0f);
+            break;
+        case purpleColor:
+            glUniform4f(_colorSlot, 1.0f, 0.0f, 1.0f, 1.0f);
+            break;
+        default:
+            glUniform4f(_colorSlot, 0.0f, 0.0f, 0.0f, 1.0f);
+            break;
+    }
+}
+
+- (void)drawCGPointViaOpenGLES:(CGPoint)point inFrame:(CGRect)rect {
     CGFloat lineWidth = 5.0;
     GLfloat vertices[] = {
         -1 + 2 * (point.x - lineWidth) / rect.size.width, 1 - 2 * (point.y + lineWidth) / rect.size.height, 0.0f, // 左下
@@ -750,71 +777,14 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     
     // Load the vertex data
     glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, vertices);
-    glEnableVertexAttribArray(_positionSlot);
-    
-    // _colorSlot对应SourceColor参数, uniform类型, 使用glUniform4f来传递参数至shader.
-    switch (_paintColor) {
-        case nullColor:
-            glUniform4f(_colorSlot, 1.0f, 1.0f, 1.0f, 1.0f);
-            break;
-        case redColor:
-            glUniform4f(_colorSlot, 1.0f, 0.0f, 0.0f, 1.0f);
-            break;
-        case greenColor:
-            glUniform4f(_colorSlot, 0.0f, 1.0f, 0.0f, 1.0f);
-            break;
-        case blueColor:
-            glUniform4f(_colorSlot, 0.0f, 0.0f, 1.0f, 1.0f);
-            break;
-        case yellowColor:
-            glUniform4f(_colorSlot, 1.0f, 1.0f, 0.0f, 1.0f);
-            break;
-        case purpleColor:
-            glUniform4f(_colorSlot, 1.0f, 0.0f, 1.0f, 1.0f);
-            break;
-        default:
-            glUniform4f(_colorSlot, 0.0f, 0.0f, 0.0f, 1.0f);
-            break;
-    }
     
     // Draw triangle
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4); // 从0开始绘制4个点, 即两个三角形(012, 123)
     [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
 }
 
 - (void)drawCGPointsViaOpenGLES:(NSArray *)points inFrame:(CGRect)rect {
-    // 先要编译vertex和fragment两个shader
-    NSString *shaderVertex = @"VertexPaint";
-    NSString *shaderFragment = @"FragmentPaint";
-    [self compileShaders:shaderVertex shaderFragment:shaderFragment];
-    
     CGFloat lineWidth = 5.0;
-    
-    // _colorSlot对应SourceColor参数, uniform类型, 使用glUniform4f来传递参数至shader.
-    switch (_paintColor) {
-        case nullColor:
-            glUniform4f(_colorSlot, 1.0f, 1.0f, 1.0f, 1.0f);
-            break;
-        case redColor:
-            glUniform4f(_colorSlot, 1.0f, 0.0f, 0.0f, 1.0f);
-            break;
-        case greenColor:
-            glUniform4f(_colorSlot, 0.0f, 1.0f, 0.0f, 1.0f);
-            break;
-        case blueColor:
-            glUniform4f(_colorSlot, 0.0f, 0.0f, 1.0f, 1.0f);
-            break;
-        case yellowColor:
-            glUniform4f(_colorSlot, 1.0f, 1.0f, 0.0f, 1.0f);
-            break;
-        case purpleColor:
-            glUniform4f(_colorSlot, 1.0f, 0.0f, 1.0f, 1.0f);
-            break;
-        default:
-            glUniform4f(_colorSlot, 0.0f, 0.0f, 0.0f, 1.0f);
-            break;
-    }
-    
     for (id rawPoint in points) {
         CGPoint point = [rawPoint CGPointValue];
         GLfloat vertices[] = {
@@ -830,9 +800,6 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
         
         //之前将_positionSlot与shader中的Position绑定起来, 这里将顶点数据vertices与_positionSlot绑定起来
         glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, vertices);
-        glEnableVertexAttribArray(_positionSlot);
-        
-        // glDrawArrays(GL_TRIANGLE_STRIP, 0, 4); // 从0开始绘制4个点, 即两个三角形(012, 123)
         
         //通过index来绘制vertex,
         //参数1表示图元类型, 参数2表示索引数据的个数(不一定是要绘制的vertex的个数), 参数3表示索引数据格式(必须是GL_UNSIGNED_BYTE等).
