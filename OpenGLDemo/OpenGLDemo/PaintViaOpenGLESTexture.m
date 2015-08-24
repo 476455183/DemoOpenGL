@@ -42,14 +42,6 @@ typedef NS_ENUM(NSInteger, touchType) {
     return self;
 }
 
-#pragma mark - addImageViaOpenGLES
-
-- (void)addImageViaOpenGLES:(UIImage *)image {
-    if ([self.delegate respondsToSelector:@selector(addImageViaOpenGLESTexture:inFrame:)]) {
-        [self.delegate addImageViaOpenGLESTexture:image inFrame:self.frame];
-    }
-}
-
 - (void)drawFrom:(CGPoint)start to:(CGPoint)end touchType:(NSInteger)touchType {
     if (CGPointEqualToPoint(start, end) || touchType == touchesBegan || touchType == touchesEnded) {
         if ([self.delegate respondsToSelector:@selector(drawCGPointViaOpenGLESTexture:inFrame:)]) {

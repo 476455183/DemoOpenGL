@@ -482,7 +482,7 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     PaintViaOpenGLESTexture *paintViaOpenGLESTexture = [[PaintViaOpenGLESTexture alloc] initWithFrame:self.view.frame];
     paintViaOpenGLESTexture.backgroundColor = [UIColor clearColor];
     paintViaOpenGLESTexture.delegate = self;
-    [paintViaOpenGLESTexture addImageViaOpenGLES:[UIImage imageNamed:@"testImage"]];
+    [paintViaOpenGLESTexture.delegate addImageViaOpenGLESTexture:[UIImage imageNamed:@"testImage"] inFrame:paintViaOpenGLESTexture.frame];
     [self.view addSubview:paintViaOpenGLESTexture];
 }
 

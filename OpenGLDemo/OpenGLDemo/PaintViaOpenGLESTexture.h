@@ -22,6 +22,4 @@
 
 @property (nonatomic, weak) id<PaintViaOpenGLESTextureDelegate> delegate;
 
-- (void)addImageViaOpenGLES:(UIImage *)image;
-
 @end
