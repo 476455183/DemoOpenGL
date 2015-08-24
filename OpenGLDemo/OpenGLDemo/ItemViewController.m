@@ -483,6 +483,7 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     paintViaOpenGLESTexture.backgroundColor = [UIColor clearColor];
     paintViaOpenGLESTexture.delegate = self;
     [paintViaOpenGLESTexture.delegate addImageViaOpenGLESTexture:[UIImage imageNamed:@"testImage"] inFrame:paintViaOpenGLESTexture.frame];
+    [paintViaOpenGLESTexture.delegate preparePaintOpenGLESTexture];
     [self.view addSubview:paintViaOpenGLESTexture];
 }
 
@@ -849,26 +850,18 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
 
 #pragma mark - PaintViaOpenGLESTextureDelegate
 
-- (void)drawCGPointViaOpenGLESTexture:(CGPoint)point inFrame:(CGRect)rect {
+- (void)preparePaintOpenGLESTexture {
     // 先要编译vertex和fragment两个shader
     NSString *shaderVertex = @"VertexPaintTexture";
     NSString *shaderFragment = @"FragmentPaintTexture";
     [self compileShaders:shaderVertex shaderFragment:shaderFragment];
-
-    CGFloat lineWidth = 5.0;
-    GLfloat vertices[] = {
-        -1 + 2 * (point.x - lineWidth) / rect.size.width, 1 - 2 * (point.y + lineWidth) / rect.size.height, 0.0f, // 左下
-        -1 + 2 * (point.x + lineWidth) / rect.size.width, 1 - 2 * (point.y + lineWidth) / rect.size.height, 0.0f, // 右下
-        -1 + 2 * (point.x - lineWidth) / rect.size.width, 1 - 2 * (point.y - lineWidth) / rect.size.height, 0.0f, // 左上
-        -1 + 2 * (point.x + lineWidth) / rect.size.width, 1 - 2 * (point.y - lineWidth) / rect.size.height, 0.0f }; //右上
-
-    // Load the vertex data
-    glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, vertices);
-    glEnableVertexAttribArray(_positionSlot);
     
     // 添加纹理贴图以消除锯齿
     glEnable(GL_TEXTURE_2D);
     glEnable(GL_BLEND); // 混合模式
+    glEnableVertexAttribArray(_positionSlot);
+    glEnableVertexAttribArray(_textureCoordsSlot);
+    
     glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
     glGenTextures(1, &_glName);
     glBindTexture(GL_TEXTURE_2D, _glName);
@@ -887,14 +880,6 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     glBindTexture(GL_TEXTURE_2D, _glName);
     
     glUniform1i(_textureSlot, 5);
-    GLfloat texCoords[] = {
-        0,0,
-        1,0,
-        0,1,
-        1,1
-    };
-    glEnableVertexAttribArray(_textureCoordsSlot);
-    glVertexAttribPointer(_textureCoordsSlot, 2, GL_FLOAT, GL_FALSE, 0, texCoords);
 
     // 参数1: 源颜色, 即将要拿去加入混合的颜色. 纹理原图.
     // 参数2: 目标颜色, 即做处理之前的原来颜色. 原来颜色.
@@ -918,33 +903,48 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     //    glBlendFunc(GL_DST_ALPHA, GL_ZERO);                   // 纹理原图, 渐变部分消失, 白色圆偏小
     //    glBlendFunc(GL_DST_ALPHA, GL_ONE);                    // 白色圆
     //    glBlendFunc(GL_DST_ALPHA, GL_ONE_MINUS_DST_ALPHA);    // 纹理原图
-
+    
     //    glBlendFunc(GL_ONE_MINUS_SRC_COLOR, GL_ZERO);         // 黑色矩形, 圆周边缘类似半透明灰白
     //    glBlendFunc(GL_ONE_MINUS_SRC_COLOR, GL_ONE);          // 白色圆圈, 中间透明
     
     //    glBlendFunc(GL_ONE_MINUS_SRC_ALPHA, GL_ZERO);         // 黑色矩形, 圆周边缘类似半透明灰白
     //    glBlendFunc(GL_ONE_MINUS_SRC_ALPHA, GL_ONE);          // 白色圆圈, 中间透明
-
+    
     //    glBlendFunc(GL_ONE_MINUS_DST_ALPHA, GL_ZERO);         // 纹理原图
     //    glBlendFunc(GL_ONE_MINUS_DST_ALPHA, GL_ONE);          // 目标颜色不受texture影响
-
+    
     //    glBlendFunc(GL_SRC_ALPHA_SATURATE, GL_ZERO);          // 黑色矩形, 圆周边缘类似半透明灰白
     
     
     glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);                // 源颜色全取,目标颜色:若该像素的源颜色透明度为1(白色),则不取该目标颜色;若源颜色透明度为0(黑色),则全取目标颜色;若介于之间,则根据透明度来取目标颜色值.
     // 所以黑色的圆周边缘也不存在了. 类似锐化?
+}
+
+- (void)drawCGPointViaOpenGLESTexture:(CGPoint)point inFrame:(CGRect)rect {
+    CGFloat lineWidth = 5.0;
+    GLfloat vertices[] = {
+        -1 + 2 * (point.x - lineWidth) / rect.size.width, 1 - 2 * (point.y + lineWidth) / rect.size.height, 0.0f, // 左下
+        -1 + 2 * (point.x + lineWidth) / rect.size.width, 1 - 2 * (point.y + lineWidth) / rect.size.height, 0.0f, // 右下
+        -1 + 2 * (point.x - lineWidth) / rect.size.width, 1 - 2 * (point.y - lineWidth) / rect.size.height, 0.0f, // 左上
+        -1 + 2 * (point.x + lineWidth) / rect.size.width, 1 - 2 * (point.y - lineWidth) / rect.size.height, 0.0f }; //右上
+
+    // Load the vertex data
+    glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, vertices);
+    
+    GLfloat texCoords[] = {
+        0,0,
+        1,0,
+        0,1,
+        1,1
+    };
+    glVertexAttribPointer(_textureCoordsSlot, 2, GL_FLOAT, GL_FALSE, 0, texCoords);
     
     // Draw triangle
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4); // 从0开始绘制4个点, 即两个三角形(012, 123)
     [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
 }
 
 - (void)drawCGPointsViaOpenGLESTexture:(NSArray *)points inFrame:(CGRect)rect {
-    // 先要编译vertex和fragment两个shader
-    NSString *shaderVertex = @"VertexPaintTexture";
-    NSString *shaderFragment = @"FragmentPaintTexture";
-    [self compileShaders:shaderVertex shaderFragment:shaderFragment];
-
     CGFloat lineWidth = 5.0;
     
     for (id rawPoint in points) {
@@ -962,41 +962,14 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
 
         //之前将_positionSlot与shader中的Position绑定起来, 这里将顶点数据vertices与_positionSlot绑定起来
         glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, vertices);
-        glEnableVertexAttribArray(_positionSlot);
 
-        
-        // 添加纹理贴图以消除锯齿
-        glEnable(GL_BLEND);
-        glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
-        glGenTextures(1, &_glName);
-        glBindTexture(GL_TEXTURE_2D, _glName);
-        
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);//贴图与原图不一样大
-        
-        [self prepareImageDataAndTexture:[UIImage imageNamed:@"Radial"]];
-        
-        glActiveTexture(GL_TEXTURE5);
-        glBindTexture(GL_TEXTURE_2D, _glName);
-        
-        glUniform1i(_textureSlot, 5);
         GLfloat texCoords[] = {
             0,0,
             1,0,
             0,1,
             1,1
         };
-        glEnableVertexAttribArray(_textureCoordsSlot);
         glVertexAttribPointer(_textureCoordsSlot, 2, GL_FLOAT, GL_FALSE, 0, texCoords);
-        
-        //1: 脚本输出颜色, 2:原来颜色
-//        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // 有一个黑色的圆周边缘
-        glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-        
-        
-        // glDrawArrays(GL_TRIANGLE_STRIP, 0, 4); // 从0开始绘制4个点, 即两个三角形(012, 123)
 
         //通过index来绘制vertex,
         //参数1表示图元类型, 参数2表示索引数据的个数(不一定是要绘制的vertex的个数), 参数3表示索引数据格式(必须是GL_UNSIGNED_BYTE等).

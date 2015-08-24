@@ -10,6 +10,8 @@
 
 @protocol PaintViaOpenGLESTextureDelegate <NSObject>
 
+- (void)preparePaintOpenGLESTexture;
+
 - (void)drawCGPointViaOpenGLESTexture:(CGPoint)point inFrame:(CGRect)rect;
 
 - (void)drawCGPointsViaOpenGLESTexture:(NSArray *)points inFrame:(CGRect)rect;
