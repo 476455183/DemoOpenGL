@@ -1001,8 +1001,8 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     PaintViaGLKView *paintViaGLKView = [[PaintViaGLKView alloc] initWithFrame:self.view.frame];
     paintViaGLKView.backgroundColor = [UIColor clearColor];
     paintViaGLKView.delegate = self;
-    [paintViaGLKView.delegate preparePaintGLKView:paintViaGLKView.frame];
     [paintViaGLKView.delegate addImageViaGLKView:[UIImage imageNamed:@"testImage"] inFrame:paintViaGLKView.frame];
+    [paintViaGLKView.delegate preparePaintGLKView:paintViaGLKView.frame];
     [self.view addSubview:paintViaGLKView];
     
     UISegmentedControl *paintColorSegCtl = [[UISegmentedControl alloc] initWithItems:
@@ -1022,12 +1022,101 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
 #pragma mark - PaintViaGLKViewDelegate
 
 - (void)preparePaintGLKView:(CGRect)rect {
+    // 先要编译vertex和fragment两个shader
+    NSString *shaderVertex = @"VertexPaintTexture";
+    NSString *shaderFragment = @"FragmentPaintTexture";
+    [self compileShaders:shaderVertex shaderFragment:shaderFragment];
+    
+    // 添加纹理贴图以消除锯齿
+    glEnable(GL_TEXTURE_2D);
+    glEnable(GL_BLEND); // 混合模式
+    glEnableVertexAttribArray(_positionSlot);
+    glEnableVertexAttribArray(_textureCoordsSlot);
+    
+    glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+    glGenTextures(1, &_glName);
+    glBindTexture(GL_TEXTURE_2D, _glName);
+    
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    // 贴图与原图不一样大, 这里采用简单的线性插值来调整图像
+    // 纹理需要被缩小到适合多边形的尺寸
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    // 纹理需要被放大到适合多边形的尺寸
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    
+    [self prepareImageDataAndTexture:[UIImage imageNamed:@"Radial"]];
+    
+    glActiveTexture(GL_TEXTURE5);
+    glBindTexture(GL_TEXTURE_2D, _glName);
+    
+    glUniform1i(_textureSlot, 5);
+    
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
 - (void)drawCGPointViaGLKView:(CGPoint)point inFrame:(CGRect)rect {
+    CGFloat lineWidth = 5.0;
+    GLfloat vertices[] = {
+        -1 + 2 * (point.x - lineWidth) / rect.size.width, 1 - 2 * (point.y + lineWidth) / rect.size.height, 0.0f, // 左下
+        -1 + 2 * (point.x + lineWidth) / rect.size.width, 1 - 2 * (point.y + lineWidth) / rect.size.height, 0.0f, // 右下
+        -1 + 2 * (point.x - lineWidth) / rect.size.width, 1 - 2 * (point.y - lineWidth) / rect.size.height, 0.0f, // 左上
+        -1 + 2 * (point.x + lineWidth) / rect.size.width, 1 - 2 * (point.y - lineWidth) / rect.size.height, 0.0f }; //右上
+    
+    // Load the vertex data
+    glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, vertices);
+    
+    [self changePaintColorOpenGLES];
+    
+    GLfloat texCoords[] = {
+        0,0,
+        1,0,
+        0,1,
+        1,1
+    };
+    glVertexAttribPointer(_textureCoordsSlot, 2, GL_FLOAT, GL_FALSE, 0, texCoords);
+    
+    // Draw triangle
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4); // 从0开始绘制4个点, 即两个三角形(012, 123)
+    [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
 }
 
 - (void)drawCGPointsViaGLKView:(NSArray *)points inFrame:(CGRect)rect {
+    [self changePaintColorOpenGLES];
+    
+    CGFloat lineWidth = 5.0;
+    for (id rawPoint in points) {
+        CGPoint point = [rawPoint CGPointValue];
+        GLfloat vertices[] = {
+            -1 + 2 * (point.x - lineWidth) / rect.size.width, 1 - 2 * (point.y + lineWidth) / rect.size.height, 0.0f, // 左下
+            -1 + 2 * (point.x + lineWidth) / rect.size.width, 1 - 2 * (point.y + lineWidth) / rect.size.height, 0.0f, // 右下
+            -1 + 2 * (point.x - lineWidth) / rect.size.width, 1 - 2 * (point.y - lineWidth) / rect.size.height, 0.0f, // 左上
+            -1 + 2 * (point.x + lineWidth) / rect.size.width, 1 - 2 * (point.y - lineWidth) / rect.size.height, 0.0f }; //右上
+        
+        const GLubyte indices[] = {
+            0, 1, 2, // 三角形0
+            1, 2, 3  // 三角形1
+        };
+        
+        //之前将_positionSlot与shader中的Position绑定起来, 这里将顶点数据vertices与_positionSlot绑定起来
+        glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, vertices);
+        
+        GLfloat texCoords[] = {
+            0,0,
+            1,0,
+            0,1,
+            1,1
+        };
+        glVertexAttribPointer(_textureCoordsSlot, 2, GL_FLOAT, GL_FALSE, 0, texCoords);
+        
+        //通过index来绘制vertex,
+        //参数1表示图元类型, 参数2表示索引数据的个数(不一定是要绘制的vertex的个数), 参数3表示索引数据格式(必须是GL_UNSIGNED_BYTE等).
+        //参数4表示存放索引的数组(使用VBO:索引数据在VBO中的偏移量;不使用VBO:指向CPU内存中的索引数据数组).
+        //相比glDrawArrays, 其优势在于:
+        //通过index指定了要绘制的6个的vertex(用index对应),而1,2(index)重复了,所以实际只绘制0,1,2,3(index)对应的四个vertex
+        glDrawElements(GL_TRIANGLE_STRIP, sizeof(indices)/sizeof(indices[0]), GL_UNSIGNED_BYTE, indices);
+    }
+    [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
 }
 
 - (void)addImageViaGLKView:(UIImage *)image inFrame:(CGRect)rect {
