@@ -19,6 +19,7 @@
 #import "TouchDrawViewViaCoreGraphics.h"
 #import "TouchDrawViewViaOpenGLES.h"
 #import "PaintViaOpenGLESTexture.h"
+#import "PaintViaGLKView.h"
 
 typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     demoClearColor = 0,
@@ -34,6 +35,7 @@ typedef NS_ENUM(NSInteger, enumDemoOpenGL){
     demoCoreImageOpenGLESFilter,
     demo3DTransform,
     demoGLKViewSimple,
+    demoPaintViaGLKView,
 };
 
 typedef NS_ENUM(NSInteger, enumPaintColor) {
@@ -45,7 +47,7 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     purpleColor,
 };
 
-@interface ItemViewController () <UIImagePickerControllerDelegate, TouchDrawViewViaOpenGLESDelegate, PaintViaOpenGLESTextureDelegate>
+@interface ItemViewController () <UIImagePickerControllerDelegate, TouchDrawViewViaOpenGLESDelegate, PaintViaOpenGLESTextureDelegate, PaintViaGLKViewDelegate>
 
 @property (nonatomic) NSArray *demosOpenGL;
 
@@ -95,7 +97,7 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    self.demosOpenGL = @[@"Clear Color", @"Shader", @"Draw Triangle via Shader", @"Draw Image via Core Graphics", @"Draw Image via OpenGL ES", @"Paint via Core Graphics", @"Paint via OpenGL ES", @"Paint via OpenGL ES Texture", @"Paint and Filter via OpenGLES Texture", @"Core Image Filter", @"Core Image and OpenGS ES Filter", @"3D Transform", @"GLKView Demo"];
+    self.demosOpenGL = @[@"Clear Color", @"Shader", @"Draw Triangle via Shader", @"Draw Image via Core Graphics", @"Draw Image via OpenGL ES", @"Paint via Core Graphics", @"Paint via OpenGL ES", @"Paint via OpenGL ES Texture", @"Paint and Filter via OpenGLES Texture", @"Core Image Filter", @"Core Image and OpenGS ES Filter", @"3D Transform", @"GLKView Demo", @"Paint via GLKView"];
     
     [self setupOpenGLContext];
     [self setupCAEAGLLayer];
@@ -173,7 +175,7 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
 #pragma mark - demoViaOpenGL
 
 - (void)demoViaOpenGL {
-    //self.demosOpenGL = @[@"Clear Color", @"Shader", @"Draw Triangle via Shader", @"Draw Image via Core Graphics", @"Draw Image via OpenGL ES", @"Paint via Core Graphics", @"Paint via OpenGL ES", @"Paint via OpenGL ES Texture", @"Paint and Filter via OpenGLES Texture", @"Core Image Filter", @"Core Image and OpenGS ES Filter", @"3D Transform", @"GLKView Demo"];
+    //self.demosOpenGL = @[@"Clear Color", @"Shader", @"Draw Triangle via Shader", @"Draw Image via Core Graphics", @"Draw Image via OpenGL ES", @"Paint via Core Graphics", @"Paint via OpenGL ES", @"Paint via OpenGL ES Texture", @"Paint and Filter via OpenGLES Texture", @"Core Image Filter", @"Core Image and OpenGS ES Filter", @"3D Transform", @"GLKView Demo", @"Paint via GLKView"];
     [self tearDownOpenGLBuffers];
     [self setupOpenGLBuffers];
     glClearColor(1.0, 1.0, 1.0, 1.0);
@@ -218,6 +220,9 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
             break;
         case demoGLKViewSimple:
             [self demoGLKViewSimple];
+            break;
+        case demoPaintViaGLKView:
+            [self paintViaGLKView];
             break;
         default:
             break;
@@ -404,69 +409,6 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
     [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
-}
-
-- (void)didDrawImageViaGLKView:(UIImage *)image inFrame:(CGRect)rect {
-    // 创建OpenGL视图
-    _glkView = [[GLKView alloc] initWithFrame:rect context:_eaglContext];
-    [_glkView bindDrawable];
-    [self.view addSubview:_glkView];
-    
-    // 因OpenGL只能绘制三角形, 则该verteices2数组与glDrawArrays的组合要认真仔细.
-    // 如glDrawArrays(GL_TRIANGLE_STRIP, 0, 4)是两个三角形:(左下,右下,右上)与(右下,右上,左上).
-    // 而glDrawArrays(GL_TRIANGLE_STRIP, 1, 3)是一个三角形:(右下,右上,左上)
-    // 若将vertices中的右上与左上互换, 则glDrawArrays(GL_TRIANGLE_STRIP, 0, 4)刚好绘制出一片白板(两个三角形拼接).
-    GLfloat vertices[] = {
-        -1, -1,//左下
-        1, -1,//右下
-        -1, 1,//左上
-        1, 1,//右上
-    };
-    glEnableVertexAttribArray(GLKVertexAttribPosition); // 启用position
-    // glVertexAttribPointer:加载vertex数据
-    // 参数1:传递的顶点位置数据GLKVertexAttribPosition, 或顶点颜色数据GLKVertexAttribColor
-    // 参数2:数据大小(2维为2, 3维为3)
-    // 参数3:顶点的数据类型
-    // 参数4:指定当被访问时, 固定点数据值是否应该被归一化或直接转换为固定点值.
-    // 参数5:指定连续顶点属性之间的偏移量, 用于描述每个vertex数据大小
-    // 参数6:指定第一个组件在数组的第一个顶点属性中的偏移量, 与GL_ARRAY_BUFFER绑定存储于缓冲区中
-    glVertexAttribPointer(GLKVertexAttribPosition, 2, GL_FLOAT, GL_FALSE, 0, vertices);
-    
-    static GLfloat colors[] = {
-        1,1,1,1,
-        1,1,1,1,
-        1,1,1,1,
-        1,1,1,1
-    };
-    glEnableVertexAttribArray(GLKVertexAttribColor); // 启用颜色
-    glVertexAttribPointer(GLKVertexAttribColor, 4, GL_FLOAT, GL_FALSE, 0, colors);
-    
-    static GLfloat texCoords[] = {
-        0, 0,//左下
-        1, 0,//右下
-        0, 1,//左上
-        1, 1,//右上
-    };
-    glEnableVertexAttribArray(GLKVertexAttribTexCoord0); // 启用vertex贴图坐标
-    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 0, texCoords);
-
-    // 因为读取图片信息的时候默认是从图片左上角读取的, 而OpenGL绘制却是从左下角开始的.所以我们要从左下角开始读取图片数据.
-    NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:@(YES), GLKTextureLoaderOriginBottomLeft, nil];
-    GLKTextureInfo *textureInfo = [GLKTextureLoader textureWithCGImage:image.CGImage options:options error:nil];
-
-    GLKBaseEffect *baseEffect = [[GLKBaseEffect alloc] init];
-    // 创建一个二维的投影矩阵, 即定义一个视野区域(镜头看到的东西)
-    // GLKMatrix4MakeOrtho(float left, float right, float bottom, float top, float nearZ, float farZ)
-    baseEffect.transform.projectionMatrix = GLKMatrix4MakeOrtho(-1, 1, -1, 1, -1, 1);
-    baseEffect.texture2d0.name = textureInfo.name;
-    [baseEffect prepareToDraw];
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-
-    glDisableVertexAttribArray(GLKVertexAttribPosition);
-    glDisableVertexAttribArray(GLKVertexAttribColor);
-    glDisableVertexAttribArray(GLKVertexAttribTexCoord0);
-
-    [_glkView display];
 }
 
 #pragma mark - paint
@@ -1053,6 +995,106 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     [self.view addSubview:_lbProcessedImage];
     
     [self didDrawImageViaGLKView:[UIImage imageNamed:@"testImage"] inFrame:CGRectMake(10, 340, self.view.frame.size.width - 20, 200)];
+}
+
+- (void)paintViaGLKView {
+    PaintViaGLKView *paintViaGLKView = [[PaintViaGLKView alloc] initWithFrame:self.view.frame];
+    paintViaGLKView.backgroundColor = [UIColor clearColor];
+    paintViaGLKView.delegate = self;
+    [paintViaGLKView.delegate preparePaintGLKView:paintViaGLKView.frame];
+    [paintViaGLKView.delegate addImageViaGLKView:[UIImage imageNamed:@"testImage"] inFrame:paintViaGLKView.frame];
+    [self.view addSubview:paintViaGLKView];
+    
+    UISegmentedControl *paintColorSegCtl = [[UISegmentedControl alloc] initWithItems:
+                                            [NSArray arrayWithObjects:
+                                             [[UIImage imageNamed:@"Red"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal],
+                                             [[UIImage imageNamed:@"Green"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal],
+                                             [[UIImage imageNamed:@"Blue"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal],
+                                             [[UIImage imageNamed:@"Yellow"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal],
+                                             [[UIImage imageNamed:@"Purple"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal],
+                                             nil]];
+    paintColorSegCtl.frame = CGRectMake(10, 70, self.view.frame.size.width - 20, 30);
+    [paintColorSegCtl addTarget:self action:@selector(changePaintColor:) forControlEvents:UIControlEventValueChanged];
+    paintColorSegCtl.tintColor = [UIColor darkGrayColor];
+    [self.view addSubview:paintColorSegCtl];
+}
+
+#pragma mark - PaintViaGLKViewDelegate
+
+- (void)preparePaintGLKView:(CGRect)rect {
+}
+
+- (void)drawCGPointViaGLKView:(CGPoint)point inFrame:(CGRect)rect {
+}
+
+- (void)drawCGPointsViaGLKView:(NSArray *)points inFrame:(CGRect)rect {
+}
+
+- (void)addImageViaGLKView:(UIImage *)image inFrame:(CGRect)rect {
+    [self didDrawImageViaGLKView:[UIImage imageNamed:@"testImage"] inFrame:self.view.frame];
+}
+
+- (void)didDrawImageViaGLKView:(UIImage *)image inFrame:(CGRect)rect {
+    // 创建OpenGL视图
+    _glkView = [[GLKView alloc] initWithFrame:rect context:_eaglContext];
+    [_glkView bindDrawable];
+    [self.view addSubview:_glkView];
+    
+    // 因OpenGL只能绘制三角形, 则该verteices2数组与glDrawArrays的组合要认真仔细.
+    // 如glDrawArrays(GL_TRIANGLE_STRIP, 0, 4)是两个三角形:(左下,右下,右上)与(右下,右上,左上).
+    // 而glDrawArrays(GL_TRIANGLE_STRIP, 1, 3)是一个三角形:(右下,右上,左上)
+    // 若将vertices中的右上与左上互换, 则glDrawArrays(GL_TRIANGLE_STRIP, 0, 4)刚好绘制出一片白板(两个三角形拼接).
+    GLfloat vertices[] = {
+        -1, -1,//左下
+        1, -1,//右下
+        -1, 1,//左上
+        1, 1,//右上
+    };
+    glEnableVertexAttribArray(GLKVertexAttribPosition); // 启用position
+    // glVertexAttribPointer:加载vertex数据
+    // 参数1:传递的顶点位置数据GLKVertexAttribPosition, 或顶点颜色数据GLKVertexAttribColor
+    // 参数2:数据大小(2维为2, 3维为3)
+    // 参数3:顶点的数据类型
+    // 参数4:指定当被访问时, 固定点数据值是否应该被归一化或直接转换为固定点值.
+    // 参数5:指定连续顶点属性之间的偏移量, 用于描述每个vertex数据大小
+    // 参数6:指定第一个组件在数组的第一个顶点属性中的偏移量, 与GL_ARRAY_BUFFER绑定存储于缓冲区中
+    glVertexAttribPointer(GLKVertexAttribPosition, 2, GL_FLOAT, GL_FALSE, 0, vertices);
+    
+    static GLfloat colors[] = {
+        1,1,1,1,
+        1,1,1,1,
+        1,1,1,1,
+        1,1,1,1
+    };
+    glEnableVertexAttribArray(GLKVertexAttribColor); // 启用颜色
+    glVertexAttribPointer(GLKVertexAttribColor, 4, GL_FLOAT, GL_FALSE, 0, colors);
+    
+    static GLfloat texCoords[] = {
+        0, 0,//左下
+        1, 0,//右下
+        0, 1,//左上
+        1, 1,//右上
+    };
+    glEnableVertexAttribArray(GLKVertexAttribTexCoord0); // 启用vertex贴图坐标
+    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 0, texCoords);
+    
+    // 因为读取图片信息的时候默认是从图片左上角读取的, 而OpenGL绘制却是从左下角开始的.所以我们要从左下角开始读取图片数据.
+    NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:@(YES), GLKTextureLoaderOriginBottomLeft, nil];
+    GLKTextureInfo *textureInfo = [GLKTextureLoader textureWithCGImage:image.CGImage options:options error:nil];
+    
+    GLKBaseEffect *baseEffect = [[GLKBaseEffect alloc] init];
+    // 创建一个二维的投影矩阵, 即定义一个视野区域(镜头看到的东西)
+    // GLKMatrix4MakeOrtho(float left, float right, float bottom, float top, float nearZ, float farZ)
+    baseEffect.transform.projectionMatrix = GLKMatrix4MakeOrtho(-1, 1, -1, 1, -1, 1);
+    baseEffect.texture2d0.name = textureInfo.name;
+    [baseEffect prepareToDraw];
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    
+    glDisableVertexAttribArray(GLKVertexAttribPosition);
+    glDisableVertexAttribArray(GLKVertexAttribColor);
+    glDisableVertexAttribArray(GLKVertexAttribTexCoord0);
+    
+    [_glkView display];
 }
 
 @end

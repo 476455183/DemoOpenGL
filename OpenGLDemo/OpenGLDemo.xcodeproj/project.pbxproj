@@ -44,6 +44,7 @@
 		A48DC2431B81D58D00FC3492 /* FragmentPaintTexture.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A48DC2421B81D58D00FC3492 /* FragmentPaintTexture.glsl */; };
 		A4E14D5A1B8C3BDA00496FA8 /* VertexDrawTexture.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A4E14D591B8C3BDA00496FA8 /* VertexDrawTexture.glsl */; };
 		A4E14D5C1B8C3BF500496FA8 /* FragmentDrawTexture.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A4E14D5B1B8C3BF500496FA8 /* FragmentDrawTexture.glsl */; };
+		A4E14D5F1B8C68C700496FA8 /* PaintViaGLKView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E14D5E1B8C68C700496FA8 /* PaintViaGLKView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +107,8 @@
 		A48DC2421B81D58D00FC3492 /* FragmentPaintTexture.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FragmentPaintTexture.glsl; sourceTree = "<group>"; };
 		A4E14D591B8C3BDA00496FA8 /* VertexDrawTexture.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VertexDrawTexture.glsl; sourceTree = "<group>"; };
 		A4E14D5B1B8C3BF500496FA8 /* FragmentDrawTexture.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FragmentDrawTexture.glsl; sourceTree = "<group>"; };
+		A4E14D5D1B8C68C700496FA8 /* PaintViaGLKView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintViaGLKView.h; sourceTree = "<group>"; };
+		A4E14D5E1B8C68C700496FA8 /* PaintViaGLKView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintViaGLKView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +180,8 @@
 				6A618AA81B736DE10044FB1F /* TouchDrawViewViaOpenGLES.m */,
 				A48DC23D1B81CD5D00FC3492 /* PaintViaOpenGLESTexture.h */,
 				A48DC23E1B81CD5D00FC3492 /* PaintViaOpenGLESTexture.m */,
+				A4E14D5D1B8C68C700496FA8 /* PaintViaGLKView.h */,
+				A4E14D5E1B8C68C700496FA8 /* PaintViaGLKView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -411,6 +416,7 @@
 				6A618AA91B736DE10044FB1F /* TouchDrawViewViaOpenGLES.m in Sources */,
 				6A74B63C1B68EE740042DDEC /* main.m in Sources */,
 				A48DC23C1B7DF3D300FC3492 /* GLTexture.m in Sources */,
+				A4E14D5F1B8C68C700496FA8 /* PaintViaGLKView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
