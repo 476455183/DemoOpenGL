@@ -8,12 +8,12 @@ varying vec2 TextureCoordsOut;
 
 void main()
 {
-    //    gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0); // set gl_FragColor to be red color
-    //    gl_FragColor = SourceColor;
+    // mask will be only used to calculate texture pixel
+    vec4 mask = texture2D(Texture, TextureCoordsOut);
     
-    vec4 mask = texture2D(Texture, TextureCoordsOut); // calculate texture pixel
+    // texture pixel need the alpha value
+    float grey = dot(mask.rgb, vec3(0.3,0.6,0.1));
     
-    float grey = dot(mask.rgb, vec3(0.3,0.6,0.1)); // texture pixel need the alpha value
-    
-    gl_FragColor = vec4(mask.rgb, grey); // color for one texture pixel
+    // color for one texture pixel    
+    gl_FragColor = vec4(SourceColor.rgb, grey);
 }

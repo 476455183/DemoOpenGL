@@ -490,6 +490,19 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     [paintViaOpenGLESTexture.delegate addImageViaOpenGLESTexture:[UIImage imageNamed:@"testImage"] inFrame:paintViaOpenGLESTexture.frame];
     [paintViaOpenGLESTexture.delegate preparePaintOpenGLESTexture];
     [self.view addSubview:paintViaOpenGLESTexture];
+    
+    UISegmentedControl *paintColorSegCtl = [[UISegmentedControl alloc] initWithItems:
+                                            [NSArray arrayWithObjects:
+                                             [[UIImage imageNamed:@"Red"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal],
+                                             [[UIImage imageNamed:@"Green"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal],
+                                             [[UIImage imageNamed:@"Blue"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal],
+                                             [[UIImage imageNamed:@"Yellow"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal],
+                                             [[UIImage imageNamed:@"Purple"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal],
+                                             nil]];
+    paintColorSegCtl.frame = CGRectMake(10, 70, self.view.frame.size.width - 20, 30);
+    [paintColorSegCtl addTarget:self action:@selector(changePaintColor:) forControlEvents:UIControlEventValueChanged];
+    paintColorSegCtl.tintColor = [UIColor darkGrayColor];
+    [self.view addSubview:paintColorSegCtl];
 }
 
 - (void)paintAndFilterViaOpenGLESTexture {
@@ -874,7 +887,6 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     
     //    glBlendFunc(GL_SRC_ALPHA, GL_ZERO);                   // 纹理原图, 渐变部分消失, 白色圆偏小
     //    glBlendFunc(GL_SRC_ALPHA, GL_ONE);                    // 白色圆(不带黑色部分). 常用于表达光亮效果.
-    //    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);    // 白色圆(圆周边缘还有点黑色部分). 通过透明度来混合. 源颜色*自身的alpha值, 目标颜色*(1-源颜色的alpha值). 常用于在物体前面绘制物体.
     
     //    glBlendFunc(GL_DST_ALPHA, GL_ZERO);                   // 纹理原图, 渐变部分消失, 白色圆偏小
     //    glBlendFunc(GL_DST_ALPHA, GL_ONE);                    // 白色圆
@@ -891,9 +903,11 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     
     //    glBlendFunc(GL_SRC_ALPHA_SATURATE, GL_ZERO);          // 黑色矩形, 圆周边缘类似半透明灰白
     
+    // 源颜色全取,目标颜色:若该像素的源颜色透明度为1(白色),则不取该目标颜色;若源颜色透明度为0(黑色),则全取目标颜色;若介于之间,则根据透明度来取目标颜色值. 所以黑色的圆周边缘也不存在了. 类似锐化?
+    //    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
     
-    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);                // 源颜色全取,目标颜色:若该像素的源颜色透明度为1(白色),则不取该目标颜色;若源颜色透明度为0(黑色),则全取目标颜色;若介于之间,则根据透明度来取目标颜色值.
-    // 所以黑色的圆周边缘也不存在了. 类似锐化?
+    // 白色圆(圆周边缘还有点黑色部分). 通过透明度来混合. 源颜色*自身的alpha值, 目标颜色*(1-源颜色的alpha值). 常用于在物体前面绘制物体.
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
 - (void)drawCGPointViaOpenGLESTexture:(CGPoint)point inFrame:(CGRect)rect {
@@ -906,6 +920,8 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
 
     // Load the vertex data
     glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, vertices);
+    
+    [self changePaintColorOpenGLES];
     
     GLfloat texCoords[] = {
         0,0,
@@ -921,8 +937,9 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
 }
 
 - (void)drawCGPointsViaOpenGLESTexture:(NSArray *)points inFrame:(CGRect)rect {
-    CGFloat lineWidth = 5.0;
+    [self changePaintColorOpenGLES];
     
+    CGFloat lineWidth = 5.0;
     for (id rawPoint in points) {
         CGPoint point = [rawPoint CGPointValue];
         GLfloat vertices[] = {
