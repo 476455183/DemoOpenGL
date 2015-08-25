@@ -135,7 +135,7 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     _eaglLayer.frame = self.view.frame;
     _eaglLayer.opaque = YES; //CALayer默认是透明的
     //描绘属性：不维持渲染内容，颜色格式
-    _eaglLayer.drawableProperties = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:NO],kEAGLDrawablePropertyRetainedBacking,kEAGLColorFormatRGBA8,kEAGLDrawablePropertyColorFormat, nil];
+    _eaglLayer.drawableProperties = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES],kEAGLDrawablePropertyRetainedBacking,kEAGLColorFormatRGBA8,kEAGLDrawablePropertyColorFormat, nil];
     [self.view.layer addSublayer:_eaglLayer];
 }
 
