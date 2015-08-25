@@ -363,7 +363,7 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     NSString *shaderFragment = @"FragmentDrawTexture";
     [self compileShaders:shaderVertex shaderFragment:shaderFragment];
     
-    glViewport(10, 0, rect.size.width, rect.size.height);
+    glViewport(0, 0, rect.size.width, rect.size.height);
     
     glEnable(GL_TEXTURE_2D);
     glEnable(GL_BLEND);
@@ -379,7 +379,7 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     
-    [self prepareImageDataAndTexture:[UIImage imageNamed:@"testImage"]];
+    [self prepareImageDataAndTexture:image];
     
     glActiveTexture(GL_TEXTURE5);
     glBindTexture(GL_TEXTURE_2D, _glName);
@@ -636,7 +636,7 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     [picker dismissViewControllerAnimated:YES completion:^{
         _originImageView.image = savedImage;
         if ([self.demosOpenGL indexOfObject:self.item] == demoDrawImageViaOpenGLES) {
-            [self didDrawImageViaGLKView:savedImage inFrame:CGRectMake(10, 340, self.view.frame.size.width - 20, 200)];
+            [self didDrawImageViaOpenGLES:savedImage inFrame:CGRectMake(10, 340, self.view.frame.size.width - 20, 200)];
         }
     }];
 }
@@ -878,7 +878,7 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
 }
 
 - (void)addImageViaOpenGLES:(UIImage *)image inFrame:(CGRect)rect {
-    [self didDrawImageViaGLKView:image inFrame:rect];
+    [self didDrawImageViaOpenGLES:image inFrame:rect];
 }
 
 #pragma mark - PaintViaOpenGLESTextureDelegate
@@ -1019,7 +1019,7 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
 }
 
 - (void)addImageViaOpenGLESTexture:(UIImage *)image inFrame:(CGRect)rect {
-    [self didDrawImageViaGLKView:image inFrame:rect];
+    [self didDrawImageViaOpenGLES:image inFrame:rect];
 }
 
 #pragma mark - GLKView demos
