@@ -709,7 +709,7 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
 
     //开始渲染
     [_ciContext drawImage:[_ciFilter outputImage] inRect:CGRectMake(0, 0, _glkView.drawableWidth, _glkView.drawableHeight) fromRect:[_ciImage extent]];
-    [_glkView display];
+    [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
 }
 
 #pragma mark - 3D Transform
