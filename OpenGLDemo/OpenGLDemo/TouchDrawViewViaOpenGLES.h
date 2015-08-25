@@ -24,6 +24,4 @@
 
 @property (nonatomic, weak) id<TouchDrawViewViaOpenGLESDelegate> delegate;
 
-- (void)addImageViaOpenGLES:(UIImage *)image;
-
 @end

@@ -456,7 +456,7 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     TouchDrawViewViaOpenGLES *touchDrawViewViaOpenGLES = [[TouchDrawViewViaOpenGLES alloc] initWithFrame:self.view.frame];
     touchDrawViewViaOpenGLES.backgroundColor = [UIColor clearColor];
     touchDrawViewViaOpenGLES.delegate = self;
-    [touchDrawViewViaOpenGLES addImageViaOpenGLES:[UIImage imageNamed:@"testImage"]];
+    [touchDrawViewViaOpenGLES.delegate addImageViaOpenGLES:[UIImage imageNamed:@"testImage"] inFrame:touchDrawViewViaOpenGLES.frame];
     [touchDrawViewViaOpenGLES.delegate preparePaintOpenGLES];
     [self.view addSubview:touchDrawViewViaOpenGLES];
 
