@@ -741,6 +741,9 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     [self compileShaders:shaderVertex shaderFragment:shaderFragment];
 
     glEnableVertexAttribArray(_positionSlot);
+}
+
+- (void)changePaintColorOpenGLES {
     // _colorSlot对应SourceColor参数, uniform类型, 使用glUniform4f来传递参数至shader.
     switch (_paintColor) {
         case nullColor:
@@ -777,6 +780,7 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     
     // Load the vertex data
     glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, vertices);
+    [self changePaintColorOpenGLES];
     
     // Draw triangle
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4); // 从0开始绘制4个点, 即两个三角形(012, 123)
@@ -800,6 +804,7 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
         
         //之前将_positionSlot与shader中的Position绑定起来, 这里将顶点数据vertices与_positionSlot绑定起来
         glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, vertices);
+        [self changePaintColorOpenGLES];
         
         //通过index来绘制vertex,
         //参数1表示图元类型, 参数2表示索引数据的个数(不一定是要绘制的vertex的个数), 参数3表示索引数据格式(必须是GL_UNSIGNED_BYTE等).
