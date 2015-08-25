@@ -355,10 +355,14 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     [_originImageView addGestureRecognizer:tapGestureRecognizer];
     [_originImageView setUserInteractionEnabled:YES];
     
-    [self didDrawImageViaOpenGLES:[UIImage imageNamed:@"testImage"] inFrame:CGRectMake(10, 340, self.view.frame.size.width - 20, 200)];
+    [self didDrawImageViaGLKView:[UIImage imageNamed:@"testImage"] inFrame:CGRectMake(10, 340, self.view.frame.size.width - 20, 200)];
 }
 
 - (void)didDrawImageViaOpenGLES:(UIImage *)image inFrame:(CGRect)rect {
+    
+}
+
+- (void)didDrawImageViaGLKView:(UIImage *)image inFrame:(CGRect)rect {
     // 创建OpenGL视图
     _glkView = [[GLKView alloc] initWithFrame:rect context:_eaglContext];
     [_glkView bindDrawable];
@@ -575,7 +579,7 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     [picker dismissViewControllerAnimated:YES completion:^{
         _originImageView.image = savedImage;
         if ([self.demosOpenGL indexOfObject:self.item] == demoDrawImageViaOpenGLES) {
-            [self didDrawImageViaOpenGLES:savedImage inFrame:CGRectMake(10, 340, self.view.frame.size.width - 20, 200)];
+            [self didDrawImageViaGLKView:savedImage inFrame:CGRectMake(10, 340, self.view.frame.size.width - 20, 200)];
         }
     }];
 }
@@ -817,7 +821,7 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
 }
 
 - (void)addImageViaOpenGLES:(UIImage *)image inFrame:(CGRect)rect {
-    [self didDrawImageViaOpenGLES:image inFrame:rect];
+    [self didDrawImageViaGLKView:image inFrame:rect];
 }
 
 #pragma mark - PaintViaOpenGLESTextureDelegate
@@ -954,7 +958,7 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
 }
 
 - (void)addImageViaOpenGLESTexture:(UIImage *)image inFrame:(CGRect)rect {
-    [self didDrawImageViaOpenGLES:image inFrame:rect];
+    [self didDrawImageViaGLKView:image inFrame:rect];
 }
 
 #pragma mark - GLKView demos
@@ -991,7 +995,7 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     _lbProcessedImage.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:_lbProcessedImage];
     
-    [self didDrawImageViaOpenGLES:[UIImage imageNamed:@"testImage"] inFrame:CGRectMake(10, 340, self.view.frame.size.width - 20, 200)];
+    [self didDrawImageViaGLKView:[UIImage imageNamed:@"testImage"] inFrame:CGRectMake(10, 340, self.view.frame.size.width - 20, 200)];
 }
 
 @end
