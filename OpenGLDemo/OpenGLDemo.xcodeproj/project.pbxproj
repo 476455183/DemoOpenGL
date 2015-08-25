@@ -42,6 +42,8 @@
 		A48DC23F1B81CD5D00FC3492 /* PaintViaOpenGLESTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = A48DC23E1B81CD5D00FC3492 /* PaintViaOpenGLESTexture.m */; };
 		A48DC2411B81D57B00FC3492 /* VertexPaintTexture.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A48DC2401B81D57B00FC3492 /* VertexPaintTexture.glsl */; };
 		A48DC2431B81D58D00FC3492 /* FragmentPaintTexture.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A48DC2421B81D58D00FC3492 /* FragmentPaintTexture.glsl */; };
+		A4E14D5A1B8C3BDA00496FA8 /* VertexDrawTexture.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A4E14D591B8C3BDA00496FA8 /* VertexDrawTexture.glsl */; };
+		A4E14D5C1B8C3BF500496FA8 /* FragmentDrawTexture.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A4E14D5B1B8C3BF500496FA8 /* FragmentDrawTexture.glsl */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,6 +104,8 @@
 		A48DC23E1B81CD5D00FC3492 /* PaintViaOpenGLESTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintViaOpenGLESTexture.m; sourceTree = "<group>"; };
 		A48DC2401B81D57B00FC3492 /* VertexPaintTexture.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VertexPaintTexture.glsl; sourceTree = "<group>"; };
 		A48DC2421B81D58D00FC3492 /* FragmentPaintTexture.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FragmentPaintTexture.glsl; sourceTree = "<group>"; };
+		A4E14D591B8C3BDA00496FA8 /* VertexDrawTexture.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VertexDrawTexture.glsl; sourceTree = "<group>"; };
+		A4E14D5B1B8C3BF500496FA8 /* FragmentDrawTexture.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FragmentDrawTexture.glsl; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +138,8 @@
 				6A74B66F1B6A04680042DDEC /* SimpleFragment.glsl */,
 				6A0AC3D31B6A32C6000BBB15 /* VertexTriangle.glsl */,
 				6A0AC3D51B6A32DB000BBB15 /* FragmentTriangle.glsl */,
+				A4E14D591B8C3BDA00496FA8 /* VertexDrawTexture.glsl */,
+				A4E14D5B1B8C3BF500496FA8 /* FragmentDrawTexture.glsl */,
 				6A0AC3DC1B6F46B9000BBB15 /* Vertex3DTransform.glsl */,
 				6A0AC3E01B6F4718000BBB15 /* Fragment3DTransform.glsl */,
 				6A6A853D1B74BBA000D45AD6 /* VertexPaint.glsl */,
@@ -325,6 +331,7 @@
 				TargetAttributes = {
 					6A74B6351B68EE730042DDEC = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = GGVWN85K85;
 					};
 					6A74B64E1B68EE740042DDEC = {
 						CreatedOnToolsVersion = 6.4;
@@ -363,6 +370,7 @@
 				6ADFC80D1B784B440043EFF6 /* Green.png in Resources */,
 				6A6A85401B74BBB600D45AD6 /* FragmentPaint.glsl in Resources */,
 				A48DC2431B81D58D00FC3492 /* FragmentPaintTexture.glsl in Resources */,
+				A4E14D5A1B8C3BDA00496FA8 /* VertexDrawTexture.glsl in Resources */,
 				6ADFC8121B784B4C0043EFF6 /* Red.png in Resources */,
 				6A0AC3D41B6A32C6000BBB15 /* VertexTriangle.glsl in Resources */,
 				A48DC2391B7DEC5700FC3492 /* Radial.png in Resources */,
@@ -374,6 +382,7 @@
 				6A0AC3E11B6F4718000BBB15 /* Fragment3DTransform.glsl in Resources */,
 				6A74B6701B6A04680042DDEC /* SimpleFragment.glsl in Resources */,
 				6A0AC3D61B6A32DB000BBB15 /* FragmentTriangle.glsl in Resources */,
+				A4E14D5C1B8C3BF500496FA8 /* FragmentDrawTexture.glsl in Resources */,
 				A48DC2411B81D57B00FC3492 /* VertexPaintTexture.glsl in Resources */,
 				6A618AB01B74AD480044FB1F /* testImage.png in Resources */,
 			);
@@ -529,9 +538,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = OpenGLDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -539,9 +551,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = OpenGLDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

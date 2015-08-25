@@ -355,11 +355,55 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     [_originImageView addGestureRecognizer:tapGestureRecognizer];
     [_originImageView setUserInteractionEnabled:YES];
     
-    [self didDrawImageViaGLKView:[UIImage imageNamed:@"testImage"] inFrame:CGRectMake(10, 340, self.view.frame.size.width - 20, 200)];
+    [self didDrawImageViaOpenGLES:[UIImage imageNamed:@"testImage"] inFrame:CGRectMake(10, 340, self.view.frame.size.width - 20, 200)];
 }
 
 - (void)didDrawImageViaOpenGLES:(UIImage *)image inFrame:(CGRect)rect {
+    NSString *shaderVertex = @"VertexDrawTexture";
+    NSString *shaderFragment = @"FragmentDrawTexture";
+    [self compileShaders:shaderVertex shaderFragment:shaderFragment];
     
+    glViewport(10, 0, rect.size.width, rect.size.height);
+    
+    glEnable(GL_TEXTURE_2D);
+    glEnable(GL_BLEND);
+    glEnableVertexAttribArray(_positionSlot); // 启用position
+    glEnableVertexAttribArray(_textureCoordsSlot); // 启用vertex贴图坐标
+    
+    glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+    glGenTextures(1, &_glName);
+    glBindTexture(GL_TEXTURE_2D, _glName);
+    
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    
+    [self prepareImageDataAndTexture:[UIImage imageNamed:@"testImage"]];
+    
+    glActiveTexture(GL_TEXTURE5);
+    glBindTexture(GL_TEXTURE_2D, _glName);
+    glUniform1i(_textureSlot, 5);
+    
+    glBlendFunc(GL_ONE, GL_ZERO);
+    
+    GLfloat vertices[] = {
+        -1, -1, 0,   //左下
+        1,  -1, 0,   //右下
+        -1, 1,  0,   //左上
+        1,  1,  0 }; //右上
+    glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, vertices);
+    
+    GLfloat texCoords[] = {
+        0, 0,//左下
+        1, 0,//右下
+        0, 1,//左上
+        1, 1,//右上
+    };
+    glVertexAttribPointer(_textureCoordsSlot, 2, GL_FLOAT, GL_FALSE, 0, texCoords);
+    
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
 }
 
 - (void)didDrawImageViaGLKView:(UIImage *)image inFrame:(CGRect)rect {
