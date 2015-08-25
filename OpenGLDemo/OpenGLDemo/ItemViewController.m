@@ -411,7 +411,6 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     _glkView = [[GLKView alloc] initWithFrame:rect context:_eaglContext];
     [_glkView bindDrawable];
     [self.view addSubview:_glkView];
-    [_glkView display];
     
     // 因OpenGL只能绘制三角形, 则该verteices2数组与glDrawArrays的组合要认真仔细.
     // 如glDrawArrays(GL_TRIANGLE_STRIP, 0, 4)是两个三角形:(左下,右下,右上)与(右下,右上,左上).
@@ -423,7 +422,7 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
         -1, 1,//左上
         1, 1,//右上
     };
-
+    glEnableVertexAttribArray(GLKVertexAttribPosition); // 启用position
     // glVertexAttribPointer:加载vertex数据
     // 参数1:传递的顶点位置数据GLKVertexAttribPosition, 或顶点颜色数据GLKVertexAttribColor
     // 参数2:数据大小(2维为2, 3维为3)
@@ -432,7 +431,6 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     // 参数5:指定连续顶点属性之间的偏移量, 用于描述每个vertex数据大小
     // 参数6:指定第一个组件在数组的第一个顶点属性中的偏移量, 与GL_ARRAY_BUFFER绑定存储于缓冲区中
     glVertexAttribPointer(GLKVertexAttribPosition, 2, GL_FLOAT, GL_FALSE, 0, vertices);
-    glEnableVertexAttribArray(GLKVertexAttribPosition); // 启用position
     
     static GLfloat colors[] = {
         1,1,1,1,
@@ -440,9 +438,8 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
         1,1,1,1,
         1,1,1,1
     };
-
-    glVertexAttribPointer(GLKVertexAttribColor, 4, GL_FLOAT, GL_FALSE, 0, colors);
     glEnableVertexAttribArray(GLKVertexAttribColor); // 启用颜色
+    glVertexAttribPointer(GLKVertexAttribColor, 4, GL_FLOAT, GL_FALSE, 0, colors);
     
     static GLfloat texCoords[] = {
         0, 0,//左下
@@ -450,9 +447,8 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
         0, 1,//左上
         1, 1,//右上
     };
-
-    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 0, texCoords);
     glEnableVertexAttribArray(GLKVertexAttribTexCoord0); // 启用vertex贴图坐标
+    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 0, texCoords);
 
     // 因为读取图片信息的时候默认是从图片左上角读取的, 而OpenGL绘制却是从左下角开始的.所以我们要从左下角开始读取图片数据.
     NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:@(YES), GLKTextureLoaderOriginBottomLeft, nil];
@@ -470,7 +466,7 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     glDisableVertexAttribArray(GLKVertexAttribColor);
     glDisableVertexAttribArray(GLKVertexAttribTexCoord0);
 
-    [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
+    [_glkView display];
 }
 
 #pragma mark - paint
@@ -1038,18 +1034,18 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     _glkView = [[GLKView alloc] initWithFrame:CGRectMake(10, 100, self.view.frame.size.width - 20, 200) context:_eaglContext];
     [_glkView bindDrawable];
     [self.view addSubview:_glkView];
-    [_glkView display];
     
     GLfloat vertices[] = {
         0.0f,  -0.5f, 0.0f,
         -0.8f, -0.8f, 0.0f,
         0.8f,  -0.8f, 0.0f };
-    
-    glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, vertices);
+
     glEnableVertexAttribArray(_positionSlot);
+    glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, vertices);
+
     glDrawArrays(GL_TRIANGLES, 0, 3);
-    [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
     
+    [_glkView display];
     
     _lbProcessedImage = [[UILabel alloc] initWithFrame:CGRectMake(10, 310, self.view.frame.size.width - 20, 30)];
     _lbProcessedImage.text = @"Draw Image via GLKView & OpenGLES";
