@@ -16,4 +16,7 @@ void main()
     
     // color for one texture pixel    
     gl_FragColor = vec4(SourceColor.rgb, grey);
+    
+    // GLLinePen 1050, use glBlendFunc(GL_SRC_ALPHA, GL_ONE) mode.
+    // gl_FragColor = vec4(mask.rgb, grey);
 }

@@ -45,6 +45,7 @@
 		A4E14D5A1B8C3BDA00496FA8 /* VertexDrawTexture.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A4E14D591B8C3BDA00496FA8 /* VertexDrawTexture.glsl */; };
 		A4E14D5C1B8C3BF500496FA8 /* FragmentDrawTexture.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A4E14D5B1B8C3BF500496FA8 /* FragmentDrawTexture.glsl */; };
 		A4E14D5F1B8C68C700496FA8 /* PaintViaGLKView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E14D5E1B8C68C700496FA8 /* PaintViaGLKView.m */; };
+		A4E14D611B8D925000496FA8 /* dm-1050-1.png in Resources */ = {isa = PBXBuildFile; fileRef = A4E14D601B8D925000496FA8 /* dm-1050-1.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +110,7 @@
 		A4E14D5B1B8C3BF500496FA8 /* FragmentDrawTexture.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FragmentDrawTexture.glsl; sourceTree = "<group>"; };
 		A4E14D5D1B8C68C700496FA8 /* PaintViaGLKView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintViaGLKView.h; sourceTree = "<group>"; };
 		A4E14D5E1B8C68C700496FA8 /* PaintViaGLKView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintViaGLKView.m; sourceTree = "<group>"; };
+		A4E14D601B8D925000496FA8 /* dm-1050-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dm-1050-1.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,6 +202,7 @@
 		6A618AAE1B73710A0044FB1F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A4E14D601B8D925000496FA8 /* dm-1050-1.png */,
 				A48DC2381B7DEC5700FC3492 /* Radial.png */,
 				6ADFC80A1B784B440043EFF6 /* Blue.png */,
 				6ADFC80B1B784B440043EFF6 /* Green.png */,
@@ -385,6 +388,7 @@
 				6A6A853E1B74BBA000D45AD6 /* VertexPaint.glsl in Resources */,
 				6A74B6471B68EE740042DDEC /* Images.xcassets in Resources */,
 				6A0AC3E11B6F4718000BBB15 /* Fragment3DTransform.glsl in Resources */,
+				A4E14D611B8D925000496FA8 /* dm-1050-1.png in Resources */,
 				6A74B6701B6A04680042DDEC /* SimpleFragment.glsl in Resources */,
 				6A0AC3D61B6A32DB000BBB15 /* FragmentTriangle.glsl in Resources */,
 				A4E14D5C1B8C3BF500496FA8 /* FragmentDrawTexture.glsl in Resources */,

@@ -847,6 +847,9 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     
     [self prepareImageDataAndTexture:[UIImage imageNamed:@"Radial"]];
     
+    // 画笔1050, 与glBlendFunc(GL_SRC_ALPHA, GL_ONE);配合. 且脚本中使用mask.rgb
+    // [self prepareImageDataAndTexture:[UIImage imageNamed:@"dm-1050-1"]];
+    
     glActiveTexture(GL_TEXTURE5);
     glBindTexture(GL_TEXTURE_2D, _glName);
     
@@ -890,6 +893,10 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     
     // 白色圆(圆周边缘还有点黑色部分). 通过透明度来混合. 源颜色*自身的alpha值, 目标颜色*(1-源颜色的alpha值). 常用于在物体前面绘制物体.
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    
+    // 画笔1050采用此mode.
+    // 但使用Radial.png则在黑色边缘部分会叠加, 导致画笔成黑色.
+    // glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 }
 
 - (void)drawCGPointViaOpenGLESTexture:(CGPoint)point inFrame:(CGRect)rect {
@@ -1047,12 +1054,19 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     
     [self prepareImageDataAndTexture:[UIImage imageNamed:@"Radial"]];
     
+    // 画笔1050, 与glBlendFunc(GL_SRC_ALPHA, GL_ONE);配合. 且脚本中使用mask.rgb
+    // [self prepareImageDataAndTexture:[UIImage imageNamed:@"dm-1050-1"]];
+    
     glActiveTexture(GL_TEXTURE5);
     glBindTexture(GL_TEXTURE_2D, _glName);
     
     glUniform1i(_textureSlot, 5);
     
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    
+    // 画笔1050采用此mode.
+    // 但使用Radial.png则在黑色边缘部分会叠加, 导致画笔成黑色.
+    // glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 }
 
 - (void)drawCGPointViaGLKView:(CGPoint)point inFrame:(CGRect)rect {
