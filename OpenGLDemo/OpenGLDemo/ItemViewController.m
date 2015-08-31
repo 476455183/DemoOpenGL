@@ -645,9 +645,11 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     [_ciFilter setValue:_ciImage forKey:kCIInputImageKey];
     [_ciFilter setValue:@(sender.value) forKey:kCIInputIntensityKey];
 
+    [_glkView deleteDrawable];
+    [_glkView bindDrawable];
     //开始渲染
     [_ciContext drawImage:[_ciFilter outputImage] inRect:CGRectMake(0, 0, _glkView.drawableWidth, _glkView.drawableHeight) fromRect:[_ciImage extent]];
-    [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
+    [_glkView display];
 }
 
 #pragma mark - 3D Transform
