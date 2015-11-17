@@ -38,7 +38,6 @@
 		6ADFC8121B784B4C0043EFF6 /* Red.png in Resources */ = {isa = PBXBuildFile; fileRef = 6ADFC80F1B784B4C0043EFF6 /* Red.png */; };
 		6ADFC8131B784B4C0043EFF6 /* Yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 6ADFC8101B784B4C0043EFF6 /* Yellow.png */; };
 		A48DC2391B7DEC5700FC3492 /* Radial.png in Resources */ = {isa = PBXBuildFile; fileRef = A48DC2381B7DEC5700FC3492 /* Radial.png */; };
-		A48DC23C1B7DF3D300FC3492 /* GLTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = A48DC23B1B7DF3D300FC3492 /* GLTexture.m */; };
 		A48DC23F1B81CD5D00FC3492 /* PaintViaOpenGLESTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = A48DC23E1B81CD5D00FC3492 /* PaintViaOpenGLESTexture.m */; };
 		A48DC2411B81D57B00FC3492 /* VertexPaintTexture.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A48DC2401B81D57B00FC3492 /* VertexPaintTexture.glsl */; };
 		A48DC2431B81D58D00FC3492 /* FragmentPaintTexture.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A48DC2421B81D58D00FC3492 /* FragmentPaintTexture.glsl */; };
@@ -100,8 +99,6 @@
 		6ADFC80F1B784B4C0043EFF6 /* Red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Red.png; sourceTree = "<group>"; };
 		6ADFC8101B784B4C0043EFF6 /* Yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Yellow.png; sourceTree = "<group>"; };
 		A48DC2381B7DEC5700FC3492 /* Radial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Radial.png; sourceTree = "<group>"; };
-		A48DC23A1B7DF3D300FC3492 /* GLTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLTexture.h; sourceTree = "<group>"; };
-		A48DC23B1B7DF3D300FC3492 /* GLTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLTexture.m; sourceTree = "<group>"; };
 		A48DC23D1B81CD5D00FC3492 /* PaintViaOpenGLESTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintViaOpenGLESTexture.h; sourceTree = "<group>"; };
 		A48DC23E1B81CD5D00FC3492 /* PaintViaOpenGLESTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintViaOpenGLESTexture.m; sourceTree = "<group>"; };
 		A48DC2401B81D57B00FC3492 /* VertexPaintTexture.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VertexPaintTexture.glsl; sourceTree = "<group>"; };
@@ -165,8 +162,6 @@
 		6A618AAB1B736E2A0044FB1F /* Tools */ = {
 			isa = PBXGroup;
 			children = (
-				A48DC23A1B7DF3D300FC3492 /* GLTexture.h */,
-				A48DC23B1B7DF3D300FC3492 /* GLTexture.m */,
 				6A74B6711B6A16630042DDEC /* ShaderOperations.h */,
 				6A74B6721B6A16630042DDEC /* ShaderOperations.m */,
 			);
@@ -419,7 +414,6 @@
 				6A74B63F1B68EE740042DDEC /* AppDelegate.m in Sources */,
 				6A618AA91B736DE10044FB1F /* TouchDrawViewViaOpenGLES.m in Sources */,
 				6A74B63C1B68EE740042DDEC /* main.m in Sources */,
-				A48DC23C1B7DF3D300FC3492 /* GLTexture.m in Sources */,
 				A4E14D5F1B8C68C700496FA8 /* PaintViaGLKView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

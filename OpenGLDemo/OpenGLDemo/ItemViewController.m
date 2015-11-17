@@ -15,7 +15,6 @@
 #import <AVFoundation/AVFoundation.h>
 
 #import "ShaderOperations.h"
-#import "GLTexture.h"
 #import "TouchDrawViewViaCoreGraphics.h"
 #import "TouchDrawViewViaOpenGLES.h"
 #import "PaintViaOpenGLESTexture.h"
@@ -85,7 +84,6 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
 
 @property (nonatomic) GLuint glName;
 
-@property (nonatomic) GLTexture *glTexture;
 
 @end
 
@@ -711,7 +709,6 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
 #pragma mark - prepareImageDataAndTexture
 // 加载image, 使用CoreGraphics将位图以RGBA格式存放.将UIImage图像数据转化成OpenGL ES接受的数据.
 - (void)prepareImageDataAndTexture:(UIImage *)image {
-    //    _glTexture = [[GLTexture alloc] initWithImage:[UIImage imageNamed:@"Radial"]];
     
     CGImageRef cgImageRef = [image CGImage];
     GLuint width = (GLuint)CGImageGetWidth(cgImageRef);
