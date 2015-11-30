@@ -134,7 +134,11 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     _eaglLayer = [CAEAGLLayer layer];//(CAEAGLLayer *)self.view.layer;
     _eaglLayer.frame = self.view.frame;
     _eaglLayer.opaque = YES; //CALayer默认是透明的
-    //描绘属性：不维持渲染内容，颜色格式
+    
+    // 描绘属性：
+    // kEAGLDrawablePropertyRetainedBacking:若为YES，则使用glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)计算得到的最终结果颜色的透明度会考虑目标颜色的透明度值。
+    // 若为NO，则不考虑目标颜色的透明度值，将其当做1来处理。
+    // 使用场景：目标颜色为非透明，源颜色有透明度，若设为YES，则使用glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)得到的结果颜色会有一定的透明度（与实际不符）。若未NO则不会（符合实际）。
     _eaglLayer.drawableProperties = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES],kEAGLDrawablePropertyRetainedBacking,kEAGLColorFormatRGBA8,kEAGLDrawablePropertyColorFormat, nil];
     [self.view.layer addSublayer:_eaglLayer];
 }
