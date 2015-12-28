@@ -95,7 +95,21 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    self.demosOpenGL = @[@"Clear Color", @"Shader", @"Draw Triangle via Shader", @"Draw Image via Core Graphics", @"Draw Image via OpenGL ES", @"Paint via Core Graphics", @"Paint via OpenGL ES", @"Paint via OpenGL ES Texture", @"Paint and Filter via OpenGLES Texture", @"Core Image Filter", @"Core Image and OpenGS ES Filter", @"3D Transform", @"GLKView Demo", @"Paint via GLKView"];
+    self.demosOpenGL = @[@"Clear Color",
+                         @"Shader",
+                         @"Draw Triangle via Shader",
+                         @"Draw Image via Core Graphics",
+                         @"Draw Image via OpenGL ES",
+                         @"Paint via Core Graphics",
+                         @"Paint via OpenGL ES",
+                         @"Paint via OpenGL ES Texture",
+                         @"Paint and Filter via OpenGLES Texture",
+                         @"Core Image Filter",
+                         @"Core Image and OpenGS ES Filter",
+                         @"3D Transform",
+                         @"GLKView Demo",
+                         @"Paint via GLKView"
+                         ];
     
     [self setupOpenGLContext];
     [self setupCAEAGLLayer];
@@ -177,7 +191,6 @@ typedef NS_ENUM(NSInteger, enumPaintColor) {
 #pragma mark - demoViaOpenGL
 
 - (void)demoViaOpenGL {
-    //self.demosOpenGL = @[@"Clear Color", @"Shader", @"Draw Triangle via Shader", @"Draw Image via Core Graphics", @"Draw Image via OpenGL ES", @"Paint via Core Graphics", @"Paint via OpenGL ES", @"Paint via OpenGL ES Texture", @"Paint and Filter via OpenGLES Texture", @"Core Image Filter", @"Core Image and OpenGS ES Filter", @"3D Transform", @"GLKView Demo", @"Paint via GLKView"];
     [self tearDownOpenGLBuffers];
     [self setupOpenGLBuffers];
     glClearColor(1.0, 1.0, 1.0, 1.0);
