@@ -14,6 +14,12 @@
 
 #import "ShaderOperations.h"
 
+// 定义一个Vertex结构
+typedef struct {
+    float Position[3];
+    float Color[4];
+} Vertex;
+
 @interface DemoShaderViewController ()
 
 @end
@@ -26,6 +32,9 @@
     GLuint _colorRenderBuffer; // 渲染缓冲区
     GLuint _frameBuffer; // 帧缓冲区
     
+    GLuint _glProgram;
+    GLuint _positionSlot;   // 用于绑定shader中的Position参数
+    GLuint _colorSlot;      // 用于绑定shader中的SourceColor参数
 }
 
 - (void)viewDidLoad {
@@ -47,10 +56,9 @@
     // 用来指定要用清屏颜色来清除由mask指定的buffer，此处是color buffer
     glClear(GL_COLOR_BUFFER_BIT);
     
-    [self drawShader];
+    [self processShaders];
     
-    // 将指定renderBuffer渲染在屏幕上
-    [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
+    [self render];
 }
 
 #pragma mark - setupOpenGLContext
@@ -115,55 +123,73 @@
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, _colorRenderBuffer);
 }
 
-- (void)drawShader {
-//    self compileShaders:@"SimpleVertex" shaderFragment:@"Ver"
+- (void)processShaders {
+    _glProgram = [ShaderOperations compileShaders:@"DemoShaderVertex" shaderFragment:@"DemoShaderFragment"];
+    
+    glUseProgram(_glProgram);
+    _positionSlot = glGetAttribLocation(_glProgram, "Position");
+    _colorSlot = glGetAttribLocation(_glProgram, "SourceColor");
 }
 
-#pragma mark - shader related
- 
- - (void)compileShaders:(NSString *)shaderVertex shaderFragment:(NSString *)shaderFragment {
-     // 1 vertex和fragment两个shader都要编译
-     GLuint vertexShader = [ShaderOperations compileShader:shaderVertex withType:GL_VERTEX_SHADER];
-     GLuint fragmentShader = [ShaderOperations compileShader:shaderFragment withType:GL_FRAGMENT_SHADER];
-     
-     // 2 连接vertex和fragment shader成一个完整的program
-     GLuint programHandle = glCreateProgram();
-     glAttachShader(programHandle, vertexShader);
-     glAttachShader(programHandle, fragmentShader);
-     
-     // link program
-     glLinkProgram(programHandle);
-     
-     // 3 check link status
-     GLint linkSuccess;
-     glGetProgramiv(programHandle, GL_LINK_STATUS, &linkSuccess);
-     if (linkSuccess == GL_FALSE) {
-         GLchar messages[256];
-         glGetProgramInfoLog(programHandle, sizeof(messages), 0, &messages[0]);
-         NSString *messageString = [NSString stringWithUTF8String:messages];
-         NSLog(@"%@", messageString);
-         exit(1);
-     }
-     
-     // 4 让OpenGL执行program
-     glUseProgram(programHandle);
-     
-//     // 5 获取指向vertex shader传入变量的指针, 然后就通过该指针来使用
-//     // 即将_positionSlot 与 shader中的Position参数绑定起来
-//     _positionSlot = glGetAttribLocation(programHandle, "Position");
-//     
-//     // 即将_colorSlot 与 shader中的SourceColor参数绑定起来
-//     // 采用的是Attribute类型
-//     _aColorSlot = glGetAttribLocation(programHandle, "ASourceColor");
-//     // 采用的是uniform类型
-//     _colorSlot = glGetUniformLocation(programHandle, "SourceColor");
-//     
-//     _modelViewSlot = glGetUniformLocation(programHandle, "ModelView");
-//     _projectionSlot = glGetUniformLocation(programHandle, "Projection");
-//     
-//     _textureSlot = glGetUniformLocation(programHandle, "Texture");
-//     _textureCoordsSlot = glGetAttribLocation(programHandle, "TextureCoords");
-     // 在使用的地方, 调用glEnableVertexAttribArray以启用这些数据
- }
+- (void)render {
+    glViewport(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    
+//    [self renderVertices];      // 直接使用顶点数组
+//    [self renderUsingIndex];    // 使用顶点索引
+    [self renderUsingVBO];      // 使用VBO
+    
+    [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
+}
+
+- (void)renderVertices {
+
+}
+
+- (void)renderUsingIndex {
+    
+}
+
+- (void)renderUsingVBO {
+    // 顶点数组
+    const Vertex Vertices[] = {
+        {{-1,-1,0}, {0,0,0,1}},// 左下，黑色
+        {{1,-1,0}, {1,0,0,1}}, // 右下，红色
+        {{-1,1,0}, {0,0,1,1}}, // 左上，蓝色
+        {{1,1,0}, {0,1,0,1}},  // 右上，绿色
+    };
+    
+    // index数组
+    const GLubyte Indices[] = {
+        0,1,2, // 三角形0
+        1,2,3  // 三角形1
+    };
+    
+    // setup VBOs
+    // GL_ARRAY_BUFFER用于顶点数组
+    GLuint vertexBuffer;
+    glGenBuffers(1, &vertexBuffer);
+    // 绑定vertexBuffer到GL_ARRAY_BUFFER，
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+    // 给VBO传递数据
+    glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), Vertices, GL_STATIC_DRAW);
+    
+    // GL_ELEMENT_ARRAY_BUFFER用于顶点数组对应的indices
+    GLuint indexBuffer;
+    glGenBuffers(1, &indexBuffer);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Indices), Indices, GL_STATIC_DRAW);
+    
+    // 取出Vertex结构体的Position，赋给_positionSlot
+    glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
+    glEnableVertexAttribArray(_positionSlot);
+    
+    // Vertex结构体，偏移3个float的位置，即是Color值
+    glVertexAttribPointer(_colorSlot, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid *)(sizeof(float) * 3));
+    glEnableVertexAttribArray(_colorSlot);
+    
+    // 相比glDrawArray, 使用顶点索引数组可减少存储和绘制重复顶点的资源消耗
+    glDrawElements(GL_TRIANGLES, sizeof(Indices)/sizeof(Indices[0]), GL_UNSIGNED_BYTE, 0);
+//     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4); // 使用glDrawArrays也可绘制
+}
 
 @end

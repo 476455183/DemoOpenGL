@@ -15,4 +15,6 @@
 
 + (GLuint)compileShader:(NSString*)shaderName withType:(GLenum)shaderType;
 
++ (GLuint)compileShaders:(NSString *)shaderVertex shaderFragment:(NSString *)shaderFragment;
+
 @end

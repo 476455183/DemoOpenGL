@@ -1,11 +1,17 @@
-attribute vec4 Position; // 1 variable passed into
-attribute vec4 ASourceColor; // 2
 
-// 3 variable passed out
-// varying means calculating color of every pixel of vertex smoothly according to color of vertex
+// variable pass into
+attribute vec4 Position;    // position of vertex
+attribute vec4 SourceColor; // color of vertex
+
+
+// variable pass out into fragment shader
+// varying means that calculate the color of every pixel between two vertex linearly(smoothly) according to the 2 vertex's color 
 varying vec4 DestinationColor;
 
-void main(void) { // 4
-    DestinationColor = ASourceColor; // 5 config color of destination
-    gl_Position = Position; // 6 gl_Position is built-in pass-out variable. Must config for in vertex shader
+void main(void) {
+    
+    DestinationColor = SourceColor;
+    
+    // gl_Position is built-in pass-out variable. Must config for in vertex shader
+    gl_Position = Position;
 }

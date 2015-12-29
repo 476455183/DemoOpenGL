@@ -9,6 +9,30 @@
 #import "RootTableViewController.h"
 #import "ItemViewController.h"
 
+
+#import "DemoClearColorViewController.h"
+#import "DemoShaderViewController.h"
+#import "DemoTriangleViewController.h"
+
+typedef NS_ENUM(NSUInteger, DemoOpenGLES) {
+    kDemoClearColor = 0,
+    kDemoShader,
+    kDemoTriangleViaShader,
+    kDemoImageViaCoreGraphics,
+    kDemoImageViaOpenGLES,
+    
+    kDemoPaintViaCoreGraphics,
+    kDemoPaintViaOpenGLES,
+    kDemoPaintViaOpenGLESTexture,
+    kDemoPaintFilterViaOpenGLESTexture,
+    
+    kDemoCoreImageFilter,
+    kDemoCoreImageOpenGLESFilter,
+    
+    kDemoGLKView,
+};
+
+
 @interface RootTableViewController ()
 
 @property (nonatomic) NSArray *demosOpenGL;
@@ -73,6 +97,27 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == kDemoClearColor) {
+        DemoClearColorViewController *demoClearColor = [[DemoClearColorViewController alloc] init];
+        demoClearColor.view.backgroundColor = [UIColor whiteColor];
+        demoClearColor.navigationItem.title = @"DemoClearColor";
+        [self.navigationController pushViewController:demoClearColor animated:YES];
+        return;
+    } else if (indexPath.row == kDemoShader) {
+        DemoShaderViewController *demoShader = [[DemoShaderViewController alloc] init];
+        demoShader.view.backgroundColor = [UIColor whiteColor];
+        demoShader.navigationItem.title = @"DemoShader";
+        [self.navigationController pushViewController:demoShader animated:YES];
+        return;
+    } else if (indexPath.row == kDemoTriangleViaShader) {
+        DemoTriangleViewController *demoTriangle = [[DemoTriangleViewController alloc] init];
+        demoTriangle.view.backgroundColor = [UIColor whiteColor];
+        demoTriangle.navigationItem.title = @"DemoTriangleViaShader";
+        [self.navigationController pushViewController:demoTriangle animated:YES];
+        return;
+    }
+    
+    
     self.selectedItem = (NSString *)self.demosOpenGL[indexPath.row];
     [self performSegueWithIdentifier:@"segueFromTableToCell" sender:self];
 }

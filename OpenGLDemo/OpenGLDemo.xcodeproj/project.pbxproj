@@ -50,6 +50,8 @@
 		A4FC71861C32641400EA3EBD /* ShaderOperations.m in Sources */ = {isa = PBXBuildFile; fileRef = A4FC71851C32641400EA3EBD /* ShaderOperations.m */; };
 		A4FC718C1C3264D300EA3EBD /* ItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4FC71891C3264D300EA3EBD /* ItemViewController.m */; };
 		A4FC718D1C3264D300EA3EBD /* RootTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4FC718B1C3264D300EA3EBD /* RootTableViewController.m */; };
+		A4FC71901C326CF600EA3EBD /* DemoTriangleFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A4FC718E1C326CF600EA3EBD /* DemoTriangleFragment.glsl */; };
+		A4FC71911C326CF600EA3EBD /* DemoTriangleVertex.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A4FC718F1C326CF600EA3EBD /* DemoTriangleVertex.glsl */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -121,6 +123,8 @@
 		A4FC71891C3264D300EA3EBD /* ItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemViewController.m; sourceTree = "<group>"; };
 		A4FC718A1C3264D300EA3EBD /* RootTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootTableViewController.h; sourceTree = "<group>"; };
 		A4FC718B1C3264D300EA3EBD /* RootTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootTableViewController.m; sourceTree = "<group>"; };
+		A4FC718E1C326CF600EA3EBD /* DemoTriangleFragment.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DemoTriangleFragment.glsl; sourceTree = "<group>"; };
+		A4FC718F1C326CF600EA3EBD /* DemoTriangleVertex.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DemoTriangleVertex.glsl; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -247,8 +251,10 @@
 		A4FC71471C32631200EA3EBD /* shaders */ = {
 			isa = PBXGroup;
 			children = (
-				A4FC71481C32631200EA3EBD /* DemoShaderFragment.glsl */,
+				A4FC718F1C326CF600EA3EBD /* DemoTriangleVertex.glsl */,
+				A4FC718E1C326CF600EA3EBD /* DemoTriangleFragment.glsl */,
 				A4FC71491C32631200EA3EBD /* DemoShaderVertex.glsl */,
+				A4FC71481C32631200EA3EBD /* DemoShaderFragment.glsl */,
 			);
 			path = shaders;
 			sourceTree = "<group>";
@@ -413,6 +419,7 @@
 				A4FC71731C3263CB00EA3EBD /* VertexPaint.glsl in Resources */,
 				A4FC715C1C32638D00EA3EBD /* Yellow.png in Resources */,
 				A4FC71711C3263CB00EA3EBD /* Vertex3DTransform.glsl in Resources */,
+				A4FC71901C326CF600EA3EBD /* DemoTriangleFragment.glsl in Resources */,
 				A4FC715A1C32638D00EA3EBD /* Red.png in Resources */,
 				A4FC716A1C3263CB00EA3EBD /* Fragment3DTransform.glsl in Resources */,
 				A4FC714A1C32631200EA3EBD /* DemoShaderFragment.glsl in Resources */,
@@ -420,6 +427,7 @@
 				A4FC71581C32638D00EA3EBD /* Purple.png in Resources */,
 				A4FC71571C32638D00EA3EBD /* Green.png in Resources */,
 				A4FC71551C32638D00EA3EBD /* Blue.png in Resources */,
+				A4FC71911C326CF600EA3EBD /* DemoTriangleVertex.glsl in Resources */,
 				A4FC71721C3263CB00EA3EBD /* VertexDrawTexture.glsl in Resources */,
 				A4FC716E1C3263CB00EA3EBD /* FragmentTriangle.glsl in Resources */,
 				A4FC71741C3263CB00EA3EBD /* VertexPaintTexture.glsl in Resources */,
