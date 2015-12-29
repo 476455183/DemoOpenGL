@@ -7,44 +7,49 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6A0AC3D41B6A32C6000BBB15 /* VertexTriangle.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 6A0AC3D31B6A32C6000BBB15 /* VertexTriangle.glsl */; };
-		6A0AC3D61B6A32DB000BBB15 /* FragmentTriangle.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 6A0AC3D51B6A32DB000BBB15 /* FragmentTriangle.glsl */; };
-		6A0AC3DD1B6F46B9000BBB15 /* Vertex3DTransform.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 6A0AC3DC1B6F46B9000BBB15 /* Vertex3DTransform.glsl */; };
-		6A0AC3E11B6F4718000BBB15 /* Fragment3DTransform.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 6A0AC3E01B6F4718000BBB15 /* Fragment3DTransform.glsl */; };
 		6A618A9F1B72F46F0044FB1F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A618A9E1B72F46F0044FB1F /* Foundation.framework */; };
 		6A618AA11B72F4750044FB1F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A618AA01B72F4750044FB1F /* UIKit.framework */; };
 		6A618AA31B72F47B0044FB1F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A618AA21B72F47B0044FB1F /* CoreGraphics.framework */; };
-		6A618AA61B72F79C0044FB1F /* TouchDrawViewViaCoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A618AA51B72F79C0044FB1F /* TouchDrawViewViaCoreGraphics.m */; };
-		6A618AA91B736DE10044FB1F /* TouchDrawViewViaOpenGLES.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A618AA81B736DE10044FB1F /* TouchDrawViewViaOpenGLES.m */; };
-		6A618AB01B74AD480044FB1F /* testImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A618AAF1B74AD480044FB1F /* testImage.png */; };
-		6A6A853E1B74BBA000D45AD6 /* VertexPaint.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 6A6A853D1B74BBA000D45AD6 /* VertexPaint.glsl */; };
-		6A6A85401B74BBB600D45AD6 /* FragmentPaint.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 6A6A853F1B74BBB600D45AD6 /* FragmentPaint.glsl */; };
 		6A74B63C1B68EE740042DDEC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A74B63B1B68EE740042DDEC /* main.m */; };
 		6A74B63F1B68EE740042DDEC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A74B63E1B68EE740042DDEC /* AppDelegate.m */; };
 		6A74B6451B68EE740042DDEC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A74B6431B68EE740042DDEC /* Main.storyboard */; };
 		6A74B6471B68EE740042DDEC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A74B6461B68EE740042DDEC /* Images.xcassets */; };
 		6A74B64A1B68EE740042DDEC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A74B6481B68EE740042DDEC /* LaunchScreen.xib */; };
 		6A74B6561B68EE740042DDEC /* OpenGLDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A74B6551B68EE740042DDEC /* OpenGLDemoTests.m */; };
-		6A74B6641B68EF1B0042DDEC /* RootTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A74B6631B68EF1B0042DDEC /* RootTableViewController.m */; };
-		6A74B6671B68F2C60042DDEC /* ItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A74B6661B68F2C60042DDEC /* ItemViewController.m */; };
 		6A74B6691B69BD8C0042DDEC /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A74B6681B69BD8C0042DDEC /* OpenGLES.framework */; };
 		6A74B66B1B69BD920042DDEC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A74B66A1B69BD920042DDEC /* QuartzCore.framework */; };
-		6A74B66E1B6A04310042DDEC /* SimpleVertex.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 6A74B66D1B6A04310042DDEC /* SimpleVertex.glsl */; };
-		6A74B6701B6A04680042DDEC /* SimpleFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 6A74B66F1B6A04680042DDEC /* SimpleFragment.glsl */; };
-		6A74B6731B6A16630042DDEC /* ShaderOperations.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A74B6721B6A16630042DDEC /* ShaderOperations.m */; };
-		6ADFC80C1B784B440043EFF6 /* Blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 6ADFC80A1B784B440043EFF6 /* Blue.png */; };
-		6ADFC80D1B784B440043EFF6 /* Green.png in Resources */ = {isa = PBXBuildFile; fileRef = 6ADFC80B1B784B440043EFF6 /* Green.png */; };
-		6ADFC8111B784B4C0043EFF6 /* Purple.png in Resources */ = {isa = PBXBuildFile; fileRef = 6ADFC80E1B784B4C0043EFF6 /* Purple.png */; };
-		6ADFC8121B784B4C0043EFF6 /* Red.png in Resources */ = {isa = PBXBuildFile; fileRef = 6ADFC80F1B784B4C0043EFF6 /* Red.png */; };
-		6ADFC8131B784B4C0043EFF6 /* Yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 6ADFC8101B784B4C0043EFF6 /* Yellow.png */; };
-		A48DC2391B7DEC5700FC3492 /* Radial.png in Resources */ = {isa = PBXBuildFile; fileRef = A48DC2381B7DEC5700FC3492 /* Radial.png */; };
-		A48DC23F1B81CD5D00FC3492 /* PaintViaOpenGLESTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = A48DC23E1B81CD5D00FC3492 /* PaintViaOpenGLESTexture.m */; };
-		A48DC2411B81D57B00FC3492 /* VertexPaintTexture.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A48DC2401B81D57B00FC3492 /* VertexPaintTexture.glsl */; };
-		A48DC2431B81D58D00FC3492 /* FragmentPaintTexture.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A48DC2421B81D58D00FC3492 /* FragmentPaintTexture.glsl */; };
-		A4E14D5A1B8C3BDA00496FA8 /* VertexDrawTexture.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A4E14D591B8C3BDA00496FA8 /* VertexDrawTexture.glsl */; };
-		A4E14D5C1B8C3BF500496FA8 /* FragmentDrawTexture.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A4E14D5B1B8C3BF500496FA8 /* FragmentDrawTexture.glsl */; };
-		A4E14D5F1B8C68C700496FA8 /* PaintViaGLKView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E14D5E1B8C68C700496FA8 /* PaintViaGLKView.m */; };
-		A4E14D611B8D925000496FA8 /* dm-1050-1.png in Resources */ = {isa = PBXBuildFile; fileRef = A4E14D601B8D925000496FA8 /* dm-1050-1.png */; };
+		A4FC71441C32630800EA3EBD /* DemoClearColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4FC713F1C32630800EA3EBD /* DemoClearColorViewController.m */; };
+		A4FC71451C32630800EA3EBD /* DemoShaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4FC71411C32630800EA3EBD /* DemoShaderViewController.m */; };
+		A4FC71461C32630800EA3EBD /* DemoTriangleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4FC71431C32630800EA3EBD /* DemoTriangleViewController.m */; };
+		A4FC714A1C32631200EA3EBD /* DemoShaderFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A4FC71481C32631200EA3EBD /* DemoShaderFragment.glsl */; };
+		A4FC714B1C32631200EA3EBD /* DemoShaderVertex.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A4FC71491C32631200EA3EBD /* DemoShaderVertex.glsl */; };
+		A4FC71551C32638D00EA3EBD /* Blue.png in Resources */ = {isa = PBXBuildFile; fileRef = A4FC714D1C32638D00EA3EBD /* Blue.png */; };
+		A4FC71561C32638D00EA3EBD /* dm-1050-1.png in Resources */ = {isa = PBXBuildFile; fileRef = A4FC714E1C32638D00EA3EBD /* dm-1050-1.png */; };
+		A4FC71571C32638D00EA3EBD /* Green.png in Resources */ = {isa = PBXBuildFile; fileRef = A4FC714F1C32638D00EA3EBD /* Green.png */; };
+		A4FC71581C32638D00EA3EBD /* Purple.png in Resources */ = {isa = PBXBuildFile; fileRef = A4FC71501C32638D00EA3EBD /* Purple.png */; };
+		A4FC71591C32638D00EA3EBD /* Radial.png in Resources */ = {isa = PBXBuildFile; fileRef = A4FC71511C32638D00EA3EBD /* Radial.png */; };
+		A4FC715A1C32638D00EA3EBD /* Red.png in Resources */ = {isa = PBXBuildFile; fileRef = A4FC71521C32638D00EA3EBD /* Red.png */; };
+		A4FC715B1C32638D00EA3EBD /* testImage.png in Resources */ = {isa = PBXBuildFile; fileRef = A4FC71531C32638D00EA3EBD /* testImage.png */; };
+		A4FC715C1C32638D00EA3EBD /* Yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = A4FC71541C32638D00EA3EBD /* Yellow.png */; };
+		A4FC716A1C3263CB00EA3EBD /* Fragment3DTransform.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A4FC715E1C3263CB00EA3EBD /* Fragment3DTransform.glsl */; };
+		A4FC716B1C3263CB00EA3EBD /* FragmentDrawTexture.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A4FC715F1C3263CB00EA3EBD /* FragmentDrawTexture.glsl */; };
+		A4FC716C1C3263CB00EA3EBD /* FragmentPaint.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A4FC71601C3263CB00EA3EBD /* FragmentPaint.glsl */; };
+		A4FC716D1C3263CB00EA3EBD /* FragmentPaintTexture.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A4FC71611C3263CB00EA3EBD /* FragmentPaintTexture.glsl */; };
+		A4FC716E1C3263CB00EA3EBD /* FragmentTriangle.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A4FC71621C3263CB00EA3EBD /* FragmentTriangle.glsl */; };
+		A4FC716F1C3263CB00EA3EBD /* SimpleFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A4FC71631C3263CB00EA3EBD /* SimpleFragment.glsl */; };
+		A4FC71701C3263CB00EA3EBD /* SimpleVertex.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A4FC71641C3263CB00EA3EBD /* SimpleVertex.glsl */; };
+		A4FC71711C3263CB00EA3EBD /* Vertex3DTransform.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A4FC71651C3263CB00EA3EBD /* Vertex3DTransform.glsl */; };
+		A4FC71721C3263CB00EA3EBD /* VertexDrawTexture.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A4FC71661C3263CB00EA3EBD /* VertexDrawTexture.glsl */; };
+		A4FC71731C3263CB00EA3EBD /* VertexPaint.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A4FC71671C3263CB00EA3EBD /* VertexPaint.glsl */; };
+		A4FC71741C3263CB00EA3EBD /* VertexPaintTexture.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A4FC71681C3263CB00EA3EBD /* VertexPaintTexture.glsl */; };
+		A4FC71751C3263CB00EA3EBD /* VertexTriangle.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A4FC71691C3263CB00EA3EBD /* VertexTriangle.glsl */; };
+		A4FC717F1C3263FB00EA3EBD /* PaintViaGLKView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4FC71781C3263FB00EA3EBD /* PaintViaGLKView.m */; };
+		A4FC71801C3263FB00EA3EBD /* PaintViaOpenGLESTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = A4FC717A1C3263FB00EA3EBD /* PaintViaOpenGLESTexture.m */; };
+		A4FC71811C3263FB00EA3EBD /* TouchDrawViewViaCoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = A4FC717C1C3263FB00EA3EBD /* TouchDrawViewViaCoreGraphics.m */; };
+		A4FC71821C3263FB00EA3EBD /* TouchDrawViewViaOpenGLES.m in Sources */ = {isa = PBXBuildFile; fileRef = A4FC717E1C3263FB00EA3EBD /* TouchDrawViewViaOpenGLES.m */; };
+		A4FC71861C32641400EA3EBD /* ShaderOperations.m in Sources */ = {isa = PBXBuildFile; fileRef = A4FC71851C32641400EA3EBD /* ShaderOperations.m */; };
+		A4FC718C1C3264D300EA3EBD /* ItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4FC71891C3264D300EA3EBD /* ItemViewController.m */; };
+		A4FC718D1C3264D300EA3EBD /* RootTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4FC718B1C3264D300EA3EBD /* RootTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,20 +63,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		6A0AC3D31B6A32C6000BBB15 /* VertexTriangle.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VertexTriangle.glsl; sourceTree = "<group>"; };
-		6A0AC3D51B6A32DB000BBB15 /* FragmentTriangle.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FragmentTriangle.glsl; sourceTree = "<group>"; };
-		6A0AC3DC1B6F46B9000BBB15 /* Vertex3DTransform.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Vertex3DTransform.glsl; sourceTree = "<group>"; };
-		6A0AC3E01B6F4718000BBB15 /* Fragment3DTransform.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Fragment3DTransform.glsl; sourceTree = "<group>"; };
 		6A618A9E1B72F46F0044FB1F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6A618AA01B72F4750044FB1F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		6A618AA21B72F47B0044FB1F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		6A618AA41B72F79C0044FB1F /* TouchDrawViewViaCoreGraphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchDrawViewViaCoreGraphics.h; sourceTree = "<group>"; };
-		6A618AA51B72F79C0044FB1F /* TouchDrawViewViaCoreGraphics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouchDrawViewViaCoreGraphics.m; sourceTree = "<group>"; };
-		6A618AA71B736DE10044FB1F /* TouchDrawViewViaOpenGLES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchDrawViewViaOpenGLES.h; sourceTree = "<group>"; };
-		6A618AA81B736DE10044FB1F /* TouchDrawViewViaOpenGLES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouchDrawViewViaOpenGLES.m; sourceTree = "<group>"; };
-		6A618AAF1B74AD480044FB1F /* testImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = testImage.png; sourceTree = "<group>"; };
-		6A6A853D1B74BBA000D45AD6 /* VertexPaint.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VertexPaint.glsl; sourceTree = "<group>"; };
-		6A6A853F1B74BBB600D45AD6 /* FragmentPaint.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FragmentPaint.glsl; sourceTree = "<group>"; };
 		6A74B6361B68EE740042DDEC /* OpenGLDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenGLDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A74B63A1B68EE740042DDEC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6A74B63B1B68EE740042DDEC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -83,31 +77,50 @@
 		6A74B64F1B68EE740042DDEC /* OpenGLDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OpenGLDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A74B6541B68EE740042DDEC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6A74B6551B68EE740042DDEC /* OpenGLDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OpenGLDemoTests.m; sourceTree = "<group>"; };
-		6A74B6621B68EF1B0042DDEC /* RootTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootTableViewController.h; sourceTree = "<group>"; };
-		6A74B6631B68EF1B0042DDEC /* RootTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootTableViewController.m; sourceTree = "<group>"; };
-		6A74B6651B68F2C60042DDEC /* ItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemViewController.h; sourceTree = "<group>"; };
-		6A74B6661B68F2C60042DDEC /* ItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemViewController.m; sourceTree = "<group>"; };
 		6A74B6681B69BD8C0042DDEC /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		6A74B66A1B69BD920042DDEC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		6A74B66D1B6A04310042DDEC /* SimpleVertex.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SimpleVertex.glsl; path = ../SimpleVertex.glsl; sourceTree = "<group>"; };
-		6A74B66F1B6A04680042DDEC /* SimpleFragment.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SimpleFragment.glsl; path = ../SimpleFragment.glsl; sourceTree = "<group>"; };
-		6A74B6711B6A16630042DDEC /* ShaderOperations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderOperations.h; sourceTree = "<group>"; };
-		6A74B6721B6A16630042DDEC /* ShaderOperations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShaderOperations.m; sourceTree = "<group>"; };
-		6ADFC80A1B784B440043EFF6 /* Blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Blue.png; sourceTree = "<group>"; };
-		6ADFC80B1B784B440043EFF6 /* Green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Green.png; sourceTree = "<group>"; };
-		6ADFC80E1B784B4C0043EFF6 /* Purple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Purple.png; sourceTree = "<group>"; };
-		6ADFC80F1B784B4C0043EFF6 /* Red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Red.png; sourceTree = "<group>"; };
-		6ADFC8101B784B4C0043EFF6 /* Yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Yellow.png; sourceTree = "<group>"; };
-		A48DC2381B7DEC5700FC3492 /* Radial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Radial.png; sourceTree = "<group>"; };
-		A48DC23D1B81CD5D00FC3492 /* PaintViaOpenGLESTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintViaOpenGLESTexture.h; sourceTree = "<group>"; };
-		A48DC23E1B81CD5D00FC3492 /* PaintViaOpenGLESTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintViaOpenGLESTexture.m; sourceTree = "<group>"; };
-		A48DC2401B81D57B00FC3492 /* VertexPaintTexture.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VertexPaintTexture.glsl; sourceTree = "<group>"; };
-		A48DC2421B81D58D00FC3492 /* FragmentPaintTexture.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FragmentPaintTexture.glsl; sourceTree = "<group>"; };
-		A4E14D591B8C3BDA00496FA8 /* VertexDrawTexture.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VertexDrawTexture.glsl; sourceTree = "<group>"; };
-		A4E14D5B1B8C3BF500496FA8 /* FragmentDrawTexture.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FragmentDrawTexture.glsl; sourceTree = "<group>"; };
-		A4E14D5D1B8C68C700496FA8 /* PaintViaGLKView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintViaGLKView.h; sourceTree = "<group>"; };
-		A4E14D5E1B8C68C700496FA8 /* PaintViaGLKView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintViaGLKView.m; sourceTree = "<group>"; };
-		A4E14D601B8D925000496FA8 /* dm-1050-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dm-1050-1.png"; sourceTree = "<group>"; };
+		A4FC713E1C32630800EA3EBD /* DemoClearColorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoClearColorViewController.h; sourceTree = "<group>"; };
+		A4FC713F1C32630800EA3EBD /* DemoClearColorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoClearColorViewController.m; sourceTree = "<group>"; };
+		A4FC71401C32630800EA3EBD /* DemoShaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoShaderViewController.h; sourceTree = "<group>"; };
+		A4FC71411C32630800EA3EBD /* DemoShaderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoShaderViewController.m; sourceTree = "<group>"; };
+		A4FC71421C32630800EA3EBD /* DemoTriangleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoTriangleViewController.h; sourceTree = "<group>"; };
+		A4FC71431C32630800EA3EBD /* DemoTriangleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoTriangleViewController.m; sourceTree = "<group>"; };
+		A4FC71481C32631200EA3EBD /* DemoShaderFragment.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DemoShaderFragment.glsl; sourceTree = "<group>"; };
+		A4FC71491C32631200EA3EBD /* DemoShaderVertex.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DemoShaderVertex.glsl; sourceTree = "<group>"; };
+		A4FC714D1C32638D00EA3EBD /* Blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Blue.png; sourceTree = "<group>"; };
+		A4FC714E1C32638D00EA3EBD /* dm-1050-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dm-1050-1.png"; sourceTree = "<group>"; };
+		A4FC714F1C32638D00EA3EBD /* Green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Green.png; sourceTree = "<group>"; };
+		A4FC71501C32638D00EA3EBD /* Purple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Purple.png; sourceTree = "<group>"; };
+		A4FC71511C32638D00EA3EBD /* Radial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Radial.png; sourceTree = "<group>"; };
+		A4FC71521C32638D00EA3EBD /* Red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Red.png; sourceTree = "<group>"; };
+		A4FC71531C32638D00EA3EBD /* testImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = testImage.png; sourceTree = "<group>"; };
+		A4FC71541C32638D00EA3EBD /* Yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Yellow.png; sourceTree = "<group>"; };
+		A4FC715E1C3263CB00EA3EBD /* Fragment3DTransform.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Fragment3DTransform.glsl; sourceTree = "<group>"; };
+		A4FC715F1C3263CB00EA3EBD /* FragmentDrawTexture.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FragmentDrawTexture.glsl; sourceTree = "<group>"; };
+		A4FC71601C3263CB00EA3EBD /* FragmentPaint.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FragmentPaint.glsl; sourceTree = "<group>"; };
+		A4FC71611C3263CB00EA3EBD /* FragmentPaintTexture.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FragmentPaintTexture.glsl; sourceTree = "<group>"; };
+		A4FC71621C3263CB00EA3EBD /* FragmentTriangle.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FragmentTriangle.glsl; sourceTree = "<group>"; };
+		A4FC71631C3263CB00EA3EBD /* SimpleFragment.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SimpleFragment.glsl; sourceTree = "<group>"; };
+		A4FC71641C3263CB00EA3EBD /* SimpleVertex.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SimpleVertex.glsl; sourceTree = "<group>"; };
+		A4FC71651C3263CB00EA3EBD /* Vertex3DTransform.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Vertex3DTransform.glsl; sourceTree = "<group>"; };
+		A4FC71661C3263CB00EA3EBD /* VertexDrawTexture.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VertexDrawTexture.glsl; sourceTree = "<group>"; };
+		A4FC71671C3263CB00EA3EBD /* VertexPaint.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VertexPaint.glsl; sourceTree = "<group>"; };
+		A4FC71681C3263CB00EA3EBD /* VertexPaintTexture.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VertexPaintTexture.glsl; sourceTree = "<group>"; };
+		A4FC71691C3263CB00EA3EBD /* VertexTriangle.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VertexTriangle.glsl; sourceTree = "<group>"; };
+		A4FC71771C3263FB00EA3EBD /* PaintViaGLKView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintViaGLKView.h; sourceTree = "<group>"; };
+		A4FC71781C3263FB00EA3EBD /* PaintViaGLKView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintViaGLKView.m; sourceTree = "<group>"; };
+		A4FC71791C3263FB00EA3EBD /* PaintViaOpenGLESTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintViaOpenGLESTexture.h; sourceTree = "<group>"; };
+		A4FC717A1C3263FB00EA3EBD /* PaintViaOpenGLESTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintViaOpenGLESTexture.m; sourceTree = "<group>"; };
+		A4FC717B1C3263FB00EA3EBD /* TouchDrawViewViaCoreGraphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchDrawViewViaCoreGraphics.h; sourceTree = "<group>"; };
+		A4FC717C1C3263FB00EA3EBD /* TouchDrawViewViaCoreGraphics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouchDrawViewViaCoreGraphics.m; sourceTree = "<group>"; };
+		A4FC717D1C3263FB00EA3EBD /* TouchDrawViewViaOpenGLES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchDrawViewViaOpenGLES.h; sourceTree = "<group>"; };
+		A4FC717E1C3263FB00EA3EBD /* TouchDrawViewViaOpenGLES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouchDrawViewViaOpenGLES.m; sourceTree = "<group>"; };
+		A4FC71841C32641400EA3EBD /* ShaderOperations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderOperations.h; sourceTree = "<group>"; };
+		A4FC71851C32641400EA3EBD /* ShaderOperations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShaderOperations.m; sourceTree = "<group>"; };
+		A4FC71881C3264D300EA3EBD /* ItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemViewController.h; sourceTree = "<group>"; };
+		A4FC71891C3264D300EA3EBD /* ItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemViewController.m; sourceTree = "<group>"; };
+		A4FC718A1C3264D300EA3EBD /* RootTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootTableViewController.h; sourceTree = "<group>"; };
+		A4FC718B1C3264D300EA3EBD /* RootTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,80 +146,11 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6A0AC3D21B6A31F7000BBB15 /* GLSL */ = {
-			isa = PBXGroup;
-			children = (
-				6A74B66D1B6A04310042DDEC /* SimpleVertex.glsl */,
-				6A74B66F1B6A04680042DDEC /* SimpleFragment.glsl */,
-				6A0AC3D31B6A32C6000BBB15 /* VertexTriangle.glsl */,
-				6A0AC3D51B6A32DB000BBB15 /* FragmentTriangle.glsl */,
-				A4E14D591B8C3BDA00496FA8 /* VertexDrawTexture.glsl */,
-				A4E14D5B1B8C3BF500496FA8 /* FragmentDrawTexture.glsl */,
-				6A0AC3DC1B6F46B9000BBB15 /* Vertex3DTransform.glsl */,
-				6A0AC3E01B6F4718000BBB15 /* Fragment3DTransform.glsl */,
-				6A6A853D1B74BBA000D45AD6 /* VertexPaint.glsl */,
-				6A6A853F1B74BBB600D45AD6 /* FragmentPaint.glsl */,
-				A48DC2401B81D57B00FC3492 /* VertexPaintTexture.glsl */,
-				A48DC2421B81D58D00FC3492 /* FragmentPaintTexture.glsl */,
-			);
-			name = GLSL;
-			sourceTree = "<group>";
-		};
 		6A618AAA1B736DF10044FB1F /* Models */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			name = Models;
-			sourceTree = "<group>";
-		};
-		6A618AAB1B736E2A0044FB1F /* Tools */ = {
-			isa = PBXGroup;
-			children = (
-				6A74B6711B6A16630042DDEC /* ShaderOperations.h */,
-				6A74B6721B6A16630042DDEC /* ShaderOperations.m */,
-			);
-			name = Tools;
-			sourceTree = "<group>";
-		};
-		6A618AAC1B7370E00044FB1F /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				6A618AA41B72F79C0044FB1F /* TouchDrawViewViaCoreGraphics.h */,
-				6A618AA51B72F79C0044FB1F /* TouchDrawViewViaCoreGraphics.m */,
-				6A618AA71B736DE10044FB1F /* TouchDrawViewViaOpenGLES.h */,
-				6A618AA81B736DE10044FB1F /* TouchDrawViewViaOpenGLES.m */,
-				A48DC23D1B81CD5D00FC3492 /* PaintViaOpenGLESTexture.h */,
-				A48DC23E1B81CD5D00FC3492 /* PaintViaOpenGLESTexture.m */,
-				A4E14D5D1B8C68C700496FA8 /* PaintViaGLKView.h */,
-				A4E14D5E1B8C68C700496FA8 /* PaintViaGLKView.m */,
-			);
-			name = Views;
-			sourceTree = "<group>";
-		};
-		6A618AAD1B7370F90044FB1F /* ViewControllers */ = {
-			isa = PBXGroup;
-			children = (
-				6A74B6621B68EF1B0042DDEC /* RootTableViewController.h */,
-				6A74B6631B68EF1B0042DDEC /* RootTableViewController.m */,
-				6A74B6651B68F2C60042DDEC /* ItemViewController.h */,
-				6A74B6661B68F2C60042DDEC /* ItemViewController.m */,
-			);
-			name = ViewControllers;
-			sourceTree = "<group>";
-		};
-		6A618AAE1B73710A0044FB1F /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				A4E14D601B8D925000496FA8 /* dm-1050-1.png */,
-				A48DC2381B7DEC5700FC3492 /* Radial.png */,
-				6ADFC80A1B784B440043EFF6 /* Blue.png */,
-				6ADFC80B1B784B440043EFF6 /* Green.png */,
-				6ADFC80E1B784B4C0043EFF6 /* Purple.png */,
-				6ADFC80F1B784B4C0043EFF6 /* Red.png */,
-				6ADFC8101B784B4C0043EFF6 /* Yellow.png */,
-				6A618AAF1B74AD480044FB1F /* testImage.png */,
-			);
-			name = Resources;
 			sourceTree = "<group>";
 		};
 		6A74B62D1B68EE730042DDEC = {
@@ -231,17 +175,19 @@
 		6A74B6381B68EE740042DDEC /* OpenGLDemo */ = {
 			isa = PBXGroup;
 			children = (
-				6A618AAE1B73710A0044FB1F /* Resources */,
-				6A618AAD1B7370F90044FB1F /* ViewControllers */,
-				6A618AAC1B7370E00044FB1F /* Views */,
-				6A618AAB1B736E2A0044FB1F /* Tools */,
+				A4FC71471C32631200EA3EBD /* shaders */,
+				A4FC713D1C32630800EA3EBD /* Demos */,
+				A4FC71871C3264D300EA3EBD /* ViewControllers */,
 				6A618AAA1B736DF10044FB1F /* Models */,
+				A4FC71831C32641400EA3EBD /* Tools */,
+				A4FC71761C3263FB00EA3EBD /* Views */,
+				A4FC715D1C3263CB00EA3EBD /* GLSL */,
+				A4FC714C1C32638D00EA3EBD /* Resources */,
 				6A74B63D1B68EE740042DDEC /* AppDelegate.h */,
 				6A74B63E1B68EE740042DDEC /* AppDelegate.m */,
 				6A74B6461B68EE740042DDEC /* Images.xcassets */,
 				6A74B6431B68EE740042DDEC /* Main.storyboard */,
 				6A74B6481B68EE740042DDEC /* LaunchScreen.xib */,
-				6A0AC3D21B6A31F7000BBB15 /* GLSL */,
 				6A74B6391B68EE740042DDEC /* Supporting Files */,
 			);
 			path = OpenGLDemo;
@@ -283,6 +229,97 @@
 				6A74B6681B69BD8C0042DDEC /* OpenGLES.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A4FC713D1C32630800EA3EBD /* Demos */ = {
+			isa = PBXGroup;
+			children = (
+				A4FC713E1C32630800EA3EBD /* DemoClearColorViewController.h */,
+				A4FC713F1C32630800EA3EBD /* DemoClearColorViewController.m */,
+				A4FC71401C32630800EA3EBD /* DemoShaderViewController.h */,
+				A4FC71411C32630800EA3EBD /* DemoShaderViewController.m */,
+				A4FC71421C32630800EA3EBD /* DemoTriangleViewController.h */,
+				A4FC71431C32630800EA3EBD /* DemoTriangleViewController.m */,
+			);
+			path = Demos;
+			sourceTree = "<group>";
+		};
+		A4FC71471C32631200EA3EBD /* shaders */ = {
+			isa = PBXGroup;
+			children = (
+				A4FC71481C32631200EA3EBD /* DemoShaderFragment.glsl */,
+				A4FC71491C32631200EA3EBD /* DemoShaderVertex.glsl */,
+			);
+			path = shaders;
+			sourceTree = "<group>";
+		};
+		A4FC714C1C32638D00EA3EBD /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A4FC714D1C32638D00EA3EBD /* Blue.png */,
+				A4FC714E1C32638D00EA3EBD /* dm-1050-1.png */,
+				A4FC714F1C32638D00EA3EBD /* Green.png */,
+				A4FC71501C32638D00EA3EBD /* Purple.png */,
+				A4FC71511C32638D00EA3EBD /* Radial.png */,
+				A4FC71521C32638D00EA3EBD /* Red.png */,
+				A4FC71531C32638D00EA3EBD /* testImage.png */,
+				A4FC71541C32638D00EA3EBD /* Yellow.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		A4FC715D1C3263CB00EA3EBD /* GLSL */ = {
+			isa = PBXGroup;
+			children = (
+				A4FC715E1C3263CB00EA3EBD /* Fragment3DTransform.glsl */,
+				A4FC715F1C3263CB00EA3EBD /* FragmentDrawTexture.glsl */,
+				A4FC71601C3263CB00EA3EBD /* FragmentPaint.glsl */,
+				A4FC71611C3263CB00EA3EBD /* FragmentPaintTexture.glsl */,
+				A4FC71621C3263CB00EA3EBD /* FragmentTriangle.glsl */,
+				A4FC71631C3263CB00EA3EBD /* SimpleFragment.glsl */,
+				A4FC71641C3263CB00EA3EBD /* SimpleVertex.glsl */,
+				A4FC71651C3263CB00EA3EBD /* Vertex3DTransform.glsl */,
+				A4FC71661C3263CB00EA3EBD /* VertexDrawTexture.glsl */,
+				A4FC71671C3263CB00EA3EBD /* VertexPaint.glsl */,
+				A4FC71681C3263CB00EA3EBD /* VertexPaintTexture.glsl */,
+				A4FC71691C3263CB00EA3EBD /* VertexTriangle.glsl */,
+			);
+			path = GLSL;
+			sourceTree = "<group>";
+		};
+		A4FC71761C3263FB00EA3EBD /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A4FC71771C3263FB00EA3EBD /* PaintViaGLKView.h */,
+				A4FC71781C3263FB00EA3EBD /* PaintViaGLKView.m */,
+				A4FC71791C3263FB00EA3EBD /* PaintViaOpenGLESTexture.h */,
+				A4FC717A1C3263FB00EA3EBD /* PaintViaOpenGLESTexture.m */,
+				A4FC717B1C3263FB00EA3EBD /* TouchDrawViewViaCoreGraphics.h */,
+				A4FC717C1C3263FB00EA3EBD /* TouchDrawViewViaCoreGraphics.m */,
+				A4FC717D1C3263FB00EA3EBD /* TouchDrawViewViaOpenGLES.h */,
+				A4FC717E1C3263FB00EA3EBD /* TouchDrawViewViaOpenGLES.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		A4FC71831C32641400EA3EBD /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				A4FC71841C32641400EA3EBD /* ShaderOperations.h */,
+				A4FC71851C32641400EA3EBD /* ShaderOperations.m */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		A4FC71871C3264D300EA3EBD /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				A4FC718A1C3264D300EA3EBD /* RootTableViewController.h */,
+				A4FC718B1C3264D300EA3EBD /* RootTableViewController.m */,
+				A4FC71881C3264D300EA3EBD /* ItemViewController.h */,
+				A4FC71891C3264D300EA3EBD /* ItemViewController.m */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -366,29 +403,31 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6ADFC8131B784B4C0043EFF6 /* Yellow.png in Resources */,
-				6ADFC80C1B784B440043EFF6 /* Blue.png in Resources */,
+				A4FC716F1C3263CB00EA3EBD /* SimpleFragment.glsl in Resources */,
+				A4FC71751C3263CB00EA3EBD /* VertexTriangle.glsl in Resources */,
+				A4FC716D1C3263CB00EA3EBD /* FragmentPaintTexture.glsl in Resources */,
+				A4FC714B1C32631200EA3EBD /* DemoShaderVertex.glsl in Resources */,
 				6A74B6451B68EE740042DDEC /* Main.storyboard in Resources */,
-				6A0AC3DD1B6F46B9000BBB15 /* Vertex3DTransform.glsl in Resources */,
-				6ADFC80D1B784B440043EFF6 /* Green.png in Resources */,
-				6A6A85401B74BBB600D45AD6 /* FragmentPaint.glsl in Resources */,
-				A48DC2431B81D58D00FC3492 /* FragmentPaintTexture.glsl in Resources */,
-				A4E14D5A1B8C3BDA00496FA8 /* VertexDrawTexture.glsl in Resources */,
-				6ADFC8121B784B4C0043EFF6 /* Red.png in Resources */,
-				6A0AC3D41B6A32C6000BBB15 /* VertexTriangle.glsl in Resources */,
-				A48DC2391B7DEC5700FC3492 /* Radial.png in Resources */,
-				6ADFC8111B784B4C0043EFF6 /* Purple.png in Resources */,
-				6A74B66E1B6A04310042DDEC /* SimpleVertex.glsl in Resources */,
+				A4FC716C1C3263CB00EA3EBD /* FragmentPaint.glsl in Resources */,
+				A4FC715B1C32638D00EA3EBD /* testImage.png in Resources */,
+				A4FC71731C3263CB00EA3EBD /* VertexPaint.glsl in Resources */,
+				A4FC715C1C32638D00EA3EBD /* Yellow.png in Resources */,
+				A4FC71711C3263CB00EA3EBD /* Vertex3DTransform.glsl in Resources */,
+				A4FC715A1C32638D00EA3EBD /* Red.png in Resources */,
+				A4FC716A1C3263CB00EA3EBD /* Fragment3DTransform.glsl in Resources */,
+				A4FC714A1C32631200EA3EBD /* DemoShaderFragment.glsl in Resources */,
+				A4FC71591C32638D00EA3EBD /* Radial.png in Resources */,
+				A4FC71581C32638D00EA3EBD /* Purple.png in Resources */,
+				A4FC71571C32638D00EA3EBD /* Green.png in Resources */,
+				A4FC71551C32638D00EA3EBD /* Blue.png in Resources */,
+				A4FC71721C3263CB00EA3EBD /* VertexDrawTexture.glsl in Resources */,
+				A4FC716E1C3263CB00EA3EBD /* FragmentTriangle.glsl in Resources */,
+				A4FC71741C3263CB00EA3EBD /* VertexPaintTexture.glsl in Resources */,
 				6A74B64A1B68EE740042DDEC /* LaunchScreen.xib in Resources */,
-				6A6A853E1B74BBA000D45AD6 /* VertexPaint.glsl in Resources */,
 				6A74B6471B68EE740042DDEC /* Images.xcassets in Resources */,
-				6A0AC3E11B6F4718000BBB15 /* Fragment3DTransform.glsl in Resources */,
-				A4E14D611B8D925000496FA8 /* dm-1050-1.png in Resources */,
-				6A74B6701B6A04680042DDEC /* SimpleFragment.glsl in Resources */,
-				6A0AC3D61B6A32DB000BBB15 /* FragmentTriangle.glsl in Resources */,
-				A4E14D5C1B8C3BF500496FA8 /* FragmentDrawTexture.glsl in Resources */,
-				A48DC2411B81D57B00FC3492 /* VertexPaintTexture.glsl in Resources */,
-				6A618AB01B74AD480044FB1F /* testImage.png in Resources */,
+				A4FC71701C3263CB00EA3EBD /* SimpleVertex.glsl in Resources */,
+				A4FC71561C32638D00EA3EBD /* dm-1050-1.png in Resources */,
+				A4FC716B1C3263CB00EA3EBD /* FragmentDrawTexture.glsl in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,15 +445,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A48DC23F1B81CD5D00FC3492 /* PaintViaOpenGLESTexture.m in Sources */,
-				6A74B6641B68EF1B0042DDEC /* RootTableViewController.m in Sources */,
-				6A618AA61B72F79C0044FB1F /* TouchDrawViewViaCoreGraphics.m in Sources */,
-				6A74B6671B68F2C60042DDEC /* ItemViewController.m in Sources */,
-				6A74B6731B6A16630042DDEC /* ShaderOperations.m in Sources */,
+				A4FC71801C3263FB00EA3EBD /* PaintViaOpenGLESTexture.m in Sources */,
+				A4FC71821C3263FB00EA3EBD /* TouchDrawViewViaOpenGLES.m in Sources */,
+				A4FC717F1C3263FB00EA3EBD /* PaintViaGLKView.m in Sources */,
+				A4FC718D1C3264D300EA3EBD /* RootTableViewController.m in Sources */,
+				A4FC71461C32630800EA3EBD /* DemoTriangleViewController.m in Sources */,
+				A4FC71451C32630800EA3EBD /* DemoShaderViewController.m in Sources */,
+				A4FC71811C3263FB00EA3EBD /* TouchDrawViewViaCoreGraphics.m in Sources */,
+				A4FC718C1C3264D300EA3EBD /* ItemViewController.m in Sources */,
+				A4FC71861C32641400EA3EBD /* ShaderOperations.m in Sources */,
 				6A74B63F1B68EE740042DDEC /* AppDelegate.m in Sources */,
-				6A618AA91B736DE10044FB1F /* TouchDrawViewViaOpenGLES.m in Sources */,
 				6A74B63C1B68EE740042DDEC /* main.m in Sources */,
-				A4E14D5F1B8C68C700496FA8 /* PaintViaGLKView.m in Sources */,
+				A4FC71441C32630800EA3EBD /* DemoClearColorViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
