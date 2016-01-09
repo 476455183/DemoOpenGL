@@ -51,7 +51,7 @@
     
     [self processShaders];
     
-    [self render];
+    [self renderByVBO];
 }
 
 #pragma mark - setupOpenGLContext
@@ -145,6 +145,28 @@
     
     // 将指定renderBuffer渲染在屏幕上
     // 绘制三角形，红色是由fragment shader决定
+    [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
+}
+
+- (void)renderByVBO {
+    glViewport(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    
+    GLfloat vertices[] = {
+        0.0f,  0.5f, 0.0f,
+        -0.5f, -0.5f, 0.0f,
+        0.5f,  -0.5f, 0.0f };
+    
+    GLuint vertexBuffer;
+    glGenBuffers(1, &vertexBuffer);
+    // 绑定vertexBuffer到GL_ARRAY_BUFFER目标
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+    // 为VBO申请空间，初始化并传递数据
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    
+    glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, 0);
+    glEnableVertexAttribArray(_positionSlot);
+    glDrawArrays(GL_TRIANGLES, 0, 3);
+    
     [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
 }
 
