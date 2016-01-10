@@ -18,6 +18,7 @@
 		6A74B6561B68EE740042DDEC /* OpenGLDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A74B6551B68EE740042DDEC /* OpenGLDemoTests.m */; };
 		6A74B6691B69BD8C0042DDEC /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A74B6681B69BD8C0042DDEC /* OpenGLES.framework */; };
 		6A74B66B1B69BD920042DDEC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A74B66A1B69BD920042DDEC /* QuartzCore.framework */; };
+		A4C06A651C42683E00C862EA /* DemoDrawImageCoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = A4C06A641C42683E00C862EA /* DemoDrawImageCoreGraphics.m */; };
 		A4FC71441C32630800EA3EBD /* DemoClearColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4FC713F1C32630800EA3EBD /* DemoClearColorViewController.m */; };
 		A4FC71451C32630800EA3EBD /* DemoShaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4FC71411C32630800EA3EBD /* DemoShaderViewController.m */; };
 		A4FC71461C32630800EA3EBD /* DemoTriangleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4FC71431C32630800EA3EBD /* DemoTriangleViewController.m */; };
@@ -81,6 +82,8 @@
 		6A74B6551B68EE740042DDEC /* OpenGLDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OpenGLDemoTests.m; sourceTree = "<group>"; };
 		6A74B6681B69BD8C0042DDEC /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		6A74B66A1B69BD920042DDEC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		A4C06A631C42683E00C862EA /* DemoDrawImageCoreGraphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoDrawImageCoreGraphics.h; sourceTree = "<group>"; };
+		A4C06A641C42683E00C862EA /* DemoDrawImageCoreGraphics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoDrawImageCoreGraphics.m; sourceTree = "<group>"; };
 		A4FC713E1C32630800EA3EBD /* DemoClearColorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoClearColorViewController.h; sourceTree = "<group>"; };
 		A4FC713F1C32630800EA3EBD /* DemoClearColorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoClearColorViewController.m; sourceTree = "<group>"; };
 		A4FC71401C32630800EA3EBD /* DemoShaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoShaderViewController.h; sourceTree = "<group>"; };
@@ -244,6 +247,8 @@
 				A4FC71411C32630800EA3EBD /* DemoShaderViewController.m */,
 				A4FC71421C32630800EA3EBD /* DemoTriangleViewController.h */,
 				A4FC71431C32630800EA3EBD /* DemoTriangleViewController.m */,
+				A4C06A631C42683E00C862EA /* DemoDrawImageCoreGraphics.h */,
+				A4C06A641C42683E00C862EA /* DemoDrawImageCoreGraphics.m */,
 			);
 			path = Demos;
 			sourceTree = "<group>";
@@ -459,6 +464,7 @@
 				A4FC718D1C3264D300EA3EBD /* RootTableViewController.m in Sources */,
 				A4FC71461C32630800EA3EBD /* DemoTriangleViewController.m in Sources */,
 				A4FC71451C32630800EA3EBD /* DemoShaderViewController.m in Sources */,
+				A4C06A651C42683E00C862EA /* DemoDrawImageCoreGraphics.m in Sources */,
 				A4FC71811C3263FB00EA3EBD /* TouchDrawViewViaCoreGraphics.m in Sources */,
 				A4FC718C1C3264D300EA3EBD /* ItemViewController.m in Sources */,
 				A4FC71861C32641400EA3EBD /* ShaderOperations.m in Sources */,
@@ -595,6 +601,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = OpenGLDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -608,6 +615,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = OpenGLDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

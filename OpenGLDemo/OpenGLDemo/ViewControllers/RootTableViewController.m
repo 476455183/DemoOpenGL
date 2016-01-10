@@ -13,11 +13,13 @@
 #import "DemoClearColorViewController.h"
 #import "DemoShaderViewController.h"
 #import "DemoTriangleViewController.h"
+#import "DemoDrawImageCoreGraphics.h"
 
 typedef NS_ENUM(NSUInteger, DemoOpenGLES) {
     kDemoClearColor = 0,
     kDemoShader,
     kDemoTriangleViaShader,
+    
     kDemoImageViaCoreGraphics,
     kDemoImageViaOpenGLES,
     
@@ -114,6 +116,12 @@ typedef NS_ENUM(NSUInteger, DemoOpenGLES) {
         demoTriangle.view.backgroundColor = [UIColor whiteColor];
         demoTriangle.navigationItem.title = @"DemoTriangleViaShader";
         [self.navigationController pushViewController:demoTriangle animated:YES];
+        return;
+    } else if (indexPath.row == kDemoImageViaCoreGraphics) {
+        DemoDrawImageCoreGraphics *demoDrawImageCoreGraphics = [DemoDrawImageCoreGraphics new];
+        demoDrawImageCoreGraphics.view.backgroundColor = [UIColor whiteColor];
+        demoDrawImageCoreGraphics.navigationItem.title = @"DemoDrawImageCoreGraphics";
+        [self.navigationController pushViewController:demoDrawImageCoreGraphics animated:YES];
         return;
     }
     
