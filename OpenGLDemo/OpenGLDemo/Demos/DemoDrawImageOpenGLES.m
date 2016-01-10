@@ -111,7 +111,11 @@
     
     [self setupBlendMode];
     
+    glViewport(0, 0, rect.size.width, rect.size.height);
+    
     [self render:rect];
+    
+    [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
 }
 
 #pragma mark - setupOpenGLContext
@@ -220,8 +224,6 @@
 }
 
 - (void)render:(CGRect)rect {
-    glViewport(0, 0, rect.size.width, rect.size.height);
-    
     GLfloat vertices[] = {
         -1, -1, 0,   //左下
         1,  -1, 0,   //右下
@@ -245,8 +247,6 @@
     glUniform1i(_textureSlot, 5); // 与纹理单元的序号对应
     
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-    
-    [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
 }
 
 @end
