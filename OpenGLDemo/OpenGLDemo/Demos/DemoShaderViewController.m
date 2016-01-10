@@ -135,7 +135,7 @@ typedef struct {
     glViewport(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     
 //    [self renderVertices];      // 直接使用顶点数组
-//    [self renderUsingIndex];    // 使用顶点索引
+//    [self renderUsingIndex];    // 使用顶点索引数组
     [self renderUsingVBO];      // 使用VBO
     
     [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
@@ -302,9 +302,11 @@ typedef struct {
     glVertexAttribPointer(_colorSlot, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid *)(sizeof(float) * 3));
     glEnableVertexAttribArray(_colorSlot);
     
+    // 在每个vertex上调用我们的vertex shader，以及每个像素调用fragment shader
     // 相比glDrawArray, 使用顶点索引数组可减少存储和绘制重复顶点的资源消耗
-    glDrawElements(GL_TRIANGLES, sizeof(Indices)/sizeof(Indices[0]), GL_UNSIGNED_BYTE, 0);
-//     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4); // 使用glDrawArrays也可绘制
+    // 使用VBO时，参数4表示索引数据在VBO（GL_ELEMENT_ARRAY_BUFFER）中的偏移量
+    glDrawElements(GL_TRIANGLE_STRIP, sizeof(Indices)/sizeof(Indices[0]), GL_UNSIGNED_BYTE, 0);
+    // glDrawArrays(GL_TRIANGLE_STRIP, 0, 4); // 使用glDrawArrays也可绘制
 }
 
 @end
