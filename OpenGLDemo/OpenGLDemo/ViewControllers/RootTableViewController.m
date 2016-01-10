@@ -14,6 +14,7 @@
 #import "DemoShaderViewController.h"
 #import "DemoTriangleViewController.h"
 #import "DemoDrawImageCoreGraphics.h"
+#import "DemoDrawImageOpenGLES.h"
 
 typedef NS_ENUM(NSUInteger, DemoOpenGLES) {
     kDemoClearColor = 0,
@@ -122,6 +123,12 @@ typedef NS_ENUM(NSUInteger, DemoOpenGLES) {
         demoDrawImageCoreGraphics.view.backgroundColor = [UIColor whiteColor];
         demoDrawImageCoreGraphics.navigationItem.title = @"DemoDrawImageCoreGraphics";
         [self.navigationController pushViewController:demoDrawImageCoreGraphics animated:YES];
+        return;
+    } else if (indexPath.row == kDemoImageViaOpenGLES) {
+        DemoDrawImageOpenGLES *demoDrawImageOpenGLES = [DemoDrawImageOpenGLES new];
+        demoDrawImageOpenGLES.view.backgroundColor = [UIColor whiteColor];
+        demoDrawImageOpenGLES.navigationItem.title = @"DemoDrawImageOpenGLES";
+        [self.navigationController pushViewController:demoDrawImageOpenGLES animated:YES];
         return;
     }
     

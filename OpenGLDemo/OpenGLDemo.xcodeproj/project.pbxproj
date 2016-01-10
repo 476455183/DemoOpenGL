@@ -19,6 +19,9 @@
 		6A74B6691B69BD8C0042DDEC /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A74B6681B69BD8C0042DDEC /* OpenGLES.framework */; };
 		6A74B66B1B69BD920042DDEC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A74B66A1B69BD920042DDEC /* QuartzCore.framework */; };
 		A4C06A651C42683E00C862EA /* DemoDrawImageCoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = A4C06A641C42683E00C862EA /* DemoDrawImageCoreGraphics.m */; };
+		A4C06A681C426D2D00C862EA /* DemoDrawImageOpenGLES.m in Sources */ = {isa = PBXBuildFile; fileRef = A4C06A671C426D2D00C862EA /* DemoDrawImageOpenGLES.m */; };
+		A4C06A6A1C4273EE00C862EA /* DemoDrawImageTextureVertex.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A4C06A691C4273EE00C862EA /* DemoDrawImageTextureVertex.glsl */; };
+		A4C06A6C1C42740300C862EA /* DemoDrawImageTextureFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A4C06A6B1C42740300C862EA /* DemoDrawImageTextureFragment.glsl */; };
 		A4FC71441C32630800EA3EBD /* DemoClearColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4FC713F1C32630800EA3EBD /* DemoClearColorViewController.m */; };
 		A4FC71451C32630800EA3EBD /* DemoShaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4FC71411C32630800EA3EBD /* DemoShaderViewController.m */; };
 		A4FC71461C32630800EA3EBD /* DemoTriangleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4FC71431C32630800EA3EBD /* DemoTriangleViewController.m */; };
@@ -84,6 +87,10 @@
 		6A74B66A1B69BD920042DDEC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		A4C06A631C42683E00C862EA /* DemoDrawImageCoreGraphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoDrawImageCoreGraphics.h; sourceTree = "<group>"; };
 		A4C06A641C42683E00C862EA /* DemoDrawImageCoreGraphics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoDrawImageCoreGraphics.m; sourceTree = "<group>"; };
+		A4C06A661C426D2D00C862EA /* DemoDrawImageOpenGLES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoDrawImageOpenGLES.h; sourceTree = "<group>"; };
+		A4C06A671C426D2D00C862EA /* DemoDrawImageOpenGLES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoDrawImageOpenGLES.m; sourceTree = "<group>"; };
+		A4C06A691C4273EE00C862EA /* DemoDrawImageTextureVertex.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DemoDrawImageTextureVertex.glsl; sourceTree = "<group>"; };
+		A4C06A6B1C42740300C862EA /* DemoDrawImageTextureFragment.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DemoDrawImageTextureFragment.glsl; sourceTree = "<group>"; };
 		A4FC713E1C32630800EA3EBD /* DemoClearColorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoClearColorViewController.h; sourceTree = "<group>"; };
 		A4FC713F1C32630800EA3EBD /* DemoClearColorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoClearColorViewController.m; sourceTree = "<group>"; };
 		A4FC71401C32630800EA3EBD /* DemoShaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoShaderViewController.h; sourceTree = "<group>"; };
@@ -249,6 +256,8 @@
 				A4FC71431C32630800EA3EBD /* DemoTriangleViewController.m */,
 				A4C06A631C42683E00C862EA /* DemoDrawImageCoreGraphics.h */,
 				A4C06A641C42683E00C862EA /* DemoDrawImageCoreGraphics.m */,
+				A4C06A661C426D2D00C862EA /* DemoDrawImageOpenGLES.h */,
+				A4C06A671C426D2D00C862EA /* DemoDrawImageOpenGLES.m */,
 			);
 			path = Demos;
 			sourceTree = "<group>";
@@ -260,6 +269,8 @@
 				A4FC718E1C326CF600EA3EBD /* DemoTriangleFragment.glsl */,
 				A4FC71491C32631200EA3EBD /* DemoShaderVertex.glsl */,
 				A4FC71481C32631200EA3EBD /* DemoShaderFragment.glsl */,
+				A4C06A691C4273EE00C862EA /* DemoDrawImageTextureVertex.glsl */,
+				A4C06A6B1C42740300C862EA /* DemoDrawImageTextureFragment.glsl */,
 			);
 			path = shaders;
 			sourceTree = "<group>";
@@ -427,6 +438,7 @@
 				A4FC71901C326CF600EA3EBD /* DemoTriangleFragment.glsl in Resources */,
 				A4FC715A1C32638D00EA3EBD /* Red.png in Resources */,
 				A4FC716A1C3263CB00EA3EBD /* Fragment3DTransform.glsl in Resources */,
+				A4C06A6C1C42740300C862EA /* DemoDrawImageTextureFragment.glsl in Resources */,
 				A4FC714A1C32631200EA3EBD /* DemoShaderFragment.glsl in Resources */,
 				A4FC71591C32638D00EA3EBD /* Radial.png in Resources */,
 				A4FC71581C32638D00EA3EBD /* Purple.png in Resources */,
@@ -438,6 +450,7 @@
 				A4FC71741C3263CB00EA3EBD /* VertexPaintTexture.glsl in Resources */,
 				6A74B64A1B68EE740042DDEC /* LaunchScreen.xib in Resources */,
 				6A74B6471B68EE740042DDEC /* Images.xcassets in Resources */,
+				A4C06A6A1C4273EE00C862EA /* DemoDrawImageTextureVertex.glsl in Resources */,
 				A4FC71701C3263CB00EA3EBD /* SimpleVertex.glsl in Resources */,
 				A4FC71561C32638D00EA3EBD /* dm-1050-1.png in Resources */,
 				A4FC716B1C3263CB00EA3EBD /* FragmentDrawTexture.glsl in Resources */,
@@ -467,6 +480,7 @@
 				A4C06A651C42683E00C862EA /* DemoDrawImageCoreGraphics.m in Sources */,
 				A4FC71811C3263FB00EA3EBD /* TouchDrawViewViaCoreGraphics.m in Sources */,
 				A4FC718C1C3264D300EA3EBD /* ItemViewController.m in Sources */,
+				A4C06A681C426D2D00C862EA /* DemoDrawImageOpenGLES.m in Sources */,
 				A4FC71861C32641400EA3EBD /* ShaderOperations.m in Sources */,
 				6A74B63F1B68EE740042DDEC /* AppDelegate.m in Sources */,
 				6A74B63C1B68EE740042DDEC /* main.m in Sources */,
