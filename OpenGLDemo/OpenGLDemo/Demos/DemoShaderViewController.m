@@ -231,7 +231,37 @@ typedef struct {
 }
 
 - (void)renderUsingIndex {
+    // 顶点数组
+    const GLfloat Vertices[] = {
+        -1,-1,0,// 左下，黑色
+        1,-1,0, // 右下，红色
+        -1,1,0, // 左上，蓝色
+        1,1,0,  // 右上，绿色
+    };
     
+    // 颜色数组
+    const GLfloat Colors[] = {
+        0,0,0,1, // 左下，黑色
+        1,0,0,1, // 右下，红色
+        0,0,1,1, // 左上，蓝色
+        0,1,0,1, // 右上，绿色
+    };
+    
+    // 索引数组
+    const GLubyte Indices[] = {
+        0,1,2, // 三角形0
+        1,2,3  // 三角形1
+    };
+    
+    // 取出Vertex结构体的Position，赋给_positionSlot
+    glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, Vertices);
+    glEnableVertexAttribArray(_positionSlot);
+    
+    // Vertex结构体，偏移3个float的位置，即是Color值
+    glVertexAttribPointer(_colorSlot, 4, GL_FLOAT, GL_FALSE, 0, Colors);
+    glEnableVertexAttribArray(_colorSlot);
+    
+    glDrawElements(GL_TRIANGLES, sizeof(Indices)/sizeof(Indices[0]), GL_UNSIGNED_BYTE, Indices);
 }
 
 - (void)renderUsingVBO {
