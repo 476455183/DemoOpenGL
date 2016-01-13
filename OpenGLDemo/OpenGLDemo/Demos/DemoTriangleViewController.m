@@ -52,6 +52,8 @@
     [self processShaders];
     
     [self renderByVBO];
+    
+    [self getResultImage];
 }
 
 #pragma mark - setupOpenGLContext
@@ -168,6 +170,32 @@
     glDrawArrays(GL_TRIANGLES, 0, 3);
     
     [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
+}
+
+- (UIImage *)getResultImage {
+    CGSize currentFBOSize = self.view.frame.size;
+    NSUInteger totalBytesForImage = (int)currentFBOSize.width * (int)currentFBOSize.height * 4;
+    
+    GLubyte *_rawImagePixelsTemp = (GLubyte *)malloc(totalBytesForImage);
+    
+    glReadPixels(0, 0, (int)currentFBOSize.width, (int)currentFBOSize.height, GL_RGBA, GL_UNSIGNED_BYTE, _rawImagePixelsTemp);
+    glUseProgram(0); //unbind the shader
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    CGDataProviderRef dataProvider = CGDataProviderCreateWithData(NULL, _rawImagePixelsTemp, totalBytesForImage, (CGDataProviderReleaseDataCallback)&freeData);
+    CGColorSpaceRef defaultRGBColorSpace = CGColorSpaceCreateDeviceRGB();
+    
+    CGImageRef cgImageFromBytes = CGImageCreate((int)currentFBOSize.width, (int)currentFBOSize.height, 8, 32, 4 * (int)currentFBOSize.width, defaultRGBColorSpace, kCGBitmapByteOrderDefault, dataProvider, NULL, NO, kCGRenderingIntentDefault);
+    UIImage *finalImage = [UIImage imageWithCGImage:cgImageFromBytes scale:1.0 orientation:UIImageOrientationDownMirrored];
+    
+    CGImageRelease(cgImageFromBytes);
+    CGDataProviderRelease(dataProvider);
+    CGColorSpaceRelease(defaultRGBColorSpace);
+
+    return finalImage;
+}
+
+void freeData(void *info, const void *data, size_t size) {
+    free((unsigned char *)data);
 }
 
 @end
