@@ -351,6 +351,8 @@
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Indices), Indices, GL_STATIC_DRAW);
     
+    // 注意，未使用VBO时，glVertexAttribPointer的最后一个参数是指向对应数组的指针。
+    // 但是，当使用VBO时，glVertexAttribPointer的最后一个参数是要获取的参数在GL_ARRAY_BUFFER（每一个Vertex）的偏移量
     // 取出Vertex结构体的Position，赋给_positionSlot
     glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
     glEnableVertexAttribArray(_positionSlot);
@@ -361,7 +363,13 @@
     glVertexAttribPointer(_colorSlot, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid *)(sizeof(float) * 3));
     glEnableVertexAttribArray(_colorSlot);
     
-    // glDrawArrays(GL_TRIANGLE_STRIP, 0, 4); // 使用glDrawArrays也可绘制
+    // 使用glDrawArrays也可绘制，此时仅从GL_ARRAY_BUFFER中取出顶点数据，
+    // 而索引数组就可以不要了，即GL_ELEMENT_ARRAY_BUFFER实际上没有用到。
+    // glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    
+    
+    // 而使用glDrawElements的方式：本身就用到了索引，即GL_ELEMENT_ARRAY_BUFFER。
+    // 所以，GL_ARRAY_BUFFER和GL_ELEMENT_ARRAY_BUFFER两个都需要。
     
     /**
      *  参数1：三角形组合方式
