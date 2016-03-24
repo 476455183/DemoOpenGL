@@ -134,9 +134,9 @@ typedef struct {
 - (void)render {
     glViewport(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     
-//    [self renderVertices];      // 直接使用顶点数组
+    [self renderVertices];      // 直接使用顶点数组
 //    [self renderUsingIndex];    // 使用顶点索引数组
-    [self renderUsingVBO];      // 使用VBO
+//    [self renderUsingVBO];      // 使用VBO
     
     [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
 }
@@ -165,16 +165,21 @@ typedef struct {
         0,1,0,1, // 右上，绿色
     };
     
-    // 取出Vertex结构体的Position，赋给_positionSlot
+    // 纯粹使用顶点的方式，颜色与顶点要一一对应。
+    
+    // 取出Vertices数组中的坐标点值，赋给_positionSlot
     glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, Vertices);
     glEnableVertexAttribArray(_positionSlot);
     
-    // Vertex结构体，偏移3个float的位置，即是Color值
+    // 取出Colors数组中的每个坐标点的颜色值，赋给_colorSlot
     glVertexAttribPointer(_colorSlot, 4, GL_FLOAT, GL_FALSE, 0, Colors);
     glEnableVertexAttribArray(_colorSlot);
     
+    // 以上两个slot分别于着色器脚本中的Positon，SourceColor两个参数
+    
     glDrawArrays(GL_TRIANGLES, 0, 6);
 
+    
 #pragma mark - GL_TRIANGLE_STRIP
 //    // 顶点数组
 //    const GLfloat Vertices[] = {

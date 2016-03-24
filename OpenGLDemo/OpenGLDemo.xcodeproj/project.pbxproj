@@ -18,17 +18,17 @@
 		6A74B6561B68EE740042DDEC /* OpenGLDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A74B6551B68EE740042DDEC /* OpenGLDemoTests.m */; };
 		6A74B6691B69BD8C0042DDEC /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A74B6681B69BD8C0042DDEC /* OpenGLES.framework */; };
 		6A74B66B1B69BD920042DDEC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A74B66A1B69BD920042DDEC /* QuartzCore.framework */; };
-		A40DAA311CA3CAEC00E2D5C0 /* DemoDrawImageTextureFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A40DAA2B1CA3CAEC00E2D5C0 /* DemoDrawImageTextureFragment.glsl */; };
-		A40DAA321CA3CAEC00E2D5C0 /* DemoDrawImageTextureVertex.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A40DAA2C1CA3CAEC00E2D5C0 /* DemoDrawImageTextureVertex.glsl */; };
-		A40DAA331CA3CAEC00E2D5C0 /* DemoShaderFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A40DAA2D1CA3CAEC00E2D5C0 /* DemoShaderFragment.glsl */; };
-		A40DAA341CA3CAEC00E2D5C0 /* DemoShaderVertex.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A40DAA2E1CA3CAEC00E2D5C0 /* DemoShaderVertex.glsl */; };
-		A40DAA351CA3CAEC00E2D5C0 /* DemoTriangleFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A40DAA2F1CA3CAEC00E2D5C0 /* DemoTriangleFragment.glsl */; };
-		A40DAA361CA3CAEC00E2D5C0 /* DemoTriangleVertex.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A40DAA301CA3CAEC00E2D5C0 /* DemoTriangleVertex.glsl */; };
-		A4C06A651C42683E00C862EA /* DemoDrawImageCoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = A4C06A641C42683E00C862EA /* DemoDrawImageCoreGraphics.m */; };
-		A4C06A681C426D2D00C862EA /* DemoDrawImageOpenGLES.m in Sources */ = {isa = PBXBuildFile; fileRef = A4C06A671C426D2D00C862EA /* DemoDrawImageOpenGLES.m */; };
-		A4FC71441C32630800EA3EBD /* DemoClearColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4FC713F1C32630800EA3EBD /* DemoClearColorViewController.m */; };
-		A4FC71451C32630800EA3EBD /* DemoShaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4FC71411C32630800EA3EBD /* DemoShaderViewController.m */; };
-		A4FC71461C32630800EA3EBD /* DemoTriangleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4FC71431C32630800EA3EBD /* DemoTriangleViewController.m */; };
+		A40DAA4E1CA3CE5000E2D5C0 /* DemoClearColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A40DAA411CA3CE5000E2D5C0 /* DemoClearColorViewController.m */; };
+		A40DAA4F1CA3CE5000E2D5C0 /* DemoDrawImageCoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = A40DAA441CA3CE5000E2D5C0 /* DemoDrawImageCoreGraphics.m */; };
+		A40DAA501CA3CE5000E2D5C0 /* DemoDrawImageOpenGLES.m in Sources */ = {isa = PBXBuildFile; fileRef = A40DAA471CA3CE5000E2D5C0 /* DemoDrawImageOpenGLES.m */; };
+		A40DAA511CA3CE5000E2D5C0 /* DemoShaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A40DAA4A1CA3CE5000E2D5C0 /* DemoShaderViewController.m */; };
+		A40DAA521CA3CE5000E2D5C0 /* DemoTriangleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A40DAA4D1CA3CE5000E2D5C0 /* DemoTriangleViewController.m */; };
+		A40DAA551CA3CF1100E2D5C0 /* DemoShaderFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A40DAA531CA3CF1100E2D5C0 /* DemoShaderFragment.glsl */; };
+		A40DAA561CA3CF1100E2D5C0 /* DemoShaderVertex.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A40DAA541CA3CF1100E2D5C0 /* DemoShaderVertex.glsl */; };
+		A40DAA591CA3CF1A00E2D5C0 /* DemoTriangleFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A40DAA571CA3CF1A00E2D5C0 /* DemoTriangleFragment.glsl */; };
+		A40DAA5A1CA3CF1A00E2D5C0 /* DemoTriangleVertex.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A40DAA581CA3CF1A00E2D5C0 /* DemoTriangleVertex.glsl */; };
+		A40DAA5D1CA3CF2300E2D5C0 /* DemoDrawImageTextureFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A40DAA5B1CA3CF2300E2D5C0 /* DemoDrawImageTextureFragment.glsl */; };
+		A40DAA5E1CA3CF2300E2D5C0 /* DemoDrawImageTextureVertex.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A40DAA5C1CA3CF2300E2D5C0 /* DemoDrawImageTextureVertex.glsl */; };
 		A4FC71551C32638D00EA3EBD /* Blue.png in Resources */ = {isa = PBXBuildFile; fileRef = A4FC714D1C32638D00EA3EBD /* Blue.png */; };
 		A4FC71561C32638D00EA3EBD /* dm-1050-1.png in Resources */ = {isa = PBXBuildFile; fileRef = A4FC714E1C32638D00EA3EBD /* dm-1050-1.png */; };
 		A4FC71571C32638D00EA3EBD /* Green.png in Resources */ = {isa = PBXBuildFile; fileRef = A4FC714F1C32638D00EA3EBD /* Green.png */; };
@@ -85,22 +85,22 @@
 		6A74B6551B68EE740042DDEC /* OpenGLDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OpenGLDemoTests.m; sourceTree = "<group>"; };
 		6A74B6681B69BD8C0042DDEC /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		6A74B66A1B69BD920042DDEC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		A40DAA2B1CA3CAEC00E2D5C0 /* DemoDrawImageTextureFragment.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DemoDrawImageTextureFragment.glsl; sourceTree = "<group>"; };
-		A40DAA2C1CA3CAEC00E2D5C0 /* DemoDrawImageTextureVertex.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DemoDrawImageTextureVertex.glsl; sourceTree = "<group>"; };
-		A40DAA2D1CA3CAEC00E2D5C0 /* DemoShaderFragment.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DemoShaderFragment.glsl; sourceTree = "<group>"; };
-		A40DAA2E1CA3CAEC00E2D5C0 /* DemoShaderVertex.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DemoShaderVertex.glsl; sourceTree = "<group>"; };
-		A40DAA2F1CA3CAEC00E2D5C0 /* DemoTriangleFragment.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DemoTriangleFragment.glsl; sourceTree = "<group>"; };
-		A40DAA301CA3CAEC00E2D5C0 /* DemoTriangleVertex.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DemoTriangleVertex.glsl; sourceTree = "<group>"; };
-		A4C06A631C42683E00C862EA /* DemoDrawImageCoreGraphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoDrawImageCoreGraphics.h; sourceTree = "<group>"; };
-		A4C06A641C42683E00C862EA /* DemoDrawImageCoreGraphics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoDrawImageCoreGraphics.m; sourceTree = "<group>"; };
-		A4C06A661C426D2D00C862EA /* DemoDrawImageOpenGLES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoDrawImageOpenGLES.h; sourceTree = "<group>"; };
-		A4C06A671C426D2D00C862EA /* DemoDrawImageOpenGLES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoDrawImageOpenGLES.m; sourceTree = "<group>"; };
-		A4FC713E1C32630800EA3EBD /* DemoClearColorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoClearColorViewController.h; sourceTree = "<group>"; };
-		A4FC713F1C32630800EA3EBD /* DemoClearColorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoClearColorViewController.m; sourceTree = "<group>"; };
-		A4FC71401C32630800EA3EBD /* DemoShaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoShaderViewController.h; sourceTree = "<group>"; };
-		A4FC71411C32630800EA3EBD /* DemoShaderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoShaderViewController.m; sourceTree = "<group>"; };
-		A4FC71421C32630800EA3EBD /* DemoTriangleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoTriangleViewController.h; sourceTree = "<group>"; };
-		A4FC71431C32630800EA3EBD /* DemoTriangleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoTriangleViewController.m; sourceTree = "<group>"; };
+		A40DAA401CA3CE5000E2D5C0 /* DemoClearColorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoClearColorViewController.h; sourceTree = "<group>"; };
+		A40DAA411CA3CE5000E2D5C0 /* DemoClearColorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoClearColorViewController.m; sourceTree = "<group>"; };
+		A40DAA431CA3CE5000E2D5C0 /* DemoDrawImageCoreGraphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoDrawImageCoreGraphics.h; sourceTree = "<group>"; };
+		A40DAA441CA3CE5000E2D5C0 /* DemoDrawImageCoreGraphics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoDrawImageCoreGraphics.m; sourceTree = "<group>"; };
+		A40DAA461CA3CE5000E2D5C0 /* DemoDrawImageOpenGLES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoDrawImageOpenGLES.h; sourceTree = "<group>"; };
+		A40DAA471CA3CE5000E2D5C0 /* DemoDrawImageOpenGLES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoDrawImageOpenGLES.m; sourceTree = "<group>"; };
+		A40DAA491CA3CE5000E2D5C0 /* DemoShaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoShaderViewController.h; sourceTree = "<group>"; };
+		A40DAA4A1CA3CE5000E2D5C0 /* DemoShaderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoShaderViewController.m; sourceTree = "<group>"; };
+		A40DAA4C1CA3CE5000E2D5C0 /* DemoTriangleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoTriangleViewController.h; sourceTree = "<group>"; };
+		A40DAA4D1CA3CE5000E2D5C0 /* DemoTriangleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoTriangleViewController.m; sourceTree = "<group>"; };
+		A40DAA531CA3CF1100E2D5C0 /* DemoShaderFragment.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DemoShaderFragment.glsl; sourceTree = "<group>"; };
+		A40DAA541CA3CF1100E2D5C0 /* DemoShaderVertex.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DemoShaderVertex.glsl; sourceTree = "<group>"; };
+		A40DAA571CA3CF1A00E2D5C0 /* DemoTriangleFragment.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DemoTriangleFragment.glsl; sourceTree = "<group>"; };
+		A40DAA581CA3CF1A00E2D5C0 /* DemoTriangleVertex.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DemoTriangleVertex.glsl; sourceTree = "<group>"; };
+		A40DAA5B1CA3CF2300E2D5C0 /* DemoDrawImageTextureFragment.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DemoDrawImageTextureFragment.glsl; sourceTree = "<group>"; };
+		A40DAA5C1CA3CF2300E2D5C0 /* DemoDrawImageTextureVertex.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DemoDrawImageTextureVertex.glsl; sourceTree = "<group>"; };
 		A4FC714D1C32638D00EA3EBD /* Blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Blue.png; sourceTree = "<group>"; };
 		A4FC714E1C32638D00EA3EBD /* dm-1050-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dm-1050-1.png"; sourceTree = "<group>"; };
 		A4FC714F1C32638D00EA3EBD /* Green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Green.png; sourceTree = "<group>"; };
@@ -189,7 +189,6 @@
 		6A74B6381B68EE740042DDEC /* OpenGLDemo */ = {
 			isa = PBXGroup;
 			children = (
-				A40DAA2A1CA3CAEC00E2D5C0 /* Shaders */,
 				A4FC713D1C32630800EA3EBD /* Demos */,
 				A4FC71871C3264D300EA3EBD /* ViewControllers */,
 				6A618AAA1B736DF10044FB1F /* Models */,
@@ -245,32 +244,65 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		A40DAA2A1CA3CAEC00E2D5C0 /* Shaders */ = {
+		A40DAA3F1CA3CE5000E2D5C0 /* DemoClearColor */ = {
 			isa = PBXGroup;
 			children = (
-				A40DAA2B1CA3CAEC00E2D5C0 /* DemoDrawImageTextureFragment.glsl */,
-				A40DAA2C1CA3CAEC00E2D5C0 /* DemoDrawImageTextureVertex.glsl */,
-				A40DAA2D1CA3CAEC00E2D5C0 /* DemoShaderFragment.glsl */,
-				A40DAA2E1CA3CAEC00E2D5C0 /* DemoShaderVertex.glsl */,
-				A40DAA2F1CA3CAEC00E2D5C0 /* DemoTriangleFragment.glsl */,
-				A40DAA301CA3CAEC00E2D5C0 /* DemoTriangleVertex.glsl */,
+				A40DAA401CA3CE5000E2D5C0 /* DemoClearColorViewController.h */,
+				A40DAA411CA3CE5000E2D5C0 /* DemoClearColorViewController.m */,
 			);
-			path = Shaders;
+			path = DemoClearColor;
+			sourceTree = "<group>";
+		};
+		A40DAA421CA3CE5000E2D5C0 /* DemoDrawImageCoreGraphics */ = {
+			isa = PBXGroup;
+			children = (
+				A40DAA431CA3CE5000E2D5C0 /* DemoDrawImageCoreGraphics.h */,
+				A40DAA441CA3CE5000E2D5C0 /* DemoDrawImageCoreGraphics.m */,
+			);
+			path = DemoDrawImageCoreGraphics;
+			sourceTree = "<group>";
+		};
+		A40DAA451CA3CE5000E2D5C0 /* DemoDrawImageOpenGLES */ = {
+			isa = PBXGroup;
+			children = (
+				A40DAA5B1CA3CF2300E2D5C0 /* DemoDrawImageTextureFragment.glsl */,
+				A40DAA5C1CA3CF2300E2D5C0 /* DemoDrawImageTextureVertex.glsl */,
+				A40DAA461CA3CE5000E2D5C0 /* DemoDrawImageOpenGLES.h */,
+				A40DAA471CA3CE5000E2D5C0 /* DemoDrawImageOpenGLES.m */,
+			);
+			path = DemoDrawImageOpenGLES;
+			sourceTree = "<group>";
+		};
+		A40DAA481CA3CE5000E2D5C0 /* DemoShader */ = {
+			isa = PBXGroup;
+			children = (
+				A40DAA531CA3CF1100E2D5C0 /* DemoShaderFragment.glsl */,
+				A40DAA541CA3CF1100E2D5C0 /* DemoShaderVertex.glsl */,
+				A40DAA491CA3CE5000E2D5C0 /* DemoShaderViewController.h */,
+				A40DAA4A1CA3CE5000E2D5C0 /* DemoShaderViewController.m */,
+			);
+			path = DemoShader;
+			sourceTree = "<group>";
+		};
+		A40DAA4B1CA3CE5000E2D5C0 /* DemoTriangle */ = {
+			isa = PBXGroup;
+			children = (
+				A40DAA571CA3CF1A00E2D5C0 /* DemoTriangleFragment.glsl */,
+				A40DAA581CA3CF1A00E2D5C0 /* DemoTriangleVertex.glsl */,
+				A40DAA4C1CA3CE5000E2D5C0 /* DemoTriangleViewController.h */,
+				A40DAA4D1CA3CE5000E2D5C0 /* DemoTriangleViewController.m */,
+			);
+			path = DemoTriangle;
 			sourceTree = "<group>";
 		};
 		A4FC713D1C32630800EA3EBD /* Demos */ = {
 			isa = PBXGroup;
 			children = (
-				A4FC713E1C32630800EA3EBD /* DemoClearColorViewController.h */,
-				A4FC713F1C32630800EA3EBD /* DemoClearColorViewController.m */,
-				A4FC71401C32630800EA3EBD /* DemoShaderViewController.h */,
-				A4FC71411C32630800EA3EBD /* DemoShaderViewController.m */,
-				A4FC71421C32630800EA3EBD /* DemoTriangleViewController.h */,
-				A4FC71431C32630800EA3EBD /* DemoTriangleViewController.m */,
-				A4C06A631C42683E00C862EA /* DemoDrawImageCoreGraphics.h */,
-				A4C06A641C42683E00C862EA /* DemoDrawImageCoreGraphics.m */,
-				A4C06A661C426D2D00C862EA /* DemoDrawImageOpenGLES.h */,
-				A4C06A671C426D2D00C862EA /* DemoDrawImageOpenGLES.m */,
+				A40DAA3F1CA3CE5000E2D5C0 /* DemoClearColor */,
+				A40DAA481CA3CE5000E2D5C0 /* DemoShader */,
+				A40DAA4B1CA3CE5000E2D5C0 /* DemoTriangle */,
+				A40DAA421CA3CE5000E2D5C0 /* DemoDrawImageCoreGraphics */,
+				A40DAA451CA3CE5000E2D5C0 /* DemoDrawImageOpenGLES */,
 			);
 			path = Demos;
 			sourceTree = "<group>";
@@ -426,30 +458,30 @@
 			files = (
 				A4FC716F1C3263CB00EA3EBD /* SimpleFragment.glsl in Resources */,
 				A4FC71751C3263CB00EA3EBD /* VertexTriangle.glsl in Resources */,
+				A40DAA561CA3CF1100E2D5C0 /* DemoShaderVertex.glsl in Resources */,
 				A4FC716D1C3263CB00EA3EBD /* FragmentPaintTexture.glsl in Resources */,
 				6A74B6451B68EE740042DDEC /* Main.storyboard in Resources */,
-				A40DAA321CA3CAEC00E2D5C0 /* DemoDrawImageTextureVertex.glsl in Resources */,
 				A4FC716C1C3263CB00EA3EBD /* FragmentPaint.glsl in Resources */,
 				A4FC715B1C32638D00EA3EBD /* testImage.png in Resources */,
 				A4FC71731C3263CB00EA3EBD /* VertexPaint.glsl in Resources */,
+				A40DAA551CA3CF1100E2D5C0 /* DemoShaderFragment.glsl in Resources */,
 				A4FC715C1C32638D00EA3EBD /* Yellow.png in Resources */,
+				A40DAA591CA3CF1A00E2D5C0 /* DemoTriangleFragment.glsl in Resources */,
 				A4FC71711C3263CB00EA3EBD /* Vertex3DTransform.glsl in Resources */,
+				A40DAA5D1CA3CF2300E2D5C0 /* DemoDrawImageTextureFragment.glsl in Resources */,
 				A4FC715A1C32638D00EA3EBD /* Red.png in Resources */,
 				A4FC716A1C3263CB00EA3EBD /* Fragment3DTransform.glsl in Resources */,
+				A40DAA5E1CA3CF2300E2D5C0 /* DemoDrawImageTextureVertex.glsl in Resources */,
 				A4FC71591C32638D00EA3EBD /* Radial.png in Resources */,
 				A4FC71581C32638D00EA3EBD /* Purple.png in Resources */,
 				A4FC71571C32638D00EA3EBD /* Green.png in Resources */,
 				A4FC71551C32638D00EA3EBD /* Blue.png in Resources */,
+				A40DAA5A1CA3CF1A00E2D5C0 /* DemoTriangleVertex.glsl in Resources */,
 				A4FC71721C3263CB00EA3EBD /* VertexDrawTexture.glsl in Resources */,
-				A40DAA361CA3CAEC00E2D5C0 /* DemoTriangleVertex.glsl in Resources */,
 				A4FC716E1C3263CB00EA3EBD /* FragmentTriangle.glsl in Resources */,
-				A40DAA341CA3CAEC00E2D5C0 /* DemoShaderVertex.glsl in Resources */,
 				A4FC71741C3263CB00EA3EBD /* VertexPaintTexture.glsl in Resources */,
-				A40DAA331CA3CAEC00E2D5C0 /* DemoShaderFragment.glsl in Resources */,
 				6A74B64A1B68EE740042DDEC /* LaunchScreen.xib in Resources */,
 				6A74B6471B68EE740042DDEC /* Images.xcassets in Resources */,
-				A40DAA311CA3CAEC00E2D5C0 /* DemoDrawImageTextureFragment.glsl in Resources */,
-				A40DAA351CA3CAEC00E2D5C0 /* DemoTriangleFragment.glsl in Resources */,
 				A4FC71701C3263CB00EA3EBD /* SimpleVertex.glsl in Resources */,
 				A4FC71561C32638D00EA3EBD /* dm-1050-1.png in Resources */,
 				A4FC716B1C3263CB00EA3EBD /* FragmentDrawTexture.glsl in Resources */,
@@ -471,19 +503,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				A4FC71801C3263FB00EA3EBD /* PaintViaOpenGLESTexture.m in Sources */,
+				A40DAA521CA3CE5000E2D5C0 /* DemoTriangleViewController.m in Sources */,
 				A4FC71821C3263FB00EA3EBD /* TouchDrawViewViaOpenGLES.m in Sources */,
 				A4FC717F1C3263FB00EA3EBD /* PaintViaGLKView.m in Sources */,
 				A4FC718D1C3264D300EA3EBD /* RootTableViewController.m in Sources */,
-				A4FC71461C32630800EA3EBD /* DemoTriangleViewController.m in Sources */,
-				A4FC71451C32630800EA3EBD /* DemoShaderViewController.m in Sources */,
-				A4C06A651C42683E00C862EA /* DemoDrawImageCoreGraphics.m in Sources */,
 				A4FC71811C3263FB00EA3EBD /* TouchDrawViewViaCoreGraphics.m in Sources */,
+				A40DAA4F1CA3CE5000E2D5C0 /* DemoDrawImageCoreGraphics.m in Sources */,
 				A4FC718C1C3264D300EA3EBD /* ItemViewController.m in Sources */,
-				A4C06A681C426D2D00C862EA /* DemoDrawImageOpenGLES.m in Sources */,
 				A4FC71861C32641400EA3EBD /* ShaderOperations.m in Sources */,
+				A40DAA501CA3CE5000E2D5C0 /* DemoDrawImageOpenGLES.m in Sources */,
 				6A74B63F1B68EE740042DDEC /* AppDelegate.m in Sources */,
+				A40DAA511CA3CE5000E2D5C0 /* DemoShaderViewController.m in Sources */,
 				6A74B63C1B68EE740042DDEC /* main.m in Sources */,
-				A4FC71441C32630800EA3EBD /* DemoClearColorViewController.m in Sources */,
+				A40DAA4E1CA3CE5000E2D5C0 /* DemoClearColorViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

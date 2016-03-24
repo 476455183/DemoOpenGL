@@ -113,7 +113,8 @@
     
     glViewport(0, 0, rect.size.width, rect.size.height);
     
-    [self render:rect];
+//    [self render:rect];
+    [self renderUsingVBO:rect];
     
     [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
 }
@@ -230,6 +231,38 @@
         -1, 1,  0,   //左上
         1,  1,  0 }; //右上
     glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, vertices);
+    glEnableVertexAttribArray(_positionSlot);
+    
+    GLfloat texCoords[] = {
+        0, 0,//左下
+        1, 0,//右下
+        0, 1,//左上
+        1, 1,//右上
+    };
+    glVertexAttribPointer(_textureCoordsSlot, 2, GL_FLOAT, GL_FALSE, 0, texCoords);
+    glEnableVertexAttribArray(_textureCoordsSlot);
+    
+    // 第一行和第三行不是严格必须的，默认使用GL_TEXTURE0作为当前激活的纹理单元
+    glActiveTexture(GL_TEXTURE5); // 指定纹理单元GL_TEXTURE5
+    glBindTexture(GL_TEXTURE_2D, _textureID);
+    glUniform1i(_textureSlot, 5); // 与纹理单元的序号对应
+    
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+}
+
+- (void)renderUsingVBO:(CGRect)rect {
+    GLfloat vertices[] = {
+        -1, -1, 0,   //左下
+        1,  -1, 0,   //右下
+        -1, 1,  0,   //左上
+        1,  1,  0 }; //右上
+    
+    GLuint vertexBuffer;
+    glGenBuffers(1, &vertexBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    
+    glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, 0);
     glEnableVertexAttribArray(_positionSlot);
     
     GLfloat texCoords[] = {
