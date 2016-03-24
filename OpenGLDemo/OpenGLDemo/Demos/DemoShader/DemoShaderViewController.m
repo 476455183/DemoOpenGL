@@ -130,7 +130,8 @@
     
 //    [self renderVertices];      // 直接使用顶点数组
 //    [self renderUsingIndex];    // 使用顶点索引数组
-    [self renderUsingVBO];      // 使用VBO
+//    [self renderUsingVBO];      // 使用VBO
+    [self renderUsingIndexVBO];   // 使用索引数组+VBO
     
     [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
 }
@@ -315,6 +316,46 @@
 #pragma mark - 使用VBO，Vertex Buffer Object
 
 - (void)renderUsingVBO {
+    // 定义一个Vertex结构, 其中包含了坐标和颜色
+    typedef struct {
+        float Position[3];
+        float Color[4];
+    } Vertex;
+    
+    // 顶点数组
+    const Vertex Vertices[] = {
+        {{-1,-1,0}, {0,0,0,1}},// 左下，黑色
+        {{1,-1,0}, {1,0,0,1}}, // 右下，红色
+        {{-1,1,0}, {0,0,1,1}}, // 左上，蓝色
+        {{1,1,0}, {0,1,0,1}},  // 右上，绿色
+    };
+    
+    // GL_ARRAY_BUFFER用于顶点数组
+    GLuint vertexBuffer;
+    glGenBuffers(1, &vertexBuffer);
+    // 绑定vertexBuffer到GL_ARRAY_BUFFER，
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+    // 给VBO传递数据
+    glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), Vertices, GL_STATIC_DRAW);
+    
+    // 注意，未使用VBO时，glVertexAttribPointer的最后一个参数是指向对应数组的指针。
+    // 但是，当使用VBO时，glVertexAttribPointer的最后一个参数是要获取的参数在GL_ARRAY_BUFFER（每一个Vertex）的偏移量
+    // 取出Vertex结构体的Position，赋给_positionSlot
+    glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
+    glEnableVertexAttribArray(_positionSlot);
+    
+    // 注意，未使用VBO时，glVertexAttribPointer的最后一个参数是指向对应数组的指针。
+    // 但是，当使用VBO时，glVertexAttribPointer的最后一个参数是要获取的参数在GL_ARRAY_BUFFER（每一个Vertex）的偏移量
+    // Vertex结构体，偏移3个float的位置，即是Color值
+    glVertexAttribPointer(_colorSlot, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid *)(sizeof(float) * 3));
+    glEnableVertexAttribArray(_colorSlot);
+    
+    // 使用glDrawArrays也可绘制，此时仅从GL_ARRAY_BUFFER中取出顶点数据，
+    // 而索引数组就可以不要了，即GL_ELEMENT_ARRAY_BUFFER实际上没有用到。
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+}
+
+- (void)renderUsingIndexVBO {
     // 定义一个Vertex结构, 其中包含了坐标和颜色
     typedef struct {
         float Position[3];
