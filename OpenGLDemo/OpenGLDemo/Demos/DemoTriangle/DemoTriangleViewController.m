@@ -51,7 +51,14 @@
     
     [self processShaders];
     
-    [self renderByVBO];
+//    [self renderVertices];
+//    [self renderUsingIndex];
+//    [self renderUsingVBO];
+    [self renderUsingIndexVBO];
+
+    // 将指定renderBuffer渲染在屏幕上
+    // 绘制三角形，红色是由fragment shader决定
+    [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
     
     [self getResultImage];
 }
@@ -128,32 +135,46 @@
     glGetAttribLocation(_glProgram, "Position");
 }
 
-- (void)render {
+- (void)renderVertices {
     // 设置viewport
     glViewport(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     
-    GLfloat vertices[] = {
+    const GLfloat vertices[] = {
         0.0f,  0.5f, 0.0f,
         -0.5f, -0.5f, 0.0f,
         0.5f,  -0.5f, 0.0f };
     
-    // Load the vertex data，(不使用VBO)直接从CPU中传递顶点数据到GPU中进行渲染
+    // Load the vertex data，(不使用VBO)则直接从CPU中传递顶点数据到GPU中进行渲染
     // 给_positionSlot传递vertices数据
-    glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, vertices );
+    glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, vertices);
     glEnableVertexAttribArray(_positionSlot);
     
     // Draw triangle
     glDrawArrays(GL_TRIANGLES, 0, 3);
-    
-    // 将指定renderBuffer渲染在屏幕上
-    // 绘制三角形，红色是由fragment shader决定
-    [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
 }
 
-- (void)renderByVBO {
+- (void)renderUsingIndex {
     glViewport(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     
-    GLfloat vertices[] = {
+    const GLfloat vertices[] = {
+        0.0f,  0.5f, 0.0f,
+        -0.5f, -0.5f, 0.0f,
+        0.5f,  -0.5f, 0.0f };
+    
+    const GLubyte indices[] = {
+        0,1,2
+    };
+    
+    glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, vertices);
+    glEnableVertexAttribArray(_positionSlot);
+    
+    glDrawElements(GL_TRIANGLES, sizeof(indices)/sizeof(indices[0]), GL_UNSIGNED_BYTE, indices);
+}
+
+- (void)renderUsingVBO {
+    glViewport(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    
+    const GLfloat vertices[] = {
         0.0f,  0.5f, 0.0f,
         -0.5f, -0.5f, 0.0f,
         0.5f,  -0.5f, 0.0f };
@@ -165,11 +186,42 @@
     // 为VBO申请空间，初始化并传递数据
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
     
+    // 使用VBO时，最后一个参数0为要获取参数在GL_ARRAY_BUFFER中的偏移量
     glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, 0);
     glEnableVertexAttribArray(_positionSlot);
-    glDrawArrays(GL_TRIANGLES, 0, 3);
     
-    [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
+    glDrawArrays(GL_TRIANGLES, 0, 3);
+}
+
+- (void)renderUsingIndexVBO {
+    glViewport(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    
+    const GLfloat vertices[] = {
+        0.0f,  0.5f, 0.0f,
+        -0.5f, -0.5f, 0.0f,
+        0.5f,  -0.5f, 0.0f };
+    
+    const GLubyte indices[] = {
+        0,1,2
+    };
+    
+    GLuint vertexBuffer;
+    glGenBuffers(1, &vertexBuffer);
+    // 绑定vertexBuffer到GL_ARRAY_BUFFER目标
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+    // 为VBO申请空间，初始化并传递数据
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    
+    GLuint indexBuffer;
+    glGenBuffers(1, &indexBuffer);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+    
+    // 使用VBO时，最后一个参数0为要获取参数在GL_ARRAY_BUFFER中的偏移量
+    glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, 0);
+    glEnableVertexAttribArray(_positionSlot);
+    
+    glDrawElements(GL_TRIANGLES, sizeof(indices)/sizeof(indices[0]), GL_UNSIGNED_BYTE, 0);
 }
 
 - (UIImage *)getResultImage {
