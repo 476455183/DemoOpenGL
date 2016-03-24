@@ -18,15 +18,17 @@
 		6A74B6561B68EE740042DDEC /* OpenGLDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A74B6551B68EE740042DDEC /* OpenGLDemoTests.m */; };
 		6A74B6691B69BD8C0042DDEC /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A74B6681B69BD8C0042DDEC /* OpenGLES.framework */; };
 		6A74B66B1B69BD920042DDEC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A74B66A1B69BD920042DDEC /* QuartzCore.framework */; };
+		A40DAA311CA3CAEC00E2D5C0 /* DemoDrawImageTextureFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A40DAA2B1CA3CAEC00E2D5C0 /* DemoDrawImageTextureFragment.glsl */; };
+		A40DAA321CA3CAEC00E2D5C0 /* DemoDrawImageTextureVertex.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A40DAA2C1CA3CAEC00E2D5C0 /* DemoDrawImageTextureVertex.glsl */; };
+		A40DAA331CA3CAEC00E2D5C0 /* DemoShaderFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A40DAA2D1CA3CAEC00E2D5C0 /* DemoShaderFragment.glsl */; };
+		A40DAA341CA3CAEC00E2D5C0 /* DemoShaderVertex.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A40DAA2E1CA3CAEC00E2D5C0 /* DemoShaderVertex.glsl */; };
+		A40DAA351CA3CAEC00E2D5C0 /* DemoTriangleFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A40DAA2F1CA3CAEC00E2D5C0 /* DemoTriangleFragment.glsl */; };
+		A40DAA361CA3CAEC00E2D5C0 /* DemoTriangleVertex.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A40DAA301CA3CAEC00E2D5C0 /* DemoTriangleVertex.glsl */; };
 		A4C06A651C42683E00C862EA /* DemoDrawImageCoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = A4C06A641C42683E00C862EA /* DemoDrawImageCoreGraphics.m */; };
 		A4C06A681C426D2D00C862EA /* DemoDrawImageOpenGLES.m in Sources */ = {isa = PBXBuildFile; fileRef = A4C06A671C426D2D00C862EA /* DemoDrawImageOpenGLES.m */; };
-		A4C06A6A1C4273EE00C862EA /* DemoDrawImageTextureVertex.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A4C06A691C4273EE00C862EA /* DemoDrawImageTextureVertex.glsl */; };
-		A4C06A6C1C42740300C862EA /* DemoDrawImageTextureFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A4C06A6B1C42740300C862EA /* DemoDrawImageTextureFragment.glsl */; };
 		A4FC71441C32630800EA3EBD /* DemoClearColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4FC713F1C32630800EA3EBD /* DemoClearColorViewController.m */; };
 		A4FC71451C32630800EA3EBD /* DemoShaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4FC71411C32630800EA3EBD /* DemoShaderViewController.m */; };
 		A4FC71461C32630800EA3EBD /* DemoTriangleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4FC71431C32630800EA3EBD /* DemoTriangleViewController.m */; };
-		A4FC714A1C32631200EA3EBD /* DemoShaderFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A4FC71481C32631200EA3EBD /* DemoShaderFragment.glsl */; };
-		A4FC714B1C32631200EA3EBD /* DemoShaderVertex.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A4FC71491C32631200EA3EBD /* DemoShaderVertex.glsl */; };
 		A4FC71551C32638D00EA3EBD /* Blue.png in Resources */ = {isa = PBXBuildFile; fileRef = A4FC714D1C32638D00EA3EBD /* Blue.png */; };
 		A4FC71561C32638D00EA3EBD /* dm-1050-1.png in Resources */ = {isa = PBXBuildFile; fileRef = A4FC714E1C32638D00EA3EBD /* dm-1050-1.png */; };
 		A4FC71571C32638D00EA3EBD /* Green.png in Resources */ = {isa = PBXBuildFile; fileRef = A4FC714F1C32638D00EA3EBD /* Green.png */; };
@@ -54,8 +56,6 @@
 		A4FC71861C32641400EA3EBD /* ShaderOperations.m in Sources */ = {isa = PBXBuildFile; fileRef = A4FC71851C32641400EA3EBD /* ShaderOperations.m */; };
 		A4FC718C1C3264D300EA3EBD /* ItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4FC71891C3264D300EA3EBD /* ItemViewController.m */; };
 		A4FC718D1C3264D300EA3EBD /* RootTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4FC718B1C3264D300EA3EBD /* RootTableViewController.m */; };
-		A4FC71901C326CF600EA3EBD /* DemoTriangleFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A4FC718E1C326CF600EA3EBD /* DemoTriangleFragment.glsl */; };
-		A4FC71911C326CF600EA3EBD /* DemoTriangleVertex.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A4FC718F1C326CF600EA3EBD /* DemoTriangleVertex.glsl */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,20 +85,22 @@
 		6A74B6551B68EE740042DDEC /* OpenGLDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OpenGLDemoTests.m; sourceTree = "<group>"; };
 		6A74B6681B69BD8C0042DDEC /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		6A74B66A1B69BD920042DDEC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		A40DAA2B1CA3CAEC00E2D5C0 /* DemoDrawImageTextureFragment.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DemoDrawImageTextureFragment.glsl; sourceTree = "<group>"; };
+		A40DAA2C1CA3CAEC00E2D5C0 /* DemoDrawImageTextureVertex.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DemoDrawImageTextureVertex.glsl; sourceTree = "<group>"; };
+		A40DAA2D1CA3CAEC00E2D5C0 /* DemoShaderFragment.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DemoShaderFragment.glsl; sourceTree = "<group>"; };
+		A40DAA2E1CA3CAEC00E2D5C0 /* DemoShaderVertex.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DemoShaderVertex.glsl; sourceTree = "<group>"; };
+		A40DAA2F1CA3CAEC00E2D5C0 /* DemoTriangleFragment.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DemoTriangleFragment.glsl; sourceTree = "<group>"; };
+		A40DAA301CA3CAEC00E2D5C0 /* DemoTriangleVertex.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DemoTriangleVertex.glsl; sourceTree = "<group>"; };
 		A4C06A631C42683E00C862EA /* DemoDrawImageCoreGraphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoDrawImageCoreGraphics.h; sourceTree = "<group>"; };
 		A4C06A641C42683E00C862EA /* DemoDrawImageCoreGraphics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoDrawImageCoreGraphics.m; sourceTree = "<group>"; };
 		A4C06A661C426D2D00C862EA /* DemoDrawImageOpenGLES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoDrawImageOpenGLES.h; sourceTree = "<group>"; };
 		A4C06A671C426D2D00C862EA /* DemoDrawImageOpenGLES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoDrawImageOpenGLES.m; sourceTree = "<group>"; };
-		A4C06A691C4273EE00C862EA /* DemoDrawImageTextureVertex.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DemoDrawImageTextureVertex.glsl; sourceTree = "<group>"; };
-		A4C06A6B1C42740300C862EA /* DemoDrawImageTextureFragment.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DemoDrawImageTextureFragment.glsl; sourceTree = "<group>"; };
 		A4FC713E1C32630800EA3EBD /* DemoClearColorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoClearColorViewController.h; sourceTree = "<group>"; };
 		A4FC713F1C32630800EA3EBD /* DemoClearColorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoClearColorViewController.m; sourceTree = "<group>"; };
 		A4FC71401C32630800EA3EBD /* DemoShaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoShaderViewController.h; sourceTree = "<group>"; };
 		A4FC71411C32630800EA3EBD /* DemoShaderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoShaderViewController.m; sourceTree = "<group>"; };
 		A4FC71421C32630800EA3EBD /* DemoTriangleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoTriangleViewController.h; sourceTree = "<group>"; };
 		A4FC71431C32630800EA3EBD /* DemoTriangleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoTriangleViewController.m; sourceTree = "<group>"; };
-		A4FC71481C32631200EA3EBD /* DemoShaderFragment.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DemoShaderFragment.glsl; sourceTree = "<group>"; };
-		A4FC71491C32631200EA3EBD /* DemoShaderVertex.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DemoShaderVertex.glsl; sourceTree = "<group>"; };
 		A4FC714D1C32638D00EA3EBD /* Blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Blue.png; sourceTree = "<group>"; };
 		A4FC714E1C32638D00EA3EBD /* dm-1050-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dm-1050-1.png"; sourceTree = "<group>"; };
 		A4FC714F1C32638D00EA3EBD /* Green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Green.png; sourceTree = "<group>"; };
@@ -133,8 +135,6 @@
 		A4FC71891C3264D300EA3EBD /* ItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemViewController.m; sourceTree = "<group>"; };
 		A4FC718A1C3264D300EA3EBD /* RootTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootTableViewController.h; sourceTree = "<group>"; };
 		A4FC718B1C3264D300EA3EBD /* RootTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootTableViewController.m; sourceTree = "<group>"; };
-		A4FC718E1C326CF600EA3EBD /* DemoTriangleFragment.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DemoTriangleFragment.glsl; sourceTree = "<group>"; };
-		A4FC718F1C326CF600EA3EBD /* DemoTriangleVertex.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DemoTriangleVertex.glsl; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -189,7 +189,7 @@
 		6A74B6381B68EE740042DDEC /* OpenGLDemo */ = {
 			isa = PBXGroup;
 			children = (
-				A4FC71471C32631200EA3EBD /* shaders */,
+				A40DAA2A1CA3CAEC00E2D5C0 /* Shaders */,
 				A4FC713D1C32630800EA3EBD /* Demos */,
 				A4FC71871C3264D300EA3EBD /* ViewControllers */,
 				6A618AAA1B736DF10044FB1F /* Models */,
@@ -197,11 +197,6 @@
 				A4FC71761C3263FB00EA3EBD /* Views */,
 				A4FC715D1C3263CB00EA3EBD /* GLSL */,
 				A4FC714C1C32638D00EA3EBD /* Resources */,
-				6A74B63D1B68EE740042DDEC /* AppDelegate.h */,
-				6A74B63E1B68EE740042DDEC /* AppDelegate.m */,
-				6A74B6461B68EE740042DDEC /* Images.xcassets */,
-				6A74B6431B68EE740042DDEC /* Main.storyboard */,
-				6A74B6481B68EE740042DDEC /* LaunchScreen.xib */,
 				6A74B6391B68EE740042DDEC /* Supporting Files */,
 			);
 			path = OpenGLDemo;
@@ -210,6 +205,11 @@
 		6A74B6391B68EE740042DDEC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				6A74B6461B68EE740042DDEC /* Images.xcassets */,
+				6A74B6431B68EE740042DDEC /* Main.storyboard */,
+				6A74B6481B68EE740042DDEC /* LaunchScreen.xib */,
+				6A74B63D1B68EE740042DDEC /* AppDelegate.h */,
+				6A74B63E1B68EE740042DDEC /* AppDelegate.m */,
 				6A74B63A1B68EE740042DDEC /* Info.plist */,
 				6A74B63B1B68EE740042DDEC /* main.m */,
 			);
@@ -245,6 +245,19 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A40DAA2A1CA3CAEC00E2D5C0 /* Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				A40DAA2B1CA3CAEC00E2D5C0 /* DemoDrawImageTextureFragment.glsl */,
+				A40DAA2C1CA3CAEC00E2D5C0 /* DemoDrawImageTextureVertex.glsl */,
+				A40DAA2D1CA3CAEC00E2D5C0 /* DemoShaderFragment.glsl */,
+				A40DAA2E1CA3CAEC00E2D5C0 /* DemoShaderVertex.glsl */,
+				A40DAA2F1CA3CAEC00E2D5C0 /* DemoTriangleFragment.glsl */,
+				A40DAA301CA3CAEC00E2D5C0 /* DemoTriangleVertex.glsl */,
+			);
+			path = Shaders;
+			sourceTree = "<group>";
+		};
 		A4FC713D1C32630800EA3EBD /* Demos */ = {
 			isa = PBXGroup;
 			children = (
@@ -260,19 +273,6 @@
 				A4C06A671C426D2D00C862EA /* DemoDrawImageOpenGLES.m */,
 			);
 			path = Demos;
-			sourceTree = "<group>";
-		};
-		A4FC71471C32631200EA3EBD /* shaders */ = {
-			isa = PBXGroup;
-			children = (
-				A4FC718F1C326CF600EA3EBD /* DemoTriangleVertex.glsl */,
-				A4FC718E1C326CF600EA3EBD /* DemoTriangleFragment.glsl */,
-				A4FC71491C32631200EA3EBD /* DemoShaderVertex.glsl */,
-				A4FC71481C32631200EA3EBD /* DemoShaderFragment.glsl */,
-				A4C06A691C4273EE00C862EA /* DemoDrawImageTextureVertex.glsl */,
-				A4C06A6B1C42740300C862EA /* DemoDrawImageTextureFragment.glsl */,
-			);
-			path = shaders;
 			sourceTree = "<group>";
 		};
 		A4FC714C1C32638D00EA3EBD /* Resources */ = {
@@ -393,7 +393,6 @@
 				TargetAttributes = {
 					6A74B6351B68EE730042DDEC = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = GGVWN85K85;
 					};
 					6A74B64E1B68EE740042DDEC = {
 						CreatedOnToolsVersion = 6.4;
@@ -428,29 +427,29 @@
 				A4FC716F1C3263CB00EA3EBD /* SimpleFragment.glsl in Resources */,
 				A4FC71751C3263CB00EA3EBD /* VertexTriangle.glsl in Resources */,
 				A4FC716D1C3263CB00EA3EBD /* FragmentPaintTexture.glsl in Resources */,
-				A4FC714B1C32631200EA3EBD /* DemoShaderVertex.glsl in Resources */,
 				6A74B6451B68EE740042DDEC /* Main.storyboard in Resources */,
+				A40DAA321CA3CAEC00E2D5C0 /* DemoDrawImageTextureVertex.glsl in Resources */,
 				A4FC716C1C3263CB00EA3EBD /* FragmentPaint.glsl in Resources */,
 				A4FC715B1C32638D00EA3EBD /* testImage.png in Resources */,
 				A4FC71731C3263CB00EA3EBD /* VertexPaint.glsl in Resources */,
 				A4FC715C1C32638D00EA3EBD /* Yellow.png in Resources */,
 				A4FC71711C3263CB00EA3EBD /* Vertex3DTransform.glsl in Resources */,
-				A4FC71901C326CF600EA3EBD /* DemoTriangleFragment.glsl in Resources */,
 				A4FC715A1C32638D00EA3EBD /* Red.png in Resources */,
 				A4FC716A1C3263CB00EA3EBD /* Fragment3DTransform.glsl in Resources */,
-				A4C06A6C1C42740300C862EA /* DemoDrawImageTextureFragment.glsl in Resources */,
-				A4FC714A1C32631200EA3EBD /* DemoShaderFragment.glsl in Resources */,
 				A4FC71591C32638D00EA3EBD /* Radial.png in Resources */,
 				A4FC71581C32638D00EA3EBD /* Purple.png in Resources */,
 				A4FC71571C32638D00EA3EBD /* Green.png in Resources */,
 				A4FC71551C32638D00EA3EBD /* Blue.png in Resources */,
-				A4FC71911C326CF600EA3EBD /* DemoTriangleVertex.glsl in Resources */,
 				A4FC71721C3263CB00EA3EBD /* VertexDrawTexture.glsl in Resources */,
+				A40DAA361CA3CAEC00E2D5C0 /* DemoTriangleVertex.glsl in Resources */,
 				A4FC716E1C3263CB00EA3EBD /* FragmentTriangle.glsl in Resources */,
+				A40DAA341CA3CAEC00E2D5C0 /* DemoShaderVertex.glsl in Resources */,
 				A4FC71741C3263CB00EA3EBD /* VertexPaintTexture.glsl in Resources */,
+				A40DAA331CA3CAEC00E2D5C0 /* DemoShaderFragment.glsl in Resources */,
 				6A74B64A1B68EE740042DDEC /* LaunchScreen.xib in Resources */,
 				6A74B6471B68EE740042DDEC /* Images.xcassets in Resources */,
-				A4C06A6A1C4273EE00C862EA /* DemoDrawImageTextureVertex.glsl in Resources */,
+				A40DAA311CA3CAEC00E2D5C0 /* DemoDrawImageTextureFragment.glsl in Resources */,
+				A40DAA351CA3CAEC00E2D5C0 /* DemoTriangleFragment.glsl in Resources */,
 				A4FC71701C3263CB00EA3EBD /* SimpleVertex.glsl in Resources */,
 				A4FC71561C32638D00EA3EBD /* dm-1050-1.png in Resources */,
 				A4FC716B1C3263CB00EA3EBD /* FragmentDrawTexture.glsl in Resources */,
@@ -543,6 +542,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -587,6 +587,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -617,6 +618,7 @@
 				INFOPLIST_FILE = OpenGLDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.chrisforever.OpenGLDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -631,6 +633,7 @@
 				INFOPLIST_FILE = OpenGLDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.chrisforever.OpenGLDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -670,6 +673,75 @@
 			};
 			name = Release;
 		};
+		A4EA09B91CA13AB60004A203 /* ad hoc distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "ad hoc distribution";
+		};
+		A4EA09BA1CA13AB60004A203 /* ad hoc distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = OpenGLDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.chrisforever.OpenGLDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+			};
+			name = "ad hoc distribution";
+		};
+		A4EA09BB1CA13AB60004A203 /* ad hoc distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = OpenGLDemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OpenGLDemo.app/OpenGLDemo";
+			};
+			name = "ad hoc distribution";
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -678,6 +750,7 @@
 			buildConfigurations = (
 				6A74B6571B68EE740042DDEC /* Debug */,
 				6A74B6581B68EE740042DDEC /* Release */,
+				A4EA09B91CA13AB60004A203 /* ad hoc distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -687,6 +760,7 @@
 			buildConfigurations = (
 				6A74B65A1B68EE740042DDEC /* Debug */,
 				6A74B65B1B68EE740042DDEC /* Release */,
+				A4EA09BA1CA13AB60004A203 /* ad hoc distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -696,6 +770,7 @@
 			buildConfigurations = (
 				6A74B65D1B68EE740042DDEC /* Debug */,
 				6A74B65E1B68EE740042DDEC /* Release */,
+				A4EA09BB1CA13AB60004A203 /* ad hoc distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

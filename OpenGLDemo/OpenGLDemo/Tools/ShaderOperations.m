@@ -2,8 +2,8 @@
 //  ShaderOperations.m
 //  OpenGLDemo
 //
-//  Created by zj-db0352 on 15/7/30.
-//  Copyright (c) 2015年 zj-db0352. All rights reserved.
+//  Created by Chris Hu on 15/7/30.
+//  Copyright (c) 2015年 Chris Hu. All rights reserved.
 //
 
 #import "ShaderOperations.h"
