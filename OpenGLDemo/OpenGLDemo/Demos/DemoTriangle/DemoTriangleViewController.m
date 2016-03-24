@@ -58,9 +58,20 @@
 
     // 将指定renderBuffer渲染在屏幕上
     // 绘制三角形，红色是由fragment shader决定
+    // 从FBO中读取图像数据，离屏渲染。
+    // 图像经过render之后，已经在FBO中了，即使不将其拿到RenderBuffer中，依然可以使用getResultImage取到图像数据。
+    // 用[_eaglContext presentRenderbuffer:GL_RENDERBUFFER];，实际上就是将FBO中的图像拿到RenderBuffer中（即屏幕上）    
     [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
     
-    [self getResultImage];
+    UIImage *image = [self getResultImage];
+    
+    if (image) {
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(100, CGRectGetHeight(self.view.frame) - 100, (CGRectGetWidth(self.view.frame) - 200) / 2, 100)];
+        imageView.backgroundColor = [UIColor lightGrayColor];
+        imageView.contentMode = UIViewContentModeScaleAspectFit;
+        imageView.image = image;
+        [self.view addSubview:imageView];
+    }
 }
 
 #pragma mark - setupOpenGLContext
@@ -232,6 +243,9 @@
     
     glReadPixels(0, 0, (int)currentFBOSize.width, (int)currentFBOSize.height, GL_RGBA, GL_UNSIGNED_BYTE, _rawImagePixelsTemp);
     glUseProgram(0); //unbind the shader
+    // 从FBO中读取图像数据，离屏渲染。
+    // 图像经过render之后，已经在FBO中了，即使不将其拿到RenderBuffer中，依然可以使用getResultImage取到图像数据。
+    // 用[_eaglContext presentRenderbuffer:GL_RENDERBUFFER];，实际上就是将FBO中的图像拿到RenderBuffer中（即屏幕上）
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     CGDataProviderRef dataProvider = CGDataProviderCreateWithData(NULL, _rawImagePixelsTemp, totalBytesForImage, (CGDataProviderReleaseDataCallback)&freeData);
     CGColorSpaceRef defaultRGBColorSpace = CGColorSpaceCreateDeviceRGB();
