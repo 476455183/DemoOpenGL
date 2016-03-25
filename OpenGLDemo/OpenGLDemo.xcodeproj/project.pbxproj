@@ -29,6 +29,8 @@
 		A40DAA5A1CA3CF1A00E2D5C0 /* DemoTriangleVertex.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A40DAA581CA3CF1A00E2D5C0 /* DemoTriangleVertex.glsl */; };
 		A40DAA5D1CA3CF2300E2D5C0 /* DemoDrawImageTextureFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A40DAA5B1CA3CF2300E2D5C0 /* DemoDrawImageTextureFragment.glsl */; };
 		A40DAA5E1CA3CF2300E2D5C0 /* DemoDrawImageTextureVertex.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A40DAA5C1CA3CF2300E2D5C0 /* DemoDrawImageTextureVertex.glsl */; };
+		A40DAA611CA5082100E2D5C0 /* ViewDrawImageCoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = A40DAA601CA5082100E2D5C0 /* ViewDrawImageCoreGraphics.m */; };
+		A40DAA641CA5089500E2D5C0 /* ViewDrawPathCoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = A40DAA631CA5089500E2D5C0 /* ViewDrawPathCoreGraphics.m */; };
 		A4FC71551C32638D00EA3EBD /* Blue.png in Resources */ = {isa = PBXBuildFile; fileRef = A4FC714D1C32638D00EA3EBD /* Blue.png */; };
 		A4FC71561C32638D00EA3EBD /* dm-1050-1.png in Resources */ = {isa = PBXBuildFile; fileRef = A4FC714E1C32638D00EA3EBD /* dm-1050-1.png */; };
 		A4FC71571C32638D00EA3EBD /* Green.png in Resources */ = {isa = PBXBuildFile; fileRef = A4FC714F1C32638D00EA3EBD /* Green.png */; };
@@ -101,6 +103,10 @@
 		A40DAA581CA3CF1A00E2D5C0 /* DemoTriangleVertex.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DemoTriangleVertex.glsl; sourceTree = "<group>"; };
 		A40DAA5B1CA3CF2300E2D5C0 /* DemoDrawImageTextureFragment.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DemoDrawImageTextureFragment.glsl; sourceTree = "<group>"; };
 		A40DAA5C1CA3CF2300E2D5C0 /* DemoDrawImageTextureVertex.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DemoDrawImageTextureVertex.glsl; sourceTree = "<group>"; };
+		A40DAA5F1CA5082100E2D5C0 /* ViewDrawImageCoreGraphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewDrawImageCoreGraphics.h; sourceTree = "<group>"; };
+		A40DAA601CA5082100E2D5C0 /* ViewDrawImageCoreGraphics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewDrawImageCoreGraphics.m; sourceTree = "<group>"; };
+		A40DAA621CA5089500E2D5C0 /* ViewDrawPathCoreGraphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewDrawPathCoreGraphics.h; sourceTree = "<group>"; };
+		A40DAA631CA5089500E2D5C0 /* ViewDrawPathCoreGraphics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewDrawPathCoreGraphics.m; sourceTree = "<group>"; };
 		A4FC714D1C32638D00EA3EBD /* Blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Blue.png; sourceTree = "<group>"; };
 		A4FC714E1C32638D00EA3EBD /* dm-1050-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dm-1050-1.png"; sourceTree = "<group>"; };
 		A4FC714F1C32638D00EA3EBD /* Green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Green.png; sourceTree = "<group>"; };
@@ -258,6 +264,10 @@
 			children = (
 				A40DAA431CA3CE5000E2D5C0 /* DemoDrawImageCoreGraphics.h */,
 				A40DAA441CA3CE5000E2D5C0 /* DemoDrawImageCoreGraphics.m */,
+				A40DAA5F1CA5082100E2D5C0 /* ViewDrawImageCoreGraphics.h */,
+				A40DAA601CA5082100E2D5C0 /* ViewDrawImageCoreGraphics.m */,
+				A40DAA621CA5089500E2D5C0 /* ViewDrawPathCoreGraphics.h */,
+				A40DAA631CA5089500E2D5C0 /* ViewDrawPathCoreGraphics.m */,
 			);
 			path = DemoDrawImageCoreGraphics;
 			sourceTree = "<group>";
@@ -505,7 +515,9 @@
 				A4FC71801C3263FB00EA3EBD /* PaintViaOpenGLESTexture.m in Sources */,
 				A40DAA521CA3CE5000E2D5C0 /* DemoTriangleViewController.m in Sources */,
 				A4FC71821C3263FB00EA3EBD /* TouchDrawViewViaOpenGLES.m in Sources */,
+				A40DAA611CA5082100E2D5C0 /* ViewDrawImageCoreGraphics.m in Sources */,
 				A4FC717F1C3263FB00EA3EBD /* PaintViaGLKView.m in Sources */,
+				A40DAA641CA5089500E2D5C0 /* ViewDrawPathCoreGraphics.m in Sources */,
 				A4FC718D1C3264D300EA3EBD /* RootTableViewController.m in Sources */,
 				A4FC71811C3263FB00EA3EBD /* TouchDrawViewViaCoreGraphics.m in Sources */,
 				A40DAA4F1CA3CE5000E2D5C0 /* DemoDrawImageCoreGraphics.m in Sources */,
