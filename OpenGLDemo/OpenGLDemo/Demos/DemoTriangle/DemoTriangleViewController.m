@@ -7,11 +7,6 @@
 //
 
 #import "DemoTriangleViewController.h"
-
-#import <QuartzCore/QuartzCore.h>
-#import <OpenGLES/ES2/gl.h>
-#import <OpenGLES/ES2/glext.h>
-
 #import "ShaderOperations.h"
 
 @interface DemoTriangleViewController ()

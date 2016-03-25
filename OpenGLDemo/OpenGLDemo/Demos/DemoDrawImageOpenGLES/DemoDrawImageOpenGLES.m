@@ -7,9 +7,6 @@
 //
 
 #import "DemoDrawImageOpenGLES.h"
-#import <OpenGLES/ES2/gl.h>
-#import <OpenGLES/ES2/glext.h>
-
 #import "ShaderOperations.h"
 
 @interface DemoDrawImageOpenGLES () <
