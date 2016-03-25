@@ -10,4 +10,6 @@
 
 @interface ViewDrawImageOpenGLES : UIView
 
+- (void)didDrawImageViaOpenGLES:(UIImage *)image;
+
 @end

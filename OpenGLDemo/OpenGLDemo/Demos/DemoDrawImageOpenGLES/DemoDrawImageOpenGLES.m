@@ -8,6 +8,7 @@
 
 #import "DemoDrawImageOpenGLES.h"
 #import "ShaderOperations.h"
+#import "ViewDrawImageOpenGLES.h"
 
 @interface DemoDrawImageOpenGLES () <
     UIImagePickerControllerDelegate
@@ -34,6 +35,10 @@
     GLuint _textureID; // 纹理ID
     
     CGRect _frameCAEAGLLayer;
+    
+    
+    // 使用View
+    ViewDrawImageOpenGLES *_viewDrawImage;
 }
 
 - (void)viewDidLoad {
@@ -44,8 +49,11 @@
     
     _frameCAEAGLLayer = CGRectMake(10, 340, self.view.frame.size.width - 20, 200);
     [self setupForOpenGLES];
-    
     [self didDrawImageViaOpenGLES:_originImage];
+    
+    // 使用View
+    _viewDrawImage = [[ViewDrawImageOpenGLES alloc] initWithFrame:_frameCAEAGLLayer];
+    [self.view addSubview:_viewDrawImage];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -95,7 +103,11 @@
     [picker dismissViewControllerAnimated:YES completion:^{
         _originImage = savedImage;
         _originImageView.image = _originImage;
-        [self didDrawImageViaOpenGLES:_originImage];
+        
+//        [self didDrawImageViaOpenGLES:_originImage];
+        
+        // 使用View
+        [_viewDrawImage didDrawImageViaOpenGLES:_originImage];
     }];
 }
 
