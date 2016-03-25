@@ -245,17 +245,23 @@
     glGenTextures(1, &textureID);
     glBindTexture(GL_TEXTURE_2D, textureID);
     
-    // 纹理过滤函数
-    // 如何把图像从纹理图像空间映射到帧缓冲图像空间（即如何把纹理像素映射成像素）
+    /**
+     *  纹理过滤函数
+     *  图象从纹理图象空间映射到帧缓冲图象空间(映射需要重新构造纹理图像,这样就会造成应用到多边形上的图像失真),
+     *  这时就可用glTexParmeteri()函数来确定如何把纹理象素映射成像素.
+     *  如何把图像从纹理图像空间映射到帧缓冲图像空间（即如何把纹理像素映射成像素）
+     */
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); // S方向上的贴图模式
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE); // T方向上的贴图模式
     // 线性过滤：使用距离当前渲染像素中心最近的4个纹理像素加权平均值
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     
-    // 将图像数据传递给到GL_TEXTURE_2D中, 因其于textureID纹理对象已经绑定，所以即传递给了textureID纹理对象中。
-    // glTexImage2d会将图像数据从CPU内存通过PCIE上传到GPU内存。
-    // 不使用PBO时它是一个阻塞CPU的函数，数据量大会卡。
+    /**
+     *  将图像数据传递给到GL_TEXTURE_2D中, 因其于textureID纹理对象已经绑定，所以即传递给了textureID纹理对象中。
+     *  glTexImage2d会将图像数据从CPU内存通过PCIE上传到GPU内存。
+     *  不使用PBO时它是一个阻塞CPU的函数，数据量大会卡。
+     */
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, imageData);
     
     // 结束后要做清理
