@@ -12,7 +12,9 @@
 
 #import "ShaderOperations.h"
 
-@interface DemoDrawImageOpenGLES () <UIImagePickerControllerDelegate>
+@interface DemoDrawImageOpenGLES () <
+    UIImagePickerControllerDelegate
+>
 
 @property (nonatomic) UIImage *originImage;
 @property (nonatomic) UIImageView *originImageView;
@@ -33,6 +35,8 @@
     GLuint _textureCoordsSlot; // 纹理坐标
     
     GLuint _textureID; // 纹理ID
+    
+    CGRect _frameCAEAGLLayer;
 }
 
 - (void)viewDidLoad {
@@ -40,15 +44,11 @@
     // Do any additional setup after loading the view.
     
     [self displayOriginImage];
- 
-    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(chooseOriginImageFromPhotos)];
-    tapGestureRecognizer.numberOfTapsRequired = 1;
-    tapGestureRecognizer.numberOfTouchesRequired = 1;
-    tapGestureRecognizer.delegate = self;
-    [_originImageView addGestureRecognizer:tapGestureRecognizer];
-    [_originImageView setUserInteractionEnabled:YES];
     
-    [self didDrawImageViaOpenGLES:_originImage inFrame:CGRectMake(10, 340, self.view.frame.size.width - 20, 200)];
+    _frameCAEAGLLayer = CGRectMake(10, 340, self.view.frame.size.width - 20, 200);
+    [self setupForOpenGLES];
+    
+    [self didDrawImageViaOpenGLES:_originImage];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -71,6 +71,14 @@
     lbProcessedImage.text = @"Processed image...";
     lbProcessedImage.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:lbProcessedImage];
+    
+    // 添加TapGesture
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(chooseOriginImageFromPhotos)];
+    tapGestureRecognizer.numberOfTapsRequired = 1;
+    tapGestureRecognizer.numberOfTouchesRequired = 1;
+    tapGestureRecognizer.delegate = self;
+    [_originImageView addGestureRecognizer:tapGestureRecognizer];
+    [_originImageView setUserInteractionEnabled:YES];
 }
 
 - (void)chooseOriginImageFromPhotos {
@@ -88,46 +96,36 @@
     UIImage *editedImage = [info valueForKey:UIImagePickerControllerEditedImage];
     UIImage *savedImage = editedImage ? editedImage : originalImage;
     [picker dismissViewControllerAnimated:YES completion:^{
-        _originImageView.image = savedImage;
-        [self didDrawImageViaOpenGLES:savedImage inFrame:CGRectMake(10, 340, self.view.frame.size.width - 20, 200)];
+        _originImage = savedImage;
+        _originImageView.image = _originImage;
+        [self didDrawImageViaOpenGLES:_originImage];
     }];
 }
 
-#pragma mark - didDrawImageViaOpenGLES
+#pragma mark - setupForOpenGLES
 
-- (void)didDrawImageViaOpenGLES:(UIImage *)image inFrame:(CGRect)rect {
+- (void)setupForOpenGLES {
     [self setupOpenGLContext];
-    [self setupCAEAGLLayer:rect];
+    [self setupCAEAGLLayer:_frameCAEAGLLayer];
     
     [self tearDownOpenGLBuffers];
     [self setupOpenGLBuffers];
     
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
-
-    [self processShaders];
     
-    _textureID = [self setupTexture:image];
+    glViewport(0, 0, CGRectGetWidth(_frameCAEAGLLayer), CGRectGetHeight(_frameCAEAGLLayer));
     
     [self setupBlendMode];
     
-    glViewport(0, 0, rect.size.width, rect.size.height);
-    
-//    [self render:rect];
-    [self renderUsingVBO:rect];
-    
-    [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
+    [self processShaders];
 }
-
-#pragma mark - setupOpenGLContext
 
 - (void)setupOpenGLContext {
     //setup context, 渲染上下文，管理所有绘制的状态，命令及资源信息。
     _eaglContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2]; //opengl es 2.0
     [EAGLContext setCurrentContext:_eaglContext]; //设置为当前上下文。
 }
-
-#pragma mark - setupCAEAGLLayer
 
 - (void)setupCAEAGLLayer:(CGRect)rect {
     _eaglLayer = [CAEAGLLayer layer];
@@ -137,8 +135,6 @@
     _eaglLayer.drawableProperties = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:NO],kEAGLDrawablePropertyRetainedBacking,kEAGLColorFormatRGBA8,kEAGLDrawablePropertyColorFormat, nil];
     [self.view.layer addSublayer:_eaglLayer];
 }
-
-#pragma mark - tearDownOpenGLBuffers
 
 - (void)tearDownOpenGLBuffers {
     //destory render and frame buffer
@@ -152,8 +148,6 @@
         _frameBuffer = 0;
     }
 }
-
-#pragma mark - setupOpenGLBuffers
 
 - (void)setupOpenGLBuffers {
     //先要renderbuffer，然后framebuffer，顺序不能互换。
@@ -174,17 +168,56 @@
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, _colorRenderBuffer);
 }
 
+- (void)setupBlendMode {
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_ONE, GL_ZERO);
+}
+
 - (void)processShaders {
     _glProgram = [ShaderOperations compileShaders:@"DemoDrawImageTextureVertex" shaderFragment:@"DemoDrawImageTextureFragment"];
     
     glUseProgram(_glProgram);
+    
+    // 需要三个参数, 跟Shader中的一一对应。
+    // Position: 将颜色放置在CAEAGLLayer上的哪个位置
+    // Texture: 图像的纹理
+    // TextureCoords: 图像的纹理坐标，即图像纹理的哪一块颜色
     _positionSlot = glGetAttribLocation(_glProgram, "Position");
     _textureSlot = glGetUniformLocation(_glProgram, "Texture");
     _textureCoordsSlot = glGetAttribLocation(_glProgram, "TextureCoords");
 }
 
+#pragma mark - didDrawImageViaOpenGLES
+
+- (void)didDrawImageViaOpenGLES:(UIImage *)image {
+    // 将image绑定到GL_TEXTURE_2D上，即传递到GPU中
+    _textureID = [self setupTexture:image];
+    // 此时，纹理数据就可看做已经在纹理对象_textureID中了，使用时从中取出即可
+    
+    // 第一行和第三行不是严格必须的，默认使用GL_TEXTURE0作为当前激活的纹理单元
+    glActiveTexture(GL_TEXTURE5); // 指定纹理单元GL_TEXTURE5
+    glBindTexture(GL_TEXTURE_2D, _textureID); // 绑定，即可从_textureID中取出图像数据。
+    glUniform1i(_textureSlot, 5); // 与纹理单元的序号对应
+    
+    // 渲染需要的数据要从GL_TEXTURE_2D中得到。
+    // GL_TEXTURE_2D与_textureID已经绑定
+//    [self render];
+//    [self renderUsingIndex];
+//    [self renderUsingVBO];
+    [self renderUsingIndexVBO];
+    
+    glBindTexture(GL_TEXTURE_2D, 0);
+    [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
+}
+
 #pragma mark - setupTexture
-// 加载image, 使用CoreGraphics将位图以RGBA格式存放.将UIImage图像数据转化成OpenGL ES接受的数据.
+
+/**
+ *  加载image, 使用CoreGraphics将位图以RGBA格式存放. 将UIImage图像数据转化成OpenGL ES接受的数据.
+ *  然后在GPU中将图像纹理传递给GL_TEXTURE_2D。
+ *  @return 返回的是纹理对象，该纹理对象暂时未跟GL_TEXTURE_2D绑定（要调用bind）。
+ *  即GL_TEXTURE_2D中的图像数据都可从纹理对象中取出。
+ */
 - (GLuint)setupTexture:(UIImage *)image {
     CGImageRef cgImageRef = [image CGImage];
     GLuint width = (GLuint)CGImageGetWidth(cgImageRef);
@@ -202,37 +235,45 @@
     
     glEnable(GL_TEXTURE_2D);
     
+    /**
+     *  GL_TEXTURE_2D表示操作2D纹理
+     *  创建纹理对象， 
+     *  绑定纹理对象，
+     */
+    
     GLuint textureID;
     glGenTextures(1, &textureID);
     glBindTexture(GL_TEXTURE_2D, textureID);
     
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    // 纹理过滤函数
+    // 如何把图像从纹理图像空间映射到帧缓冲图像空间（即如何把纹理像素映射成像素）
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); // S方向上的贴图模式
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE); // T方向上的贴图模式
+    // 线性过滤：使用距离当前渲染像素中心最近的4个纹理像素加权平均值
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     
-    // 将图像数据传递给到GL_TEXTURE_2D中
+    // 将图像数据传递给到GL_TEXTURE_2D中, 因其于textureID纹理对象已经绑定，所以即传递给了textureID纹理对象中。
+    // glTexImage2d会将图像数据从CPU内存通过PCIE上传到GPU内存。
+    // 不使用PBO时它是一个阻塞CPU的函数，数据量大会卡。
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, imageData);
+    
+    // 结束后要做清理
+    glBindTexture(GL_TEXTURE_2D, 0); //解绑
     CGContextRelease(context);
     free(imageData);
     
     return textureID;
 }
 
-- (void)setupBlendMode {
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_ONE, GL_ZERO);
-}
+#pragma mark - render
 
-- (void)render:(CGRect)rect {
-    GLfloat vertices[] = {
-        -1, -1, 0,   //左下
-        1,  -1, 0,   //右下
-        -1, 1,  0,   //左上
-        1,  1,  0 }; //右上
-    glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, vertices);
-    glEnableVertexAttribArray(_positionSlot);
-    
+/**
+ *  直接取出对应纹理坐标TextureCoords
+ *  根据顶点数据和纹理坐标数据（一一对应），填充到对应的坐标位置Positon中
+ *  注意：二者的坐标系不同。
+ */
+- (void)render {
     GLfloat texCoords[] = {
         0, 0,//左下
         1, 0,//右下
@@ -242,16 +283,60 @@
     glVertexAttribPointer(_textureCoordsSlot, 2, GL_FLOAT, GL_FALSE, 0, texCoords);
     glEnableVertexAttribArray(_textureCoordsSlot);
     
-    // 第一行和第三行不是严格必须的，默认使用GL_TEXTURE0作为当前激活的纹理单元
-    glActiveTexture(GL_TEXTURE5); // 指定纹理单元GL_TEXTURE5
-    glBindTexture(GL_TEXTURE_2D, _textureID);
-    glUniform1i(_textureSlot, 5); // 与纹理单元的序号对应
     
+    GLfloat vertices[] = {
+        -1, -1, 0,   //左下
+        1,  -1, 0,   //右下
+        -1, 1,  0,   //左上
+        1,  1,  0 }; //右上
+    glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, vertices);
+    glEnableVertexAttribArray(_positionSlot);
+    
+    // 一旦纹理数据准备好，两个坐标系的顶点位置一一对应好。
+    // 就直接绘制顶点即可, 具体的绘制方式就与纹理坐标和纹理数据没有关系了。
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 }
 
-- (void)renderUsingVBO:(CGRect)rect {
-    GLfloat vertices[] = {
+- (void)renderUsingIndex {
+    const GLfloat texCoords[] = {
+        0, 0,//左下
+        1, 0,//右下
+        0, 1,//左上
+        1, 1,//右上
+    };
+    glVertexAttribPointer(_textureCoordsSlot, 2, GL_FLOAT, GL_FALSE, 0, texCoords);
+    glEnableVertexAttribArray(_textureCoordsSlot);
+    
+    
+    const GLfloat vertices[] = {
+        -1, -1, 0,   //左下
+        1,  -1, 0,   //右下
+        -1, 1,  0,   //左上
+        1,  1,  0 }; //右上
+    glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, vertices);
+    glEnableVertexAttribArray(_positionSlot);
+    
+    
+    const GLubyte indices[] = {
+        0,1,2,
+        1,2,3
+    };
+    
+    glDrawElements(GL_TRIANGLES, sizeof(indices)/sizeof(indices[0]), GL_UNSIGNED_BYTE, indices);
+}
+
+- (void)renderUsingVBO {
+    const GLfloat texCoords[] = {
+        0, 0,//左下
+        1, 0,//右下
+        0, 1,//左上
+        1, 1,//右上
+    };
+    glVertexAttribPointer(_textureCoordsSlot, 2, GL_FLOAT, GL_FALSE, 0, texCoords);
+    glEnableVertexAttribArray(_textureCoordsSlot);
+    
+    
+    const GLfloat vertices[] = {
         -1, -1, 0,   //左下
         1,  -1, 0,   //右下
         -1, 1,  0,   //左上
@@ -265,7 +350,11 @@
     glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, 0);
     glEnableVertexAttribArray(_positionSlot);
     
-    GLfloat texCoords[] = {
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+}
+
+- (void)renderUsingIndexVBO {
+    const GLfloat texCoords[] = {
         0, 0,//左下
         1, 0,//右下
         0, 1,//左上
@@ -274,12 +363,32 @@
     glVertexAttribPointer(_textureCoordsSlot, 2, GL_FLOAT, GL_FALSE, 0, texCoords);
     glEnableVertexAttribArray(_textureCoordsSlot);
     
-    // 第一行和第三行不是严格必须的，默认使用GL_TEXTURE0作为当前激活的纹理单元
-    glActiveTexture(GL_TEXTURE5); // 指定纹理单元GL_TEXTURE5
-    glBindTexture(GL_TEXTURE_2D, _textureID);
-    glUniform1i(_textureSlot, 5); // 与纹理单元的序号对应
     
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    const GLfloat vertices[] = {
+        -1, -1, 0,   //左下
+        1,  -1, 0,   //右下
+        -1, 1,  0,   //左上
+        1,  1,  0 }; //右上
+    
+    GLuint vertexBuffer;
+    glGenBuffers(1, &vertexBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    
+    glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, 0);
+    glEnableVertexAttribArray(_positionSlot);
+    
+    
+    const GLubyte indices[] = {
+        0,1,2,
+        1,2,3
+    };
+    GLuint indexBuffer;
+    glGenBuffers(1, &indexBuffer);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+    
+    glDrawElements(GL_TRIANGLE_STRIP, sizeof(indices)/sizeof(indices[0]), GL_UNSIGNED_BYTE, 0);
 }
 
 @end

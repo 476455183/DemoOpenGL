@@ -31,6 +31,7 @@
 		A40DAA5E1CA3CF2300E2D5C0 /* DemoDrawImageTextureVertex.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A40DAA5C1CA3CF2300E2D5C0 /* DemoDrawImageTextureVertex.glsl */; };
 		A40DAA611CA5082100E2D5C0 /* ViewDrawImageCoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = A40DAA601CA5082100E2D5C0 /* ViewDrawImageCoreGraphics.m */; };
 		A40DAA641CA5089500E2D5C0 /* ViewDrawPathCoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = A40DAA631CA5089500E2D5C0 /* ViewDrawPathCoreGraphics.m */; };
+		A40DAA671CA5210D00E2D5C0 /* ViewDrawImageOpenGLES.m in Sources */ = {isa = PBXBuildFile; fileRef = A40DAA661CA5210D00E2D5C0 /* ViewDrawImageOpenGLES.m */; };
 		A4FC71551C32638D00EA3EBD /* Blue.png in Resources */ = {isa = PBXBuildFile; fileRef = A4FC714D1C32638D00EA3EBD /* Blue.png */; };
 		A4FC71561C32638D00EA3EBD /* dm-1050-1.png in Resources */ = {isa = PBXBuildFile; fileRef = A4FC714E1C32638D00EA3EBD /* dm-1050-1.png */; };
 		A4FC71571C32638D00EA3EBD /* Green.png in Resources */ = {isa = PBXBuildFile; fileRef = A4FC714F1C32638D00EA3EBD /* Green.png */; };
@@ -107,6 +108,8 @@
 		A40DAA601CA5082100E2D5C0 /* ViewDrawImageCoreGraphics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewDrawImageCoreGraphics.m; sourceTree = "<group>"; };
 		A40DAA621CA5089500E2D5C0 /* ViewDrawPathCoreGraphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewDrawPathCoreGraphics.h; sourceTree = "<group>"; };
 		A40DAA631CA5089500E2D5C0 /* ViewDrawPathCoreGraphics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewDrawPathCoreGraphics.m; sourceTree = "<group>"; };
+		A40DAA651CA5210D00E2D5C0 /* ViewDrawImageOpenGLES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewDrawImageOpenGLES.h; sourceTree = "<group>"; };
+		A40DAA661CA5210D00E2D5C0 /* ViewDrawImageOpenGLES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewDrawImageOpenGLES.m; sourceTree = "<group>"; };
 		A4FC714D1C32638D00EA3EBD /* Blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Blue.png; sourceTree = "<group>"; };
 		A4FC714E1C32638D00EA3EBD /* dm-1050-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dm-1050-1.png"; sourceTree = "<group>"; };
 		A4FC714F1C32638D00EA3EBD /* Green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Green.png; sourceTree = "<group>"; };
@@ -279,6 +282,8 @@
 				A40DAA5C1CA3CF2300E2D5C0 /* DemoDrawImageTextureVertex.glsl */,
 				A40DAA461CA3CE5000E2D5C0 /* DemoDrawImageOpenGLES.h */,
 				A40DAA471CA3CE5000E2D5C0 /* DemoDrawImageOpenGLES.m */,
+				A40DAA651CA5210D00E2D5C0 /* ViewDrawImageOpenGLES.h */,
+				A40DAA661CA5210D00E2D5C0 /* ViewDrawImageOpenGLES.m */,
 			);
 			path = DemoDrawImageOpenGLES;
 			sourceTree = "<group>";
@@ -516,6 +521,7 @@
 				A40DAA521CA3CE5000E2D5C0 /* DemoTriangleViewController.m in Sources */,
 				A4FC71821C3263FB00EA3EBD /* TouchDrawViewViaOpenGLES.m in Sources */,
 				A40DAA611CA5082100E2D5C0 /* ViewDrawImageCoreGraphics.m in Sources */,
+				A40DAA671CA5210D00E2D5C0 /* ViewDrawImageOpenGLES.m in Sources */,
 				A4FC717F1C3263FB00EA3EBD /* PaintViaGLKView.m in Sources */,
 				A40DAA641CA5089500E2D5C0 /* ViewDrawPathCoreGraphics.m in Sources */,
 				A4FC718D1C3264D300EA3EBD /* RootTableViewController.m in Sources */,
