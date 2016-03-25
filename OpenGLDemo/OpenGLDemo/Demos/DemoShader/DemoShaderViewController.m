@@ -50,9 +50,13 @@
     // 用来指定要用清屏颜色来清除由mask指定的buffer，此处是color buffer
     glClear(GL_COLOR_BUFFER_BIT);
     
+    glViewport(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    
     [self processShaders];
     
     [self render];
+    
+    [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
 }
 
 #pragma mark - setupOpenGLContext
@@ -125,18 +129,16 @@
     _colorSlot = glGetAttribLocation(_glProgram, "SourceColor");
 }
 
+#pragma mark - render
+
 - (void)render {
-    glViewport(0, 0, self.view.frame.size.width, self.view.frame.size.height);
-    
 //    [self renderVertices];      // 直接使用顶点数组
 //    [self renderUsingIndex];    // 使用顶点索引数组
 //    [self renderUsingVBO];      // 使用VBO
     [self renderUsingIndexVBO];   // 使用索引数组+VBO
-    
-    [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
 }
 
-#pragma mark - 直接使用顶点数组，即单纯使用glDrawArrays
+#pragma mark 直接使用顶点数组，即单纯使用glDrawArrays
 
 - (void)renderVertices {
 //    [self renderVertices_triangles];
@@ -258,7 +260,7 @@
     glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
 }
 
-#pragma mark - 使用顶点索引数组，使用glDrawElements
+#pragma mark 使用顶点索引数组，使用glDrawElements
 
 - (void)renderUsingIndex {
     // 顶点数组
@@ -313,7 +315,7 @@
      */
 }
 
-#pragma mark - 使用VBO，Vertex Buffer Object
+#pragma mark 使用VBO，Vertex Buffer Object
 
 - (void)renderUsingVBO {
     // 定义一个Vertex结构, 其中包含了坐标和颜色

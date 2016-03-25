@@ -49,12 +49,11 @@
     // 用来指定要用清屏颜色来清除由mask指定的buffer，此处是color buffer
     glClear(GL_COLOR_BUFFER_BIT);
     
+    glViewport(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    
     [self processShaders];
     
-//    [self renderVertices];
-//    [self renderUsingIndex];
-//    [self renderUsingVBO];
-    [self renderUsingIndexVBO];
+    [self render];
 
     // 将指定renderBuffer渲染在屏幕上
     // 绘制三角形，红色是由fragment shader决定
@@ -146,10 +145,16 @@
     glGetAttribLocation(_glProgram, "Position");
 }
 
+#pragma mark - render
+
+- (void)render {
+    //  [self renderVertices];
+    //  [self renderUsingIndex];
+    //  [self renderUsingVBO];
+    [self renderUsingIndexVBO];
+}
+
 - (void)renderVertices {
-    // 设置viewport
-    glViewport(0, 0, self.view.frame.size.width, self.view.frame.size.height);
-    
     const GLfloat vertices[] = {
         0.0f,  0.5f, 0.0f,
         -0.5f, -0.5f, 0.0f,
@@ -165,8 +170,6 @@
 }
 
 - (void)renderUsingIndex {
-    glViewport(0, 0, self.view.frame.size.width, self.view.frame.size.height);
-    
     const GLfloat vertices[] = {
         0.0f,  0.5f, 0.0f,
         -0.5f, -0.5f, 0.0f,
@@ -183,8 +186,6 @@
 }
 
 - (void)renderUsingVBO {
-    glViewport(0, 0, self.view.frame.size.width, self.view.frame.size.height);
-    
     const GLfloat vertices[] = {
         0.0f,  0.5f, 0.0f,
         -0.5f, -0.5f, 0.0f,
@@ -205,8 +206,6 @@
 }
 
 - (void)renderUsingIndexVBO {
-    glViewport(0, 0, self.view.frame.size.width, self.view.frame.size.height);
-    
     const GLfloat vertices[] = {
         0.0f,  0.5f, 0.0f,
         -0.5f, -0.5f, 0.0f,

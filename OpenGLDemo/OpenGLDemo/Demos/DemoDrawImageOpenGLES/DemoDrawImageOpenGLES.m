@@ -201,10 +201,7 @@
     
     // 渲染需要的数据要从GL_TEXTURE_2D中得到。
     // GL_TEXTURE_2D与_textureID已经绑定
-//    [self render];
-//    [self renderUsingIndex];
-//    [self renderUsingVBO];
-    [self renderUsingIndexVBO];
+    [self render];
     
     glBindTexture(GL_TEXTURE_2D, 0);
     [_eaglContext presentRenderbuffer:GL_RENDERBUFFER];
@@ -274,12 +271,19 @@
 
 #pragma mark - render
 
+- (void)render {
+    //  [self renderVertices];
+    //  [self renderUsingIndex];
+    //  [self renderUsingVBO];
+    [self renderUsingIndexVBO];
+}
+
 /**
  *  直接取出对应纹理坐标TextureCoords
  *  根据顶点数据和纹理坐标数据（一一对应），填充到对应的坐标位置Positon中
  *  注意：二者的坐标系不同。
  */
-- (void)render {
+- (void)renderVertices {
     GLfloat texCoords[] = {
         0, 0,//左下
         1, 0,//右下
